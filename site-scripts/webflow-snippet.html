@@ -36,8 +36,17 @@
 <style>
 /* Text selection */
 ::selection {
-    background: var(--mode-accent);
-    color: var(--colour-neutral-100);
+    background: var(--primary-accent);
+    color: var(--color-neutral-100);
+}
+
+/* Nav dropdown state — toggled by site-scripts/nav-dropdown.js. */
+[data-nav-panel][hidden] {
+    display: none;
+}
+
+.nav_link[aria-expanded="true"] .nav_caret {
+    transform: rotate(180deg);
 }
 
 /* In-page anchor targets land below the sticky nav rather than under it. */

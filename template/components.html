@@ -3,19 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="theme-color" content="#ffffff">
-        <title>Home — [BRAND-NAME]</title>
-        <meta name="description" content="">
+        <meta name="theme-color" content="#17251c">
+        <title>Components — Alchemy Creative</title>
+        <meta name="description" content="One live instance of every reusable component, annotated with its props, slots and variants.">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <!--
-            Home page.
+            Components page.
 
-            Copy this file to start a new page: keep the page-wrapper /
-            nav / main-wrapper / footer structure exactly as it is and
-            replace only the contents of <main>. Nav and footer are
-            global components — never fork their markup per page.
+            One live instance of every reusable component, each annotated
+            with a props/slots/variants block. Check here before building
+            anything new. Components are added one at a time by /component.
         -->
         <div class="page-wrapper">
             <nav class="nav">
@@ -54,51 +53,41 @@
             </nav>
 
             <main class="main-wrapper" id="main">
-                <section class="section">
+                <section class="section cc-sm">
                     <div class="container">
-                        <div class="row row-align-center">
-                            <div class="col col-lg-8 col-md-12">
-                                <span class="eyebrow">Starter template</span>
-                                <h1>Replace this headline with the client's</h1>
-                                <p class="lede">A neutral MAST-derived baseline for Webflow projects. Run the styleguide skill to swap these tokens for the client's design system, then build pages from this structure.</p>
-                                <div class="row row-gap-md u-mt-xl">
-                                    <div class="col col-shrink"><a class="button" href="style-guide.html">View style guide</a></div>
-                                    <div class="col col-shrink"><a class="button cc-ghost" href="#features">Learn more</a></div>
-                                </div>
-                            </div>
-                        </div>
+                        <span class="eyebrow">Components</span>
+                        <h1>Component library</h1>
+                        <p class="lede">One live instance of every reusable component. The nav above is the real thing — it is the global instance this page documents.</p>
                     </div>
                 </section>
 
-                <section class="section cc-sm" id="features">
+                <!-- ===================== NAV ===================== -->
+                <section class="components__item">
                     <div class="container">
-                        <div class="row">
-                            <div class="col col-lg-4 col-md-6 col-sm-12">
-                                <div class="card">
-                                    <h2 class="card_title h5">Twelve-column grid</h2>
-                                    <p class="card_description">Flexbox row and col classes with desktop, tablet, mobile landscape and mobile portrait variants.</p>
-                                </div>
-                            </div>
-                            <div class="col col-lg-4 col-md-6 col-sm-12">
-                                <div class="card">
-                                    <h2 class="card_title h5">Fluid typography</h2>
-                                    <p class="card_description">Headings scale with clamp between 480px and 1440px, so no per-breakpoint size overrides are needed.</p>
-                                </div>
-                            </div>
-                            <div class="col col-lg-4 col-md-12 col-sm-12">
-                                <div class="card">
-                                    <h2 class="card_title h5">Webflow-flat CSS</h2>
-                                    <p class="card_description">No descendant or child selectors, so every rule has somewhere to live as a Designer class on import.</p>
-                                </div>
-                            </div>
-                        </div>
+                        <h2>Nav</h2>
+                        <pre class="components__props">Component: Nav
+Props:
+  - logoLink (Link)
+  - links (Slot)
+  - ctaLabel (Text)
+  - ctaLink (Link)
+Variants:
+  - cc-current   (active link state)
+Slots:
+  - nav_menu        primary links + CTA
+  - nav_dropdown    the "Our Work" panel
+Behaviour:
+  - site-scripts/nav-dropdown.js toggles [data-nav-panel]
+    from [data-nav-toggle]; Escape and outside-click close it.</pre>
+
+                        <p class="text-body-sm">Rendered live in the page chrome above — scroll to the top of this page to see it. The dropdown opens from <strong>Our Work</strong>.</p>
                     </div>
                 </section>
             </main>
 
             <footer class="footer">
                 <div class="container cc-footer">
-                    <p class="footer_copy">© 2026 [BRAND-NAME]. All rights reserved.</p>
+                    <p class="footer_copy">© 2026 Alchemy Creative. All rights reserved.</p>
                     <ul class="footer_menu">
                         <li class="footer_item"><a class="footer_link" href="#">Privacy policy</a></li>
                         <li class="footer_item"><a class="footer_link" href="#">Terms of use</a></li>

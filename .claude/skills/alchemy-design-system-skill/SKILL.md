@@ -145,7 +145,7 @@ defeats the point of a utility.
 | `--container-wide-max-width` | `87.5rem` | 1400px measured |
 | `--container-gutter` | `6vw` | MAST |
 | `--measure` | `45.625rem` | 730px prose column |
-| `--nav-height` | `8.875rem` | 142px measured |
+| `--nav-height` | `5.5rem` | 88px, measured on the Nav component |
 | `--card-border-radius` | `0.625rem` | 10px measured |
 | `--card-padding` | `clamp(1rem, 0.857rem + 0.714vw, 1.5rem)` | fluid 16 → 24 |
 | `--button-border-radius` | `0.25rem` | 4px measured |
@@ -155,6 +155,18 @@ defeats the point of a utility.
 | `--radius-full` | `100px` | pill, measured |
 
 Section padding is a single fluid value — **there are no breakpoint overrides for it**.
+
+## Components
+
+### Nav (`.nav`)
+Global navigation — logo, primary links, CTA button, and the "Our Work" dropdown panel.
+Page chrome, so unprefixed. Elements: `.nav_logo` / `.nav_logo-mark` (inline SVG, inherits
+`--primary-accent` via `currentColor`), `.nav_menu` / `.nav_item` / `.nav_link` / `.nav_caret`,
+`.nav_dropdown` / `.nav_dropdown-list` / `.nav_dropdown-item` / `.nav_dropdown-link`.
+Variants: `cc-current` on the active link. The CTA uses `.button.cc-sm`.
+Full-bleed: `.container.cc-nav` clears the base `max-width` and uses flat 32px side padding.
+Behaviour: `site-scripts/nav-dropdown.js`, driven by `[data-nav-toggle]` / `[data-nav-panel]`.
+The `[hidden]` and caret-rotation rules live in the CUSTOM CODE CSS EMBED block.
 
 ## Webflow Variable mapping
 

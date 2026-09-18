@@ -19,7 +19,7 @@ STAMPED=(webflow-snippet.html)
 
 # Bundles. page-init MUST be first in the core bundle — it defines
 # window.SitePage before any module tries to register against it.
-core=(page-init example-module)
+core=(page-init example-module nav-dropdown)
 
 # Add further bundles by declaring another array and a matching build call at
 # the foot of this file, e.g. for a heavy effect only a few pages need:

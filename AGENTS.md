@@ -509,7 +509,8 @@ The canonical list of every page built in this project. Each entry maps to a fil
 | Page | File | Webflow page (id · path) | Outstanding |
 |------|------|--------------------------|-------------|
 | Home | `template/index.html` | — (not yet in Webflow) | Baseline scaffold — replace the placeholder hero and feature cards with the client's content |
-| Style Guide | `template/style-guide.html` | — (not yet in Webflow) | Baseline foundations — re-run `/styleguide` to replace the neutral tokens with the client's design system |
+| Style Guide | `template/style-guide.html` | — (not yet in Webflow) | Foundations: color, themes, typography, spacing, radii |
+| Components | `template/components.html` | — (not yet in Webflow) | One live instance of every reusable component |
 
 Add a row per page as it is built. Record the Webflow page id and path once the page has been transferred.
 
@@ -529,6 +530,7 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 
 | Component | Base Class | Instances | Variants | Slots | Purpose |
 |-----------|------------|-----------|----------|-------|---------|
+| Nav | `.nav` | — (not yet transferred) | `cc-current` on `.nav_link` | `nav_menu`, `nav_dropdown` | Global navigation: logo, primary links, CTA, and the "Our Work" dropdown panel |
 
 
 ### Class patterns & global behaviours (not Webflow components)
@@ -537,6 +539,7 @@ Reusable class families and site-wide behaviours that deliberately have **no** W
 
 | Component | Base Class | Variants | Slots | Purpose |
 |-----------|------------|----------|-------|---------|
+| Nav dropdown behaviour | — | — | — | `site-scripts/nav-dropdown.js` toggles `[data-nav-panel]` from `[data-nav-toggle]`; Escape and outside-click close it. No authored markup of its own. |
 
 ---
 
