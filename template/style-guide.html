@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#17251c">
+        <title>Style Guide — Alchemy Creative</title>
+        <meta name="description" content="Typography, color, spacing, buttons, forms, icons, cards and grid. The source of truth for this project's foundations.">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!--
+            Style guide.
+
+            Every reusable style lives here first — the rest of the site
+            may only use classes that already appear on this page. When a
+            new token or variant is added to styles.css, demonstrate it
+            here in the same commit.
+
+            Specimen text uses <p class="h1"> rather than a real <h1> so
+            the document's heading hierarchy stays valid.
+        -->
+        <div class="page-wrapper">
+            <nav class="nav">
+                <a class="skip-link" href="#main">Skip to content</a>
+                <div class="container cc-nav">
+                    <a class="nav_logo" href="index.html">Alchemy Creative</a>
+                    <ul class="nav_menu">
+                        <li class="nav_item"><a class="nav_link" href="index.html">Home</a></li>
+                        <li class="nav_item"><a class="nav_link cc-current" href="style-guide.html">Style guide</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="main-wrapper" id="main">
+                <section class="section cc-sm">
+                    <div class="container">
+                        <span class="eyebrow">Foundations</span>
+                        <h1>Style guide</h1>
+                        <p class="lede">Typography, color, spacing, buttons, forms, icons, cards and grid — the complete set of classes available to this project.</p>
+                    </div>
+                </section>
+
+                <!-- 1. Typography -->
+                <section class="section cc-flush" id="typography">
+                    <div class="container">
+                        <div class="styles__block">
+                            <h2>Typography</h2>
+                            <p class="caption u-mb-xl">Headings scale fluidly with <code>clamp()</code> between 480px and 1440px. Use the semantic element for document structure and a <code>.h1</code>–<code>.h6</code> class for visual size — <code>&lt;h3 class="h2"&gt;</code> is an h3 in the DOM that looks like an h2.</p>
+
+                            <div class="styles__stack u-mb-2xl">
+                                <p class="h1 u-m-0">Heading one — 2.8 to 5.5rem</p>
+                                <p class="h2 u-m-0">Heading two — 2 to 3.8rem</p>
+                                <p class="h3 u-m-0">Heading three — 1.5 to 2.3rem</p>
+                                <p class="h4 u-m-0">Heading four — 1.375 to 1.75rem</p>
+                                <p class="h5 u-m-0">Heading five — 1.25 to 1.5rem</p>
+                                <p class="h6 u-m-0">Heading six — 1.125 to 1.25rem</p>
+                            </div>
+
+                            <h3 class="h5">Transfer-safe ramp</h3>
+                            <p class="caption u-mb-lg">Webflow rejects <code>h1</code>–<code>h6</code> as class names, so anything pushed into the Designer uses the <code>.text-*</code> classes instead. They carry their own family, weight and leading, so they work on any element.</p>
+                            <div class="styles__stack u-mb-2xl">
+                                <span class="text-display-xl">.text-display-xl</span>
+                                <span class="text-display-lg">.text-display-lg</span>
+                                <span class="text-display-md">.text-display-md</span>
+                                <span class="text-heading-lg">.text-heading-lg</span>
+                                <span class="text-heading-md">.text-heading-md</span>
+                                <span class="text-heading-sm">.text-heading-sm</span>
+                            </div>
+
+                            <h3 class="h5">Body and supporting styles</h3>
+                            <div class="row">
+                                <div class="col col-lg-8 col-md-12">
+                                    <p class="lede">Lede — a larger opening paragraph used to introduce a section. Muted by default so it sits below the headline in the hierarchy.</p>
+                                    <p>Body copy. The default paragraph size scales from 1rem to 1.125rem. Paragraphs carry a bottom margin in EM units so spacing stays proportional to the type size — do not remove it without reason.</p>
+                                    <p class="text-body-lg">Large body — <code>.text-body-lg</code>, the same fluid size as a default paragraph, for use on elements that are not <code>&lt;p&gt;</code>.</p>
+                                    <p class="text-body-sm">Small body — <code>.text-body-sm</code>, fixed at 0.875rem for dense UI text.</p>
+                                    <span class="eyebrow">Eyebrow — mono, uppercase, tracked</span>
+                                    <span class="eyebrow cc-accent">Eyebrow — accent variant</span>
+                                    <span class="caption u-mb-md">Caption — 0.8125rem, muted. Used for image credits and helper text.</span>
+                                    <span class="label">Label — 0.8125rem semibold, used for form and data labels.</span>
+                                    <blockquote class="u-mt-lg">A blockquote. Ranged left against a 2px accent rule, set at lede size.</blockquote>
+                                </div>
+                            </div>
+
+                            <h3 class="h5">Text utilities</h3>
+                            <div class="row row-gap-md">
+                                <div class="col col-lg-4 col-md-6 col-sm-12">
+                                    <p class="styles__demo u-text-center">.u-text-center</p>
+                                </div>
+                                <div class="col col-lg-4 col-md-6 col-sm-12">
+                                    <p class="styles__demo u-text-right">.u-text-right</p>
+                                </div>
+                                <div class="col col-lg-4 col-md-6 col-sm-12">
+                                    <p class="styles__demo u-text-uppercase">.u-text-uppercase</p>
+                                </div>
+                                <div class="col col-lg-4 col-md-6 col-sm-12">
+                                    <p class="styles__demo u-text-clamp-1">.u-text-clamp-1 truncates to a single line no matter how much copy is supplied here.</p>
+                                </div>
+                                <div class="col col-lg-4 col-md-6 col-sm-12">
+                                    <p class="styles__demo u-text-clamp-2">.u-text-clamp-2 truncates to two lines no matter how much copy is supplied here in the source markup.</p>
+                                </div>
+                                <div class="col col-lg-4 col-md-6 col-sm-12">
+                                    <p class="styles__demo u-font-mono">.u-font-mono</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2. Color -->
+                        <div class="styles__block" id="color">
+                            <h2>Color</h2>
+                            <p class="caption u-mb-xl">Seven brand swatches cover both themes — no extra color tokens are needed. Swatch chips are the one place inline <code>style</code> is acceptable; they are one-off values, not layout.</p>
+
+                            <h3 class="h5">Brand palette</h3>
+                            <div class="row row-gap-md u-mb-2xl">
+                                <div class="col col-lg-3 col-md-4 col-xs-6">
+                                    <div class="styles__swatch" style="background:#17251c"></div>
+                                    <span class="caption">Deep Forest · #17251C · dark background</span>
+                                </div>
+                                <div class="col col-lg-3 col-md-4 col-xs-6">
+                                    <div class="styles__swatch" style="background:#24231e"></div>
+                                    <span class="caption">Charred Bark · #24231E · dark alt surface</span>
+                                </div>
+                                <div class="col col-lg-3 col-md-4 col-xs-6">
+                                    <div class="styles__swatch" style="background:#667a3a"></div>
+                                    <span class="caption">Moss · #667A3A · light-theme accent</span>
+                                </div>
+                                <div class="col col-lg-3 col-md-4 col-xs-6">
+                                    <div class="styles__swatch" style="background:#c6dc42"></div>
+                                    <span class="caption">Lichen · #C6DC42 · dark-theme accent</span>
+                                </div>
+                                <div class="col col-lg-3 col-md-4 col-xs-6">
+                                    <div class="styles__swatch" style="background:#a56f52"></div>
+                                    <span class="caption">Clay · #A56F52 · warm accent</span>
+                                </div>
+                                <div class="col col-lg-3 col-md-4 col-xs-6">
+                                    <div class="styles__swatch" style="background:#d8d0b8"></div>
+                                    <span class="caption">Oat · #D8D0B8 · light alt surface</span>
+                                </div>
+                                <div class="col col-lg-3 col-md-4 col-xs-6">
+                                    <div class="styles__swatch" style="background:#f0ebdd"></div>
+                                    <span class="caption">Bone · #F0EBDD · light background</span>
+                                </div>
+                            </div>
+
+                            <h3 class="h5">Themes</h3>
+                            <p class="caption u-mb-lg">Seven <code>--primary-*</code> roles that every component consumes. <strong>Base is dark</strong> — the primary palette of this site. <code>.cc-light</code> on <code>.page-wrapper</code> or <code>.section</code> flips background, surface, text, border and accent together. In Webflow this is the <code>Theme</code> collection with a <strong>Base</strong> and a <strong>Light</strong> mode, applied to the <code>cc-light</code> combo — it cascades to descendants natively. Any property bound to a brand color instead of a <code>--primary-*</code> role will not flip. Buttons need no extra roles: fill is <code>--primary-accent</code>, label is <code>--primary-background</code>, and that reads correctly in both modes.</p>
+                            <div class="row row-gap-md">
+                                <div class="col col-lg-6 col-md-12">
+                                    <div class="section cc-dark u-p-0">
+                                        <div class="card">
+                                            <span class="eyebrow cc-accent">Base (dark, default)</span>
+                                            <p class="card_title h5 u-m-0">Lichen accent on Deep Forest</p>
+                                            <p class="card_description">Body copy sits on <code>--primary-surface</code> inside a card, on <code>--primary-background</code> outside it.</p>
+                                            <div class="styles__inline">
+                                                <a class="button" href="#color">Primary</a>
+                                                <span class="tag cc-accent">Accent</span>
+                                                <span class="tag cc-outline">Outline</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-lg-6 col-md-12">
+                                    <div class="section cc-light u-p-0">
+                                        <div class="card">
+                                            <span class="eyebrow cc-accent">Light (.cc-light)</span>
+                                            <p class="card_title h5 u-m-0">Moss accent on Bone</p>
+                                            <p class="card_description">The same markup with no changes — only the mode variables differ, including the button.</p>
+                                            <div class="styles__inline">
+                                                <a class="button" href="#color">Primary</a>
+                                                <span class="tag cc-accent">Accent</span>
+                                                <span class="tag cc-outline">Outline</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. Spacing -->
+                        <div class="styles__block" id="spacing">
+                            <h2>Spacing</h2>
+                            <p class="caption u-mb-xl">Two scales. The fixed <code>--space-*</code> ramp below (rem, twelve steps measured across all nine page frames) drives utilities and layout padding — a utility must give the same gap wherever it lands. Separately, <code>--margin-xs/sm/md/lg</code> are <strong>em</strong> and are used only by type rules, so a heading's own bottom margin scales with its size. Grid gaps are px on MAST's names: Gap Main 40, Gap MD 24, Gap SM 10, Gap Button 16.</p>
+                            <div class="styles__stack">
+                                <div class="styles__inline"><span class="styles__spacer cc-xs"></span><span class="caption">xs · 0.5rem · 8px — hairline gap</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-sm"></span><span class="caption">sm · 0.625rem · 10px — tight gap (Grid Gap)</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-md"></span><span class="caption">md · 1rem · 16px — small gap</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-lg"></span><span class="caption">lg · 1.25rem · 20px — base unit (Global Padding)</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-xl"></span><span class="caption">xl · 1.5rem · 24px — card padding / list gap</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-2xl"></span><span class="caption">2xl · 2rem · 32px — block gap</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-3xl"></span><span class="caption">3xl · 2.5rem · 40px — block gap (large)</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-4xl"></span><span class="caption">4xl · 3rem · 48px — stack gap</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-5xl"></span><span class="caption">5xl · 4rem · 64px — section-internal gap</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-6xl"></span><span class="caption">6xl · 5rem · 80px — section padding (small)</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-7xl"></span><span class="caption">7xl · 6.25rem · 100px — wide gutter</span></div>
+                                <div class="styles__inline"><span class="styles__spacer cc-8xl"></span><span class="caption">8xl · 7.5rem · 120px — section padding (large)</span></div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Buttons -->
+                        <div class="styles__block" id="buttons">
+                            <h2>Buttons</h2>
+                            <p class="caption u-mb-xl">One base class, variants as <code>cc-</code> combos. The base class must always be present — Webflow only applies combo styles when it is.</p>
+
+                            <h3 class="h5">Variants</h3>
+                            <div class="styles__inline u-mb-2xl">
+                                <button class="button" type="button">Primary</button>
+                                <button class="button cc-secondary" type="button">Secondary</button>
+                                <button class="button cc-ghost" type="button">Ghost</button>
+                                <button class="button cc-destructive" type="button">Destructive</button>
+                                <button class="button" type="button" disabled>Disabled</button>
+                            </div>
+
+                            <h3 class="h5">Sizes</h3>
+                            <div class="styles__inline u-mb-2xl">
+                                <button class="button cc-sm" type="button">Small</button>
+                                <button class="button" type="button">Default</button>
+                                <button class="button cc-lg" type="button">Large</button>
+                            </div>
+
+                            <h3 class="h5">Full width</h3>
+                            <div class="row">
+                                <div class="col col-lg-4 col-md-6 col-sm-12">
+                                    <button class="button cc-full" type="button">Full width</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 5. Forms -->
+                        <div class="styles__block" id="forms">
+                            <h2>Forms</h2>
+                            <p class="caption u-mb-xl">Every input needs an associated <code>&lt;label&gt;</code>. Checkbox, radio and toggle are native inputs with <code>appearance: none</code>, so they stay keyboard-accessible.</p>
+                            <div class="row">
+                                <div class="col col-lg-6 col-md-12">
+                                    <form class="form">
+                                        <div class="form_field">
+                                            <label class="form_label" for="sg-name">Full name</label>
+                                            <input class="input" id="sg-name" name="name" type="text" placeholder="Ada Lovelace">
+                                        </div>
+
+                                        <div class="form_field">
+                                            <label class="form_label" for="sg-email">Email address</label>
+                                            <input class="input" id="sg-email" name="email" type="email" placeholder="ada@example.com">
+                                            <span class="form_help">We only use this to reply to your enquiry.</span>
+                                        </div>
+
+                                        <div class="form_field">
+                                            <label class="form_label" for="sg-invalid">Error state</label>
+                                            <input class="input cc-error" id="sg-invalid" name="invalid" type="text" value="Not a valid value" aria-describedby="sg-invalid-error">
+                                            <span class="form_error" id="sg-invalid-error">Enter a value in the correct format.</span>
+                                        </div>
+
+                                        <div class="form_field">
+                                            <label class="form_label" for="sg-enquiry">Enquiry type</label>
+                                            <select class="select" id="sg-enquiry" name="enquiry">
+                                                <option>New project</option>
+                                                <option>Support</option>
+                                                <option>Something else</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form_field">
+                                            <label class="form_label" for="sg-message">Message</label>
+                                            <textarea class="input cc-textarea" id="sg-message" name="message" placeholder="Tell us about the project"></textarea>
+                                        </div>
+
+                                        <div class="form_field">
+                                            <span class="form_label">Checkbox</span>
+                                            <div class="form_option">
+                                                <input class="checkbox" id="sg-terms" name="terms" type="checkbox" checked>
+                                                <label class="form_option-label" for="sg-terms">I agree to the terms of use</label>
+                                            </div>
+                                            <div class="form_option">
+                                                <input class="checkbox" id="sg-updates" name="updates" type="checkbox">
+                                                <label class="form_option-label" for="sg-updates">Send me occasional updates</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form_field">
+                                            <span class="form_label">Radio</span>
+                                            <div class="form_option">
+                                                <input class="radio" id="sg-radio-a" name="contact" type="radio" checked>
+                                                <label class="form_option-label" for="sg-radio-a">Contact me by email</label>
+                                            </div>
+                                            <div class="form_option">
+                                                <input class="radio" id="sg-radio-b" name="contact" type="radio">
+                                                <label class="form_option-label" for="sg-radio-b">Contact me by phone</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form_field">
+                                            <span class="form_label">Toggle</span>
+                                            <div class="form_option">
+                                                <input class="toggle" id="sg-toggle" name="marketing" type="checkbox" checked>
+                                                <label class="form_option-label" for="sg-toggle">Marketing preferences</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form_field">
+                                            <button class="button" type="submit">Submit</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 6. Icons -->
+                        <div class="styles__block" id="icons">
+                            <h2>Icons</h2>
+                            <p class="caption u-mb-xl">Inline SVG with no <code>width</code>/<code>height</code> attributes — only a <code>viewBox</code>. Size comes from the <code>.icon</code> wrapper, color from <code>currentColor</code>, and every icon carries a <code>&lt;title&gt;</code> for screen readers.</p>
+                            <div class="styles__inline">
+                                <span class="icon cc-sm">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+                                        <title>Search</title>
+                                        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+                                        <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <span class="icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+                                        <title>Arrow right</title>
+                                        <path d="M4 12h16m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="icon cc-lg">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+                                        <title>Check</title>
+                                        <path d="m4 12.5 5 5 11-11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </span>
+                                <span class="icon cc-accent">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+                                        <title>Plus</title>
+                                        <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                    </svg>
+                                </span>
+                                <span class="caption">.icon.cc-sm · .icon · .icon.cc-lg · .icon.cc-accent</span>
+                            </div>
+                        </div>
+
+                        <!-- 7. Cards -->
+                        <div class="styles__block" id="cards">
+                            <h2>Cards</h2>
+                            <p class="caption u-mb-xl">Element classes use the underscore scope separator (<code>.card_title</code>), variants use <code>cc-</code>. Never mix a custom class with utility classes on the same element.</p>
+                            <div class="row row-gap-lg">
+                                <div class="col col-lg-3 col-md-6 col-sm-12">
+                                    <article class="card">
+                                        <!-- Placeholder art. On a real page .card_image is an <img> with an
+                                             explicit width attribute — Webflow needs it to reserve space. -->
+                                        <svg class="card_image u-aspect-16x9" viewBox="0 0 16 9" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" role="img">
+                                            <title>Placeholder image</title>
+                                            <rect width="16" height="9" fill="currentColor" opacity="0.12"/>
+                                        </svg>
+                                        <span class="tag">Default</span>
+                                        <h3 class="card_title">Card</h3>
+                                        <p class="card_description">The base card — surface background, 1px stroke, large radius.</p>
+                                        <div class="card_footer"><a class="button cc-sm cc-ghost" href="#cards">Read more</a></div>
+                                    </article>
+                                </div>
+                                <div class="col col-lg-3 col-md-6 col-sm-12">
+                                    <article class="card cc-featured">
+                                        <span class="tag cc-inverse">Featured</span>
+                                        <h3 class="card_title">cc-featured</h3>
+                                        <p class="card_description cc-inverse">Primary fill for the one card that should lead the set.</p>
+                                        <div class="card_footer"><a class="button cc-sm cc-secondary" href="#cards">Read more</a></div>
+                                    </article>
+                                </div>
+                                <div class="col col-lg-3 col-md-6 col-sm-12">
+                                    <article class="card cc-compact">
+                                        <span class="tag">Compact</span>
+                                        <h3 class="card_title h6">cc-compact</h3>
+                                        <p class="card_description">Tighter padding and gap for dense lists.</p>
+                                    </article>
+                                </div>
+                                <div class="col col-lg-3 col-md-6 col-sm-12">
+                                    <article class="card cc-raised">
+                                        <span class="tag">Raised</span>
+                                        <h3 class="card_title">cc-raised</h3>
+                                        <p class="card_description">Adds the card shadow token. Combine with cc-flat for a shadow-only card.</p>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 8. Grid -->
+                        <div class="styles__block cc-last" id="grid">
+                            <h2>Grid</h2>
+                            <p class="caption u-mb-xl">Twelve columns on flexbox. Always <code>.row</code> &gt; <code>.col</code>, with a width class per breakpoint: <code>-lg-</code> desktop, <code>-md-</code> tablet (≤991px), <code>-sm-</code> mobile landscape (≤767px), <code>-xs-</code> mobile portrait (≤479px). Narrow the window to watch these reflow.</p>
+
+                            <h3 class="h5">Twelve columns</h3>
+                            <div class="row row-gap-sm u-mb-xl">
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">1</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">2</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">3</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">4</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">5</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">6</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">7</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">8</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">9</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">10</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">11</p></div>
+                                <div class="col col-lg-1 col-xs-3"><p class="styles__demo u-m-0">12</p></div>
+                            </div>
+
+                            <h3 class="h5">Content and sidebar</h3>
+                            <div class="row u-mb-xl">
+                                <div class="col col-lg-8 col-md-12"><p class="styles__demo u-m-0">col-lg-8 col-md-12</p></div>
+                                <div class="col col-lg-4 col-md-12"><p class="styles__demo u-m-0">col-lg-4 col-md-12</p></div>
+                            </div>
+
+                            <h3 class="h5">Offset</h3>
+                            <div class="row u-mb-xl">
+                                <div class="col col-lg-6 col-lg-offset-3 col-md-12"><p class="styles__demo u-m-0">col-lg-6 col-lg-offset-3</p></div>
+                            </div>
+
+                            <h3 class="h5">Row modifiers</h3>
+                            <div class="row row-justify-between u-mb-md">
+                                <div class="col col-shrink"><p class="styles__demo u-m-0">row-justify-between</p></div>
+                                <div class="col col-shrink"><p class="styles__demo u-m-0">col-shrink</p></div>
+                            </div>
+                            <div class="row row-justify-center u-mb-md">
+                                <div class="col col-shrink"><p class="styles__demo u-m-0">row-justify-center</p></div>
+                            </div>
+                            <div class="row row-align-center row-gap-0">
+                                <div class="col col-lg-4"><p class="styles__demo u-m-0">row-align-center</p></div>
+                                <div class="col col-lg-4"><p class="styles__demo u-pt-xl u-pb-xl u-m-0">taller column</p></div>
+                                <div class="col col-lg-4"><p class="styles__demo u-m-0">row-gap-0</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="footer">
+                <div class="container cc-footer">
+                    <p class="footer_copy">© 2026 Alchemy Creative. All rights reserved.</p>
+                    <ul class="footer_menu">
+                        <li class="footer_item"><a class="footer_link" href="#typography">Typography</a></li>
+                        <li class="footer_item"><a class="footer_link" href="#color">Color</a></li>
+                        <li class="footer_item"><a class="footer_link" href="#grid">Grid</a></li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

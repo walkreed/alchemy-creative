@@ -1,0 +1,1983 @@
+@import url("https://use.typekit.net/rnt3tbw.css");
+
+/* ============================================================
+   [BRAND-NAME] — style guide v0.1  (MAST-derived Webflow baseline)
+
+   This is the unbranded starting point for a new client project.
+   Everything here is deliberately neutral: greyscale palette, system
+   font stacks, one placeholder accent. Run /styleguide to overwrite the
+   token block with the client's real design system.
+
+   Conventions (see AGENTS.md):
+   - Base classes are unprefixed        .section .container .row .col .button
+   - Combo variants use cc-             .button.cc-ghost
+   - Utilities use u- and !important    .u-text-center
+   - British spelling                   --color-*, .u-text-center
+   - Desktop-first breakpoints          991px / 767px / 479px
+   - Selectors stay Webflow-flat        no descendant/child/:nth-child rules
+     outside the mode cascade and the custom-code bucket at the foot of
+     this file.
+   ============================================================ */
+
+/* ------------------------------------------------------------
+   Fonts
+
+   The baseline ships system stacks so it renders with no network
+   dependency. Replace per project:
+
+   - Google fonts: add a <link> to each page head AND add the family in
+     Webflow → Site Settings → Fonts → Google Fonts. They do NOT transfer
+     via MCP.
+   - Custom fonts: upload .woff2 in Webflow → Site Settings → Fonts, then
+     match the EXACT Webflow-normalised family name in --font-* below —
+     it is rarely the same string as the design's name.
+
+   @font-face {
+       font-family: 'Client Display';
+       src: url('assets/fonts/client-display.woff2') format('woff2');
+       font-weight: 500;
+       font-display: swap;
+   }
+   ------------------------------------------------------------ */
+
+/* ============================================================
+   Tokens
+
+   These mirror Webflow Variables, which use Title Case with spaces in
+   the Designer (`Color Primary` → `--color-primary`). Webflow owns
+   :root on the live site — never hand-declare custom properties there.
+   This :root block exists only so the static build renders standalone.
+   ============================================================ */
+:root {
+    /* ---------------------------------------------------------------
+       Alchemy Creative — design tokens
+       Mirrors the MAST variable structure of the Webflow site
+       "Alchemy Creative" (6aad7d4121d8828938eb64fd) so transfer is a
+       value-for-value mapping, not a reconciliation of two systems.
+
+       Collections: Color · Theme · Typography · Layout · Components
+       Base mode is DARK — the primary palette of this site.
+       .cc-light flips the Theme roles; extra roles beyond MAST's four
+       are deliberate extensions (MAST is a base, each build extends it).
+
+       Font: Adobe Fonts kit rnt3tbw. CSS family is
+       "itc-avant-garde-gothic-pro", NOT the Figma name.
+       --------------------------------------------------------------- */
+
+    /* ===== COLOR — base brand values ===== */
+    --color-deep-forest: #17251c;
+    --color-charred-bark: #24231e;
+    --color-moss: #667a3a;
+    --color-lichen: #c6dc42;
+    --color-clay: #a56f52;
+    --color-oat: #d8d0b8;
+    --color-bone: #f0ebdd;
+
+    /* Derived tints (MAST's o10/o20 pattern) */
+    --color-bone-o10: color-mix(in srgb, var(--color-bone) 10%, transparent);
+    --color-bone-o50: color-mix(in srgb, var(--color-bone) 50%, transparent);
+    --color-deep-forest-o20: color-mix(in srgb, var(--color-deep-forest) 20%, transparent);
+
+    /* Neutral ramp — retuned to the brand, kept for inherited MAST rules */
+    --color-neutral-100: #f0ebdd;
+    --color-neutral-200: #d8d0b8;
+    --color-neutral-300: #bdb59c;
+    --color-neutral-400: #9aa37a;
+    --color-neutral-500: #667a3a;
+    --color-neutral-600: #4d5c2e;
+    --color-neutral-700: #35402a;
+    --color-neutral-800: #24231e;
+    --color-neutral-900: #17251c;
+    --color-primary: #c6dc42;
+    --color-primary-hover: #667a3a;
+    --color-primary-light: #d8d0b8;
+    --color-primary-contrast: #17251c;
+    --color-destructive: #a56f52;
+    --color-destructive-hover: #8a5b43;
+
+    /* ===== THEME — Base mode = DARK (primary) =====
+       MAST ships four roles: Background, Text, Border, Accent.
+       Surface / Text Muted / Text Dim are our extensions.
+       NOTE: button fill = Accent and button label = Background in BOTH
+       themes, so no button color roles are needed. */
+    --primary-background: var(--color-deep-forest);
+    --primary-surface: var(--color-charred-bark);
+    --primary-text: var(--color-bone);
+    --primary-text-muted: var(--color-oat);
+    --primary-text-dim: var(--color-moss);
+    --primary-border: var(--color-moss);
+    --primary-accent: var(--color-lichen);
+
+    /* ===== LAYOUT ===== */
+    --grid-columns: 12;
+    --gap-main: 40px;
+    --gap-md: 24px;
+    --gap-sm: 10px;
+    --gap-button: 16px;
+    --grid-gutter: var(--gap-main);
+
+    /* Fluid bounds — viewport range the clamps interpolate across.
+       20rem = 320px, 90rem = 1440px. Every fluid value below is built
+       from a Min/Max rem pair against these, matching MAST. */
+    --fluid-min: 20;
+    --fluid-max: 90;
+
+    /* Text margins — em, so type rhythm scales with its own size.
+       MAST's four steps, values unchanged. */
+    --margin-xs: 0.5em;
+    --margin-sm: 1em;
+    --margin-md: 2em;
+    --margin-lg: 3em;
+
+    /* Fixed spacing ramp — our extension, the 12 steps measured across
+       all nine page frames. Used for layout padding where a fluid or
+       gap token does not apply. Utilities use these (rem, uniform). */
+    --space-xs: 0.5rem;
+    --space-sm: 0.625rem;
+    --space-md: 1rem;
+    --space-lg: 1.25rem;
+    --space-xl: 1.5rem;
+    --space-2xl: 2rem;
+    --space-3xl: 2.5rem;
+    --space-4xl: 3rem;
+    --space-5xl: 4rem;
+    --space-6xl: 5rem;
+    --space-7xl: 6.25rem;
+    --space-8xl: 7.5rem;
+
+    /* ===== TYPOGRAPHY =====
+       Fluid sizes are Min/Max rem pairs interpolated 20rem -> 90rem.
+       Each level carries its own bottom margin, as MAST does. */
+    --font-primary: "itc-avant-garde-gothic-pro", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-heading: var(--font-primary);
+    --font-body: var(--font-primary);
+    --font-mono: var(--font-primary);
+
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-regular: 500;
+
+    /* H1 — Figma: Bold 80 / 100% / -2.5% / UPPER */
+    --h1-font-size: clamp(2.5rem, 1.786rem + 3.571vw, 5rem);
+    --h1-font-weight: var(--font-weight-bold);
+    --h1-line-height: 1;
+    --h1-letter-spacing: -0.025em;
+    --h1-bottom-margin: 0.2em;
+
+    /* H2 — Figma: Bold 64 / 100% / 0 */
+    --h2-font-size: clamp(2.25rem, 1.75rem + 2.5vw, 4rem);
+    --h2-font-weight: var(--font-weight-bold);
+    --h2-line-height: 1;
+    --h2-letter-spacing: 0em;
+    --h2-bottom-margin: 0.2em;
+
+    /* H3 — Figma: Bold 48 / 100% / -1% / UPPER */
+    --h3-font-size: clamp(1.75rem, 1.393rem + 1.786vw, 3rem);
+    --h3-font-weight: var(--font-weight-bold);
+    --h3-line-height: 1;
+    --h3-letter-spacing: -0.01em;
+    --h3-bottom-margin: 0.2em;
+
+    /* H4 — Figma: Bold 32 / 100% / 0 / UPPER */
+    --h4-font-size: clamp(1.5rem, 1.357rem + 0.714vw, 2rem);
+    --h4-font-weight: var(--font-weight-bold);
+    --h4-line-height: 1;
+    --h4-letter-spacing: 0em;
+    --h4-bottom-margin: 0.25em;
+
+    /* H5 — Figma: Demi 24 / 125% / 0 */
+    --h5-font-size: clamp(1.25rem, 1.179rem + 0.357vw, 1.5rem);
+    --h5-font-weight: var(--font-weight-semibold);
+    --h5-line-height: 1.25;
+    --h5-letter-spacing: 0em;
+    --h5-bottom-margin: 0.4em;
+
+    /* H6 — not in the source; scaffold only */
+    --h6-font-size: clamp(1.125rem, 1.089rem + 0.179vw, 1.25rem);
+    --h6-font-weight: var(--font-weight-semibold);
+    --h6-line-height: 1.25;
+    --h6-letter-spacing: 0em;
+    --h6-bottom-margin: 0.4em;
+
+    /* Body — Figma P: Medium 20 / 160% / 0 */
+    --body-font-size: clamp(1rem, 0.929rem + 0.357vw, 1.25rem);
+    --body-font-weight: var(--font-weight-medium);
+    --body-line-height: 1.6;
+    --body-bottom-margin: 1em;
+
+    /* Body SM — Figma P-Sm: Medium 16 / 160% / 0 */
+    --body-sm-font-size: 1rem;
+    --body-sm-line-height: 1.6;
+
+    /* Lede */
+    --lede-font-size: clamp(1.125rem, 1.018rem + 0.536vw, 1.5rem);
+
+    /* Eyebrow — Figma: Demi 14 / 150% / +10% / UPPER */
+    --eyebrow-font-size: 0.875rem;
+    --eyebrow-font-weight: var(--font-weight-semibold);
+    --eyebrow-line-height: 1.5;
+    --eyebrow-letter-spacing: 0.1em;
+    --eyebrow-bottom-margin: 0.5em;
+
+    --font-size-caption: 0.875rem;
+    --font-size-label: 0.875rem;
+    /* Legacy aliases kept so inherited MAST rules still resolve */
+    --font-size-body-sm: var(--body-sm-font-size);
+    --font-size-eyebrow: var(--eyebrow-font-size);
+    --line-height-display: 1;
+    --line-height-heading: 1.25;
+    --line-height-body: 1.6;
+    --line-height-small: 1.5;
+    --tracking-display: -0.025em;
+    --tracking-heading: 0em;
+    --tracking-h3: -0.01em;
+    --tracking-wide: 0.1em;
+
+    /* ===== COMPONENTS ===== */
+    /* Section padding — fluid 3rem (48) -> 7.5rem (120, measured) */
+    --section-padding: clamp(3rem, 1.714rem + 6.429vw, 7.5rem);
+
+    --container-max-width: 75rem;   /* 1200px measured */
+    --container-wide-max-width: 87.5rem; /* 1400px measured */
+    --container-gutter: 6vw;
+    --measure: 45.625rem;           /* 730px prose column */
+    --nav-height: 8.875rem;         /* 142px measured */
+
+    /* Card — radius 10px measured; padding fluid 1rem -> 1.5rem (24 measured) */
+    --card-border-radius: 0.625rem;
+    --card-padding: clamp(1rem, 0.857rem + 0.714vw, 1.5rem);
+
+    /* Button — radius 4px measured; padding 16/32 measured, expressed in em */
+    --button-font-weight: var(--font-weight-semibold);
+    --button-font-size: 1rem;
+    --button-line-height: 1.3em;
+    --button-letter-spacing: 0em;
+    --button-border-radius: 0.25rem;
+    --button-vertical-padding: 1em;
+    --button-horizontal-padding: 2em;
+
+    /* Input */
+    --input-font-weight: var(--font-weight-medium);
+    --input-font-size: 1rem;
+    --input-line-height: 1.5em;
+    --input-border-radius: 0.25rem;
+    --input-bottom-margin: 1rem;
+    --input-label-font-weight: var(--font-weight-semibold);
+    --input-label-font-size: 0.875rem;
+
+    /* Radii */
+    --radius-none: 0;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.625rem;
+    --radius-lg: 0.625rem;
+    --radius-full: 100px;
+    --radius-button: var(--button-border-radius);
+    --radius-card: var(--card-border-radius);
+    --radius-input: var(--input-border-radius);
+
+    --button-height: 3.25rem;
+    --button-height-sm: 2.5rem;
+    --button-height-lg: 3.75rem;
+    --input-height: 3.25rem;
+    --shadow-card: 0 1px 2px rgba(23, 37, 28, 0.10), 0 8px 24px rgba(23, 37, 28, 0.12);
+    --transition-base: 160ms ease;
+}
+
+/* ============================================================
+   Reset / base
+   ============================================================ */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    background: var(--primary-background);
+    color: var(--primary-text);
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 0.875rem + 0.42vw, 1.25rem);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-regular);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+img,
+svg,
+video {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color var(--transition-base), opacity var(--transition-base);
+}
+
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+hr {
+    height: 1px;
+    margin: var(--space-xl) 0;
+    border: 0;
+    background: var(--primary-border);
+}
+
+code,
+kbd,
+samp,
+pre {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+}
+
+code {
+    padding: 0.1em 0.35em;
+    background: var(--primary-surface);
+    border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   Page wrapper / skip link
+   ============================================================ */
+.page-wrapper {
+    min-height: 100vh;
+    background: var(--primary-background);
+    color: var(--primary-text);
+}
+
+.main-wrapper {
+    display: block;
+}
+
+.skip-link {
+    position: absolute;
+    top: auto;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-link:focus {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 9999;
+    width: auto;
+    height: auto;
+    padding: 0.5rem 1rem;
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+    border-radius: var(--radius-sm);
+}
+
+/* ============================================================
+   Mode — .cc-dark opt-in
+
+   The ONE descendant pattern allowed in this file: Webflow reproduces
+   it natively with variable modes, so long as descendants consume the
+   --mode-* variables rather than literals.
+   ============================================================ */
+.page-wrapper.cc-dark,
+.section.cc-dark {
+    --primary-background: var(--color-deep-forest);
+    --primary-surface: var(--color-charred-bark);
+    --primary-text: var(--color-bone);
+    --primary-text-muted: var(--color-oat);
+    --primary-text-dim: var(--color-moss);
+    --primary-border: var(--color-moss);
+    --primary-accent: var(--color-lichen);
+
+    background: var(--primary-background);
+    color: var(--primary-text);
+}
+
+/* Re-invert back to light inside a dark ancestor. */
+.page-wrapper.cc-light,
+.section.cc-light {
+    --primary-background: var(--color-bone);
+    --primary-surface: var(--color-oat);
+    --primary-text: var(--color-deep-forest);
+    --primary-text-muted: var(--color-charred-bark);
+    --primary-text-dim: var(--color-moss);
+    --primary-border: var(--color-moss);
+    --primary-accent: var(--color-moss);
+
+    background: var(--primary-background);
+    color: var(--primary-text);
+}
+
+/* ============================================================
+   Typography
+
+   Two parallel sets, on purpose:
+   - h1–h6 elements and .h1–.h6 classes, so semantic level and visual
+     size can differ (<h3 class="h2">).
+   - .text-* ramp — the transfer-safe set. Webflow REJECTS "h1".."h6" as
+     class names, so anything pushed into the Designer uses .text-*.
+   ============================================================ */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--primary-text);
+    font-family: var(--font-heading);
+    text-wrap: balance;
+}
+
+h1,
+.text-display-xl {
+    font-size: var(--h1-font-size);
+    font-weight: var(--h1-font-weight);
+    line-height: var(--h1-line-height);
+    letter-spacing: var(--h1-letter-spacing);
+    margin: 0 0 var(--h1-bottom-margin);
+    text-transform: uppercase;
+}
+
+h2,
+.text-display-lg {
+    font-size: var(--h2-font-size);
+    font-weight: var(--h2-font-weight);
+    line-height: var(--h2-line-height);
+    letter-spacing: var(--h2-letter-spacing);
+    margin: 0 0 var(--h2-bottom-margin);
+}
+
+h2.cc-uppercase,
+.text-display-lg.cc-uppercase { text-transform: uppercase; }
+
+h3,
+.text-display-md {
+    font-size: var(--h3-font-size);
+    font-weight: var(--h3-font-weight);
+    line-height: var(--h3-line-height);
+    letter-spacing: var(--h3-letter-spacing);
+    margin: 0 0 var(--h3-bottom-margin);
+    text-transform: uppercase;
+}
+
+h4,
+.text-heading-lg {
+    font-size: var(--h4-font-size);
+    font-weight: var(--h4-font-weight);
+    line-height: var(--h4-line-height);
+    letter-spacing: var(--h4-letter-spacing);
+    margin: 0 0 var(--h4-bottom-margin);
+    text-transform: uppercase;
+}
+
+h5,
+.text-heading-md {
+    font-size: var(--h5-font-size);
+    font-weight: var(--h5-font-weight);
+    line-height: var(--h5-line-height);
+    letter-spacing: var(--h5-letter-spacing);
+    margin: 0 0 var(--h5-bottom-margin);
+}
+
+h6,
+.text-heading-sm {
+    font-size: var(--h6-font-size);
+    font-weight: var(--h6-font-weight);
+    line-height: var(--h6-line-height);
+    letter-spacing: var(--h6-letter-spacing);
+    margin: 0 0 var(--h6-bottom-margin);
+}
+
+h2.cc-uppercase,
+.text-display-lg.cc-uppercase { text-transform: uppercase; }
+
+/* The .text-* ramp carries its own family/weight/leading so it works on
+   any element, not just headings. */
+.text-display-xl,
+.text-display-lg,
+.text-display-md,
+.text-heading-lg,
+.text-heading-md,
+.text-heading-sm {
+    display: block;
+    margin: 0;
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    letter-spacing: var(--tracking-heading);
+    color: var(--primary-text);
+}
+
+.text-body-lg {
+    font-size: clamp(1rem, 0.875rem + 0.42vw, 1.25rem);
+    line-height: var(--line-height-body);
+}
+
+.text-body-sm {
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body);
+}
+
+p {
+    font-size: var(--body-font-size);
+    font-weight: var(--body-font-weight);
+    line-height: var(--body-line-height);
+    margin: 0 0 var(--body-bottom-margin);
+    color: var(--primary-text);
+}
+
+.lede {
+    font-size: var(--lede-font-size);
+    line-height: var(--body-line-height);
+    color: var(--primary-text-muted);
+}
+
+.eyebrow {
+    display: block;
+    margin: 0 0 var(--eyebrow-bottom-margin);
+    font-family: var(--font-heading);
+    font-size: var(--eyebrow-font-size);
+    font-weight: var(--eyebrow-font-weight);
+    line-height: var(--eyebrow-line-height);
+    letter-spacing: var(--eyebrow-letter-spacing);
+    text-transform: uppercase;
+    color: var(--primary-accent);
+}
+
+.eyebrow.cc-accent {
+    color: var(--primary-accent);
+}
+
+.caption {
+    display: block;
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-small);
+    color: var(--primary-text-muted);
+}
+
+.label {
+    display: block;
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-small);
+    color: var(--primary-text);
+}
+
+blockquote {
+    margin: 0 0 var(--margin-lg);
+    padding-left: var(--space-lg);
+    border-left: 2px solid var(--primary-accent);
+    font-size: clamp(1.125rem, 0.9375rem + 0.63vw, 1.5rem);
+    line-height: var(--line-height-body);
+}
+
+/* ============================================================
+   Section + container
+   ============================================================ */
+.section {
+    padding: var(--section-padding) 0;
+    background: var(--primary-background);
+    color: var(--primary-text);
+}
+
+.section.cc-sm {
+    padding: var(--space-2xl) 0;
+}
+
+.section.cc-lg {
+    padding: calc(var(--section-padding) * 1.5) 0;
+}
+
+.section.cc-flush {
+    padding: 0;
+}
+
+/* For sections whose contents animate in from beyond the viewport edge,
+   so parked offscreen elements never widen the page. */
+.section.cc-clip {
+    overflow: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-gutter);
+}
+
+.container.cc-narrow {
+    max-width: 56rem;
+}
+
+/* ============================================================
+   12-col flexbox grid
+   ============================================================ */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 calc(var(--grid-gutter) / -2);
+    row-gap: var(--grid-gutter);
+}
+
+.col {
+    width: 100%;
+    min-width: 0;
+    padding: 0 calc(var(--grid-gutter) / 2);
+}
+
+.col-shrink {
+    flex: 0 0 auto;
+    width: auto;
+}
+
+.col-grow {
+    flex: 1 1 0;
+    width: auto;
+}
+
+.col-lg-1 {
+    width: 8.3333%;
+}
+
+.col-lg-2 {
+    width: 16.6666%;
+}
+
+.col-lg-3 {
+    width: 25%;
+}
+
+.col-lg-4 {
+    width: 33.3333%;
+}
+
+.col-lg-5 {
+    width: 41.6666%;
+}
+
+.col-lg-6 {
+    width: 50%;
+}
+
+.col-lg-7 {
+    width: 58.3333%;
+}
+
+.col-lg-8 {
+    width: 66.6666%;
+}
+
+.col-lg-9 {
+    width: 75%;
+}
+
+.col-lg-10 {
+    width: 83.3333%;
+}
+
+.col-lg-11 {
+    width: 91.6666%;
+}
+
+.col-lg-12 {
+    width: 100%;
+}
+
+.col-lg-offset-1 {
+    margin-left: 8.3333%;
+}
+
+.col-lg-offset-2 {
+    margin-left: 16.6666%;
+}
+
+.col-lg-offset-3 {
+    margin-left: 25%;
+}
+
+.col-lg-offset-4 {
+    margin-left: 33.3333%;
+}
+
+.col-lg-offset-5 {
+    margin-left: 41.6666%;
+}
+
+.col-lg-offset-6 {
+    margin-left: 50%;
+}
+
+.col-lg-first {
+    order: -1;
+}
+
+.col-lg-last {
+    order: 99;
+}
+
+.row-align-start {
+    align-items: flex-start;
+}
+
+.row-align-center {
+    align-items: center;
+}
+
+.row-align-end {
+    align-items: flex-end;
+}
+
+.row-justify-center {
+    justify-content: center;
+}
+
+.row-justify-end {
+    justify-content: flex-end;
+}
+
+.row-justify-between {
+    justify-content: space-between;
+}
+
+.row-content-between {
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.row-gap-0 {
+    row-gap: 0;
+}
+
+.row-gap-sm {
+    row-gap: var(--gap-sm);
+}
+
+.row-gap-md {
+    row-gap: var(--gap-md);
+}
+
+.row-gap-lg {
+    row-gap: var(--space-xl);
+}
+
+/* ============================================================
+   Nav (global)
+
+   Layout that the source would express as `.nav > .container` lives on
+   a COMBO of the container instead (.container.cc-nav). Webflow has no
+   representation for a child selector, so a scoped rule like that
+   imports as nothing and the nav lays out as stacked blocks.
+   ============================================================ */
+.nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--primary-background);
+    border-bottom: 1px solid var(--primary-border);
+}
+
+.container.cc-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    min-height: var(--nav-height);
+}
+
+.nav_logo {
+    font-family: var(--font-heading);
+    font-size: var(--font-size-body-sm);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--primary-text);
+}
+
+.nav_menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.nav_item {
+    display: block;
+}
+
+.nav_link {
+    font-size: var(--font-size-body-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--primary-text-muted);
+}
+
+.nav_link:hover {
+    color: var(--primary-text);
+}
+
+.nav_link.cc-current {
+    color: var(--primary-text);
+}
+
+/* ============================================================
+   Footer (global)
+   ============================================================ */
+.footer {
+    padding: var(--space-2xl) 0;
+    background: var(--primary-background);
+    color: var(--primary-text);
+    border-top: 1px solid var(--primary-border);
+}
+
+.container.cc-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+}
+
+.footer_copy {
+    margin: 0;
+    font-size: var(--font-size-body-sm);
+    color: var(--primary-text-muted);
+}
+
+.footer_menu {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer_item {
+    display: block;
+}
+
+.footer_link {
+    font-size: var(--font-size-body-sm);
+    color: var(--primary-text-muted);
+}
+
+.footer_link:hover {
+    color: var(--primary-text);
+}
+
+/* ============================================================
+   Button
+   ============================================================ */
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-button);
+    padding: var(--button-vertical-padding) var(--button-horizontal-padding);
+    appearance: none;
+    border: 1px solid transparent;
+    border-radius: var(--button-border-radius);
+    background: var(--primary-accent);
+    color: var(--primary-background);
+    font-family: var(--font-heading);
+    font-size: var(--button-font-size);
+    font-weight: var(--button-font-weight);
+    line-height: var(--button-line-height);
+    letter-spacing: var(--button-letter-spacing);
+    text-align: center;
+    transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), opacity var(--transition-base);
+}
+
+.button:hover {
+    background: var(--color-primary-hover);
+    color: var(--color-primary-contrast);
+}
+
+.button:focus-visible {
+    outline: 2px solid var(--primary-accent);
+    outline-offset: 2px;
+}
+
+.button.cc-secondary {
+    background: var(--primary-surface);
+    border-color: var(--primary-border);
+    color: var(--primary-text);
+}
+
+.button.cc-secondary:hover {
+    background: var(--primary-border);
+    color: var(--primary-text);
+}
+
+.button.cc-ghost {
+    background: transparent;
+    border-color: var(--primary-border);
+    color: var(--primary-text);
+}
+
+.button.cc-ghost:hover {
+    background: var(--primary-surface);
+    color: var(--primary-text);
+}
+
+.button.cc-destructive {
+    background: var(--color-destructive);
+    border-color: transparent;
+    color: var(--color-primary-contrast);
+}
+
+.button.cc-destructive:hover {
+    background: var(--color-destructive-hover);
+}
+
+.button.cc-sm {
+    height: var(--button-height-sm);
+    padding: 0 var(--space-md);
+    font-size: var(--font-size-caption);
+}
+
+.button.cc-lg {
+    height: var(--button-height-lg);
+    padding: 0 var(--space-xl);
+    font-size: var(--body-font-size);
+}
+
+.button.cc-full {
+    width: 100%;
+}
+
+.button.cc-disabled,
+.button[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* ============================================================
+   Form / Input
+   ============================================================ */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.form_field {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+}
+
+.form_label {
+    font-size: var(--font-size-label);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.2;
+    color: var(--primary-text);
+}
+
+.form_help {
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-small);
+    color: var(--primary-text-muted);
+}
+
+.form_error {
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-small);
+    color: var(--color-destructive);
+}
+
+.form_option {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.form_option-label {
+    font-size: var(--font-size-body-sm);
+    line-height: 1.2;
+    color: var(--primary-text);
+    cursor: pointer;
+}
+
+.input {
+    width: 100%;
+    height: var(--input-height);
+    padding: 0 var(--space-md);
+    appearance: none;
+    background: var(--primary-background);
+    border: 1px solid var(--primary-border);
+    border-radius: var(--radius-input);
+    color: var(--primary-text);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body-sm);
+    line-height: 1;
+    transition: border-color var(--transition-base), background-color var(--transition-base);
+}
+
+.input::placeholder {
+    color: var(--primary-text-dim);
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+}
+
+.input.cc-error {
+    border-color: var(--color-destructive);
+}
+
+.input.cc-textarea {
+    height: auto;
+    min-height: 8rem;
+    padding: var(--space-md);
+    line-height: var(--line-height-body);
+    resize: vertical;
+}
+
+/* The caret is a data-URI background image. If Webflow's style API
+   rejects it on transfer, ship this one declaration in the custom-code
+   CSS embed instead. */
+.select {
+    width: 100%;
+    height: var(--input-height);
+    padding: 0 var(--space-2xl) 0 var(--space-md);
+    appearance: none;
+    background-color: var(--primary-background);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%236b6862' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right var(--space-md) center;
+    background-size: 12px 8px;
+    border: 1px solid var(--primary-border);
+    border-radius: var(--radius-input);
+    color: var(--primary-text);
+    font-family: var(--font-body);
+    font-size: var(--font-size-body-sm);
+    line-height: 1;
+    cursor: pointer;
+}
+
+.select:focus {
+    outline: none;
+    border-color: var(--primary-accent);
+}
+
+.checkbox {
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    appearance: none;
+    background-color: var(--primary-background);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px 9px;
+    border: 1px solid var(--primary-border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+.checkbox:checked {
+    background-color: var(--primary-accent);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 9' fill='none'%3E%3Cpath d='M1 4.5 4.5 8 11 1' stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    border-color: var(--primary-accent);
+}
+
+.checkbox:focus-visible {
+    outline: 2px solid var(--primary-accent);
+    outline-offset: 2px;
+}
+
+.radio {
+    flex: 0 0 auto;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin: 0;
+    appearance: none;
+    background-color: var(--primary-background);
+    border: 1px solid var(--primary-border);
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.radio:checked {
+    border-color: var(--primary-accent);
+    border-width: 6px;
+}
+
+.radio:focus-visible {
+    outline: 2px solid var(--primary-accent);
+    outline-offset: 2px;
+}
+
+.toggle {
+    position: relative;
+    flex: 0 0 auto;
+    width: 2.75rem;
+    height: 1.5rem;
+    margin: 0;
+    appearance: none;
+    background: var(--color-neutral-400);
+    border: 0;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: background-color var(--transition-base);
+}
+
+.toggle::after {
+    content: "";
+    position: absolute;
+    top: 0.1875rem;
+    left: 0.1875rem;
+    width: 1.125rem;
+    height: 1.125rem;
+    background: var(--color-neutral-100);
+    border-radius: var(--radius-full);
+    transition: transform var(--transition-base);
+}
+
+.toggle:checked {
+    background: var(--primary-accent);
+}
+
+.toggle:checked::after {
+    transform: translateX(1.25rem);
+}
+
+.toggle:focus-visible {
+    outline: 2px solid var(--primary-accent);
+    outline-offset: 2px;
+}
+
+/* ============================================================
+   Tag / Chip
+   ============================================================ */
+.tag {
+    display: inline-flex;
+    align-items: center;
+    /* Stops the chip stretching to full width when it is a direct child of
+       a column flex container such as .card. Ignored outside flex. */
+    align-self: flex-start;
+    gap: var(--space-xs);
+    padding: 0.25rem 0.625rem;
+    background: var(--primary-surface);
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    color: var(--primary-text);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-eyebrow);
+    font-weight: var(--font-weight-medium);
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.tag.cc-accent {
+    background: var(--color-primary);
+    color: var(--color-primary-contrast);
+}
+
+.tag.cc-outline {
+    background: transparent;
+    border-color: var(--primary-border);
+    color: var(--primary-text-muted);
+}
+
+.tag.cc-round {
+    border-radius: var(--radius-full);
+}
+
+/* For use on a filled surface — see the note on .card_description.cc-inverse. */
+.tag.cc-inverse {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: transparent;
+    color: var(--color-primary-contrast);
+}
+
+/* ============================================================
+   Card
+   ============================================================ */
+.card {
+    padding: var(--card-padding);
+    border-radius: var(--card-border-radius);
+    background: var(--primary-surface);
+    color: var(--primary-text);
+}
+
+.card_image {
+    width: 100%;
+    border-radius: var(--radius-md);
+}
+
+.card_title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 1.125rem + 0.42vw, 1.5rem);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    color: inherit;
+}
+
+.card_description {
+    margin: 0;
+    font-size: var(--font-size-body-sm);
+    color: var(--primary-text-muted);
+}
+
+/* On a filled card (.card.cc-featured) the muted grey has no contrast, so
+   the description inherits the card's own color instead. Expressed as a
+   combo on the child rather than `.card.cc-featured .card_description` —
+   Webflow cannot represent a descendant selector, so a rule written that
+   way would import as nothing. */
+.card_description.cc-inverse {
+    color: inherit;
+    opacity: 0.85;
+}
+
+.card_footer {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-top: auto;
+    padding-top: var(--space-sm);
+}
+
+.card.cc-featured {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: var(--color-primary-contrast);
+}
+
+.card.cc-compact {
+    gap: var(--space-sm);
+    padding: var(--space-md);
+}
+
+.card.cc-flat {
+    background: transparent;
+    border-color: transparent;
+    padding: 0;
+}
+
+.card.cc-raised {
+    box-shadow: var(--shadow-card);
+}
+
+/* ============================================================
+   Icon
+
+   Inline SVGs carry no width/height attributes — only a viewBox — so
+   size is controlled here and color inherits via currentColor.
+   ============================================================ */
+.icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary-text);
+}
+
+.icon.cc-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+.icon.cc-lg {
+    width: 2rem;
+    height: 2rem;
+}
+
+.icon.cc-accent {
+    color: var(--primary-accent);
+}
+
+/* ============================================================
+   Visual heading classes (.h1–.h6)
+
+   Deliberately placed AFTER every component so they out-rank component
+   element classes at equal specificity — that is what makes the
+   documented pattern work:
+
+       <h3 class="card_title h5">   h3 in the DOM, h5 on screen
+
+   Webflow's own cascade is element defaults → tag styles → class
+   styles, and later-declared classes win ties, so this ordering is what
+   the Designer reproduces. Keep this block last.
+   ============================================================ */
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-heading);
+    letter-spacing: var(--tracking-heading);
+    text-wrap: balance;
+}
+
+.h1 {
+    font-size: clamp(2.5rem, 1.25rem + 4.17vw, 5rem);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--tracking-display);
+}
+
+.h2 {
+    font-size: clamp(2.25rem, 1.375rem + 2.92vw, 4rem);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--tracking-display);
+}
+
+.h3 {
+    font-size: clamp(1.75rem, 1.125rem + 2.08vw, 3rem);
+}
+
+.h4 {
+    font-size: clamp(1.5rem, 1.25rem + 0.83vw, 2rem);
+}
+
+.h5 {
+    font-size: clamp(1.25rem, 1.125rem + 0.42vw, 1.5rem);
+}
+
+.h6 {
+    font-size: clamp(1.125rem, 1.0625rem + 0.21vw, 1.25rem);
+}
+
+/* ============================================================
+   Style guide only  (styles__ prefix)
+
+   Scaffolding for style-guide.html — swatch chips, spacing bars, grid
+   fills. Never used on real pages. If the style guide is dropped from a
+   project, delete this whole block.
+   ============================================================ */
+.styles__block {
+    padding: var(--space-2xl) 0;
+    border-bottom: 1px solid var(--primary-border);
+}
+
+.styles__block.cc-last {
+    border-bottom: 0;
+}
+
+.styles__stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.styles__inline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.styles__swatch {
+    width: 100%;
+    height: 5rem;
+    margin-bottom: var(--space-sm);
+    border: 1px solid var(--primary-border);
+    border-radius: var(--radius-md);
+}
+
+.styles__spacer {
+    height: 1.25rem;
+    background: var(--primary-accent);
+    border-radius: var(--radius-sm);
+}
+
+.styles__spacer.cc-xs {
+    width: var(--space-xs);
+}
+
+.styles__spacer.cc-sm {
+    width: var(--space-sm);
+}
+
+.styles__spacer.cc-md {
+    width: var(--space-md);
+}
+
+.styles__spacer.cc-lg {
+    width: var(--space-lg);
+}
+
+.styles__spacer.cc-xl {
+    width: var(--space-xl);
+}
+
+.styles__spacer.cc-2xl {
+    width: var(--space-2xl);
+}
+
+.styles__spacer.cc-3xl {
+    width: var(--space-3xl);
+}
+
+.styles__spacer.cc-4xl {
+    width: var(--space-4xl);
+}
+.styles__spacer.cc-5xl { width: var(--space-5xl); }
+.styles__spacer.cc-6xl { width: var(--space-6xl); }
+.styles__spacer.cc-7xl { width: var(--space-7xl); }
+.styles__spacer.cc-8xl { width: var(--space-8xl); }
+
+.styles__demo {
+    padding: var(--space-sm);
+    background: var(--primary-surface);
+    border: 1px dashed var(--primary-border);
+    border-radius: var(--radius-sm);
+    color: var(--primary-text-muted);
+    font-family: var(--font-mono);
+    font-size: var(--font-size-eyebrow);
+    text-align: center;
+}
+
+/* ============================================================
+   Utilities (max 4 per element — beyond that, make a custom class)
+   ============================================================ */
+.u-font-heading {
+    font-family: var(--font-heading) !important;
+}
+
+.u-font-body {
+    font-family: var(--font-body) !important;
+}
+
+.u-font-mono {
+    font-family: var(--font-mono) !important;
+}
+
+.u-text-left {
+    text-align: left !important;
+}
+
+.u-text-center {
+    text-align: center !important;
+}
+
+.u-text-right {
+    text-align: right !important;
+}
+
+.u-text-balance {
+    text-wrap: balance !important;
+}
+
+.u-text-pretty {
+    text-wrap: pretty !important;
+}
+
+.u-text-clamp-1 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 1 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.u-text-clamp-2 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.u-text-clamp-3 {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.u-text-indent {
+    text-indent: 2.5rem !important;
+}
+
+.u-text-indent-lg {
+    text-indent: 3rem !important;
+}
+
+.u-text-uppercase {
+    text-transform: uppercase !important;
+}
+
+.u-text-primary {
+    color: var(--primary-text) !important;
+}
+
+.u-text-muted {
+    color: var(--primary-text-muted) !important;
+}
+
+.u-text-dim {
+    color: var(--primary-text-dim) !important;
+}
+
+.u-text-accent {
+    color: var(--primary-accent) !important;
+}
+
+.u-bg-background {
+    background: var(--primary-background) !important;
+}
+
+.u-bg-surface {
+    background: var(--primary-surface) !important;
+}
+
+.u-bg-accent {
+    background: var(--color-primary) !important;
+}
+
+.u-m-0 {
+    margin: 0 !important;
+}
+
+.u-mlr-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.u-mt-0 {
+    margin-top: 0 !important;
+}
+
+.u-mt-xs {
+    margin-top: var(--space-xs) !important;
+}
+
+.u-mt-sm {
+    margin-top: var(--space-sm) !important;
+}
+
+.u-mt-md {
+    margin-top: var(--space-md) !important;
+}
+
+.u-mt-lg {
+    margin-top: var(--space-lg) !important;
+}
+
+.u-mt-xl {
+    margin-top: var(--space-xl) !important;
+}
+
+.u-mt-2xl {
+    margin-top: var(--space-2xl) !important;
+}
+
+.u-mt-3xl {
+    margin-top: var(--space-3xl) !important;
+}
+
+.u-mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.u-mb-xs {
+    margin-bottom: var(--space-xs) !important;
+}
+
+.u-mb-sm {
+    margin-bottom: var(--space-sm) !important;
+}
+
+.u-mb-md {
+    margin-bottom: var(--space-md) !important;
+}
+
+.u-mb-lg {
+    margin-bottom: var(--space-lg) !important;
+}
+
+.u-mb-xl {
+    margin-bottom: var(--space-xl) !important;
+}
+
+.u-mb-2xl {
+    margin-bottom: var(--space-2xl) !important;
+}
+
+.u-mb-3xl {
+    margin-bottom: var(--space-3xl) !important;
+}
+
+.u-p-0 {
+    padding: 0 !important;
+}
+
+.u-pt-0 {
+    padding-top: 0 !important;
+}
+
+.u-pt-md {
+    padding-top: var(--space-md) !important;
+}
+
+.u-pt-lg {
+    padding-top: var(--space-lg) !important;
+}
+
+.u-pt-xl {
+    padding-top: var(--space-xl) !important;
+}
+
+.u-pb-0 {
+    padding-bottom: 0 !important;
+}
+
+.u-pb-md {
+    padding-bottom: var(--space-md) !important;
+}
+
+.u-pb-lg {
+    padding-bottom: var(--space-lg) !important;
+}
+
+.u-pb-xl {
+    padding-bottom: var(--space-xl) !important;
+}
+
+.u-d-none {
+    display: none !important;
+}
+
+.u-d-block {
+    display: block !important;
+}
+
+.u-d-inline-block {
+    display: inline-block !important;
+}
+
+.u-d-flex {
+    display: flex !important;
+}
+
+.u-d-grid {
+    display: grid !important;
+}
+
+.u-position-relative {
+    position: relative !important;
+}
+
+.u-position-absolute {
+    position: absolute !important;
+}
+
+.u-position-sticky {
+    position: sticky !important;
+}
+
+.u-w-100 {
+    width: 100% !important;
+}
+
+.u-h-100 {
+    height: 100% !important;
+}
+
+.u-minh-100vh {
+    min-height: 100vh !important;
+}
+
+.u-overflow-hidden {
+    overflow: hidden !important;
+}
+
+.u-object-cover {
+    object-fit: cover !important;
+}
+
+.u-aspect-1x1 {
+    aspect-ratio: 1 / 1 !important;
+}
+
+.u-aspect-4x3 {
+    aspect-ratio: 4 / 3 !important;
+}
+
+.u-aspect-3x2 {
+    aspect-ratio: 3 / 2 !important;
+}
+
+.u-aspect-16x9 {
+    aspect-ratio: 16 / 9 !important;
+}
+
+/* ============================================================
+   Breakpoint cascade (desktop-first)
+
+   Only Webflow's three breakpoints are used — the style API accepts no
+   others, and no min-width queries.
+   ============================================================ */
+@media screen and (max-width: 991px) {
+    :root {
+        --nav-height: 5rem;              /* 80 */
+    }
+
+    .col-md-1 {
+        width: 8.3333%;
+    }
+
+    .col-md-2 {
+        width: 16.6666%;
+    }
+
+    .col-md-3 {
+        width: 25%;
+    }
+
+    .col-md-4 {
+        width: 33.3333%;
+    }
+
+    .col-md-5 {
+        width: 41.6666%;
+    }
+
+    .col-md-6 {
+        width: 50%;
+    }
+
+    .col-md-7 {
+        width: 58.3333%;
+    }
+
+    .col-md-8 {
+        width: 66.6666%;
+    }
+
+    .col-md-9 {
+        width: 75%;
+    }
+
+    .col-md-10 {
+        width: 83.3333%;
+    }
+
+    .col-md-11 {
+        width: 91.6666%;
+    }
+
+    .col-md-12 {
+        width: 100%;
+    }
+
+    [class*="col-lg-offset"] {
+        margin-left: 0;
+    }
+
+    .col-md-first {
+        order: -1;
+    }
+
+    .col-md-last {
+        order: 99;
+    }
+
+    .u-d-md-none {
+        display: none !important;
+    }
+
+    .u-d-md-block {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    :root {
+    }
+
+    .col-sm-1 {
+        width: 8.3333%;
+    }
+
+    .col-sm-2 {
+        width: 16.6666%;
+    }
+
+    .col-sm-3 {
+        width: 25%;
+    }
+
+    .col-sm-4 {
+        width: 33.3333%;
+    }
+
+    .col-sm-5 {
+        width: 41.6666%;
+    }
+
+    .col-sm-6 {
+        width: 50%;
+    }
+
+    .col-sm-7 {
+        width: 58.3333%;
+    }
+
+    .col-sm-8 {
+        width: 66.6666%;
+    }
+
+    .col-sm-9 {
+        width: 75%;
+    }
+
+    .col-sm-10 {
+        width: 83.3333%;
+    }
+
+    .col-sm-11 {
+        width: 91.6666%;
+    }
+
+    .col-sm-12 {
+        width: 100%;
+    }
+
+    .col-sm-first {
+        order: -1;
+    }
+
+    .col-sm-last {
+        order: 99;
+    }
+
+    .u-d-sm-none {
+        display: none !important;
+    }
+
+    .u-d-sm-block {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    :root {
+    }
+
+    .col-xs-1 {
+        width: 8.3333%;
+    }
+
+    .col-xs-2 {
+        width: 16.6666%;
+    }
+
+    .col-xs-3 {
+        width: 25%;
+    }
+
+    .col-xs-4 {
+        width: 33.3333%;
+    }
+
+    .col-xs-5 {
+        width: 41.6666%;
+    }
+
+    .col-xs-6 {
+        width: 50%;
+    }
+
+    .col-xs-7 {
+        width: 58.3333%;
+    }
+
+    .col-xs-8 {
+        width: 66.6666%;
+    }
+
+    .col-xs-9 {
+        width: 75%;
+    }
+
+    .col-xs-10 {
+        width: 83.3333%;
+    }
+
+    .col-xs-11 {
+        width: 91.6666%;
+    }
+
+    .col-xs-12 {
+        width: 100%;
+    }
+
+    .u-text-indent,
+    .u-text-indent-lg {
+        text-indent: 1.5rem !important;
+    }
+
+    .u-d-xs-none {
+        display: none !important;
+    }
+
+    .u-d-xs-block {
+        display: block !important;
+    }
+}
+
+/* ============================================================
+   CUSTOM CODE CSS EMBED
+
+   Everything below this line has no Designer-class representation —
+   element/attribute selectors, pseudo-elements on the document, and
+   media queries Webflow does not model. On transfer, paste this block
+   into Webflow → Custom Code (or a CSS embed at the top of the
+   Navigator). Do not try to author it as classes.
+   ============================================================ */
+
+/* Text selection */
+::selection {
+    background: var(--primary-accent);
+    color: var(--color-neutral-100);
+}
+
+/* In-page anchor targets land below the sticky nav rather than under it. */
+[id] {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-md));
+}
+
+/* Interactions and animations must degrade for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    [data-animate] * {
+        animation: none !important;
+        transition: none !important;
+    }
+}

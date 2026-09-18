@@ -1,0 +1,23 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+
+# Editor / tooling metadata
+.shipstudio/
+
+# site-scripts build verification temp dir
+site-scripts/.build-check/
+
+# OS / misc
+Thumbs.db
+*.log
+.webflow-transfer/
+.work/

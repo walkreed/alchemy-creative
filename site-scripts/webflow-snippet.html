@@ -1,0 +1,87 @@
+<!--
+  Webflow custom code — the site-scripts side of the project.
+
+  Paste each block into the place named in its heading. The @vX.Y.Z tag below is
+  stamped from site-scripts/VERSION by ./build.sh — never edit it by hand. Bump
+  VERSION, run ./build.sh, commit, tag, push, then update the pin here by
+  re-running ./build.sh and copying this file across.
+
+  Pinning to a TAG (not a branch) is deliberate: jsDelivr caches tagged files
+  permanently, and an unpinned branch URL would let an untested commit reach a
+  live client site the moment it is pushed.
+-->
+
+
+<!-- ==========================================================================
+     Site Settings → Custom Code → Footer Code
+     ========================================================================== -->
+
+<!-- Optional: GSAP. Add only if a module needs it, and load it BEFORE the
+     bundle so `gsap` is defined when consumer modules run. -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script> -->
+
+<script src="https://cdn.jsdelivr.net/gh/0x5am5/webflai-ai-workflow-template@v0.1.0/site-scripts/site-core.min.js"></script>
+
+
+<!-- ==========================================================================
+     Custom Code CSS embed — top of the Navigator, or Site Settings → Head Code
+
+     Holds the rules that have no Designer-class representation: element and
+     attribute selectors, document-level pseudo-elements, and any rule keyed on
+     a JS-toggled state. The matching block is at the foot of template/styles.css
+     under the "CUSTOM CODE CSS EMBED" banner — keep the two in sync.
+     ========================================================================== -->
+
+<style>
+/* Text selection */
+::selection {
+    background: var(--mode-accent);
+    color: var(--colour-neutral-100);
+}
+
+/* In-page anchor targets land below the sticky nav rather than under it. */
+[id] {
+    scroll-margin-top: calc(var(--nav-height) + var(--space-md));
+}
+
+/* Reveal-on-scroll pre-hide (see site-scripts/example-module.js).
+   Gated on .site-js so no-JS visitors always see the content, and cancelled
+   under reduced motion. */
+[data-reveal] {
+    transition: opacity 600ms ease, transform 600ms ease;
+}
+
+.site-js [data-reveal] {
+    opacity: 0;
+    transform: translateY(1.5rem);
+}
+
+[data-reveal].is-revealed {
+    opacity: 1;
+    transform: none;
+}
+
+/* Interactions and animations must degrade for reduced-motion users. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    [data-animate] *,
+    .site-js [data-reveal] {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .site-js [data-reveal] {
+        opacity: 1;
+        transform: none;
+    }
+}
+</style>
