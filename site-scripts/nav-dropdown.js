@@ -1,5 +1,15 @@
 /**
- * Nav dropdown — toggles the "Our Work" panel in the global nav.
+ * Nav dropdown — PREVIEW ONLY. Deliberately NOT in the shipped bundle.
+ *
+ * In Webflow the nav dropdown is a native Dropdown element, which handles
+ * open/close, outside-click and keyboard behaviour itself and stays fully
+ * editable in the Designer. Shipping our own script would put behaviour the
+ * client cannot see or change outside their site, so this file exists only
+ * so the static preview behaves like the real thing.
+ *
+ * Do not add it to the `core` array in build.sh.
+ *
+ * Toggles the "Our Work" panel in the global nav.
  *
  * Markup:
  *

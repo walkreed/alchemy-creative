@@ -14,12 +14,12 @@ cd "$(dirname "$0")"
 # ── Configuration ──────────────────────────────────────────────────────────
 # GH_SLUG must match the GitHub repo that serves the bundles over jsDelivr.
 # STAMPED lists the files carrying a pinned @vX.Y.Z tag that build.sh rewrites.
-GH_SLUG="0x5am5/webflai-ai-workflow-template"
+GH_SLUG="walkreed/Alchemy-creative"
 STAMPED=(webflow-snippet.html)
 
 # Bundles. page-init MUST be first in the core bundle — it defines
 # window.SitePage before any module tries to register against it.
-core=(page-init example-module nav-dropdown)
+core=(page-init example-module)
 
 # Add further bundles by declaring another array and a matching build call at
 # the foot of this file, e.g. for a heavy effect only a few pages need:

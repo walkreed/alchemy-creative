@@ -547,6 +547,14 @@ Reusable class families and site-wide behaviours that deliberately have **no** W
 
 ### Project Scripts
 
+> **Status:** the bundle currently ships **no behaviour any page uses** — `page-init.js` is
+> scaffolding and `example-module.js` is an unused demo (no page has a `data-reveal` hook).
+> At 7KB it also fits inside Webflow's 10,000-character footer field, so the jsDelivr pin is
+> not yet earning its keep. **Do not add the `<script>` tag to Webflow until a module does
+> something.** The nav dropdown is deliberately NOT in the bundle — in Webflow it is a native
+> Dropdown element, so the client owns that behaviour in the Designer.
+
+
 Site JavaScript lives in `site-scripts/` — source modules concatenated by `./build.sh` into `site-core.js`, served to the live site from a pinned jsDelivr tag. Never paste real JS into Webflow's footer (10,000-character limit, no build step, not version-controlled).
 
 - **Module contract**: `window.SitePage.register({ init(scope), destroy() })`, defined by `site-scripts/page-init.js`. `init` must query inside `scope`, never `document`; `destroy` must release every listener, rAF loop, observer, GSAP tween/ScrollTrigger and WebGL context, or a re-init double-binds.

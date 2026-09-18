@@ -2064,15 +2064,6 @@ blockquote {
     color: var(--color-neutral-100);
 }
 
-/* Nav dropdown state — toggled by site-scripts/nav-dropdown.js. */
-[data-nav-panel][hidden] {
-    display: none;
-}
-
-.nav_link[aria-expanded="true"] .nav_caret {
-    transform: rotate(180deg);
-}
-
 /* In-page anchor targets land below the sticky nav rather than under it. */
 [id] {
     scroll-margin-top: calc(var(--nav-height) + var(--space-md));
@@ -2093,4 +2084,21 @@ blockquote {
         animation: none !important;
         transition: none !important;
     }
+}
+
+/* ============================================================
+   PREVIEW ONLY — DO NOT TRANSFER
+
+   These rules exist so the static preview behaves like the real
+   site. In Webflow the nav dropdown is a native Dropdown element,
+   which supplies this behaviour itself. Transferring these would
+   put styling outside the Designer for no benefit.
+   ============================================================ */
+
+[data-nav-panel][hidden] {
+    display: none;
+}
+
+.nav_link[aria-expanded="true"] .nav_caret {
+    transform: rotate(180deg);
 }
