@@ -2107,6 +2107,81 @@ blockquote {
 }
 
 /* ============================================================
+   CTA band
+   ============================================================ */
+.cta {
+    display: block;
+    padding-top: var(--space-6xl);
+    padding-bottom: var(--space-6xl);
+    background: var(--primary-background);
+    color: var(--primary-text);
+}
+
+.cta_inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-2xl);
+    text-align: center;
+}
+
+.cta_title {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: var(--primary-text);
+    text-wrap: balance;
+}
+
+/* Dashed outline rather than a filled button: deliberately quieter than
+   .button so the CTA reads as an invitation, not a primary action. CSS
+   cannot set the dash length, so the comp's 8/8 pattern is approximated
+   by `dashed` — which is also all the Designer exposes. */
+.cta_email {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    padding-left: var(--space-2xl);
+    padding-right: var(--space-2xl);
+    border-top-left-radius: var(--radius-card);
+    border-top-right-radius: var(--radius-card);
+    border-bottom-left-radius: var(--radius-card);
+    border-bottom-right-radius: var(--radius-card);
+    border-top-width: 1px;
+    border-right-width: 1px;
+    border-bottom-width: 1px;
+    border-left-width: 1px;
+    border-top-style: dashed;
+    border-right-style: dashed;
+    border-bottom-style: dashed;
+    border-left-style: dashed;
+    border-top-color: var(--primary-accent);
+    border-right-color: var(--primary-accent);
+    border-bottom-color: var(--primary-accent);
+    border-left-color: var(--primary-accent);
+    background: transparent;
+    color: var(--primary-accent);
+    font-family: var(--font-heading);
+    font-size: var(--body-sm-font-size);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.cta_email:hover {
+    background: var(--primary-accent);
+    color: var(--primary-background);
+}
+
+.cta_email:focus-visible {
+    outline: 2px solid var(--primary-accent);
+    outline-offset: 4px;
+}
+
+/* ============================================================
    Components page scaffold (page-local, not part of the system)
    ============================================================ */
 .components__item {

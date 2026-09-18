@@ -179,6 +179,15 @@ padding. The mark centres because `.footer_menu` and `.footer_social` both `flex
 absolute positioning. Stacks to a centred column below 767px.
 Assets: `logo-alchemy-mark.svg`, `icon-vimeo.svg`, `icon-instagram.svg`, `icon-linkedin.svg`.
 
+### CTA band (`.cta`)
+Full-bleed invitation band that sits above the footer on every page. Elements: `.cta_inner`
+(centred column, 32px gap), `.cta_title` (h2-sized, sentence case, `text-wrap: balance`),
+`.cta_email` (dashed outline link, not a filled `.button`). No variants.
+The email deliberately uses the **card** radius (10px) and a 1px dashed `--primary-accent`
+border rather than the button radius and fill, so it reads quieter than a primary action.
+CSS cannot set dash length, so the comp's 8/8 pattern is approximated by `dashed` — which is
+also all the Designer exposes.
+
 ## Webflow Variable mapping
 
 Collections already exist on the site. Set values; create only what is missing.

@@ -532,6 +532,7 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 |-----------|------------|-----------|----------|-------|---------|
 | Nav | `.nav` | — (not yet transferred) | `cc-current` on `.nav_link` | `nav_menu`, `nav_dropdown` | Global navigation: logo, primary links, CTA, and the "Our Work" dropdown panel |
 | Footer | `.footer` | — (not yet transferred) | — | `footer_menu`, `footer_social` | Global footer bar: primary links, centred brand mark, social icons |
+| CTA band | `.cta` | — (not yet transferred) | — | — | Full-bleed invitation band above the footer: heading plus a dashed email link |
 
 
 ### Class patterns & global behaviours (not Webflow components)
