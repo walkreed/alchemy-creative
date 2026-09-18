@@ -168,6 +168,17 @@ Full-bleed: `.container.cc-nav` clears the base `max-width` and uses flat 32px s
 Behaviour: `site-scripts/nav-dropdown.js`, driven by `[data-nav-toggle]` / `[data-nav-panel]`.
 The `[hidden]` and caret-rotation rules live in the CUSTOM CODE CSS EMBED block.
 
+### Footer (`.footer`)
+Global footer bar — primary links, centred brand mark, social icon links. Page chrome, so
+unprefixed. Elements: `.footer_menu` / `.footer_item` / `.footer_link`, `.footer_brand` /
+`.footer_brand-mark` (mark-only lockup, inherits `--primary-accent`), `.footer_social` /
+`.footer_social-item` / `.footer_social-link` / `.footer_social-icon` (inherit
+`--primary-text`). No variants.
+Full-bleed: `.container.cc-footer` clears the base `max-width`, 100px min-height, 48px side
+padding. The mark centres because `.footer_menu` and `.footer_social` both `flex: 1` — no
+absolute positioning. Stacks to a centred column below 767px.
+Assets: `logo-alchemy-mark.svg`, `icon-vimeo.svg`, `icon-instagram.svg`, `icon-linkedin.svg`.
+
 ## Webflow Variable mapping
 
 Collections already exist on the site. Set values; create only what is missing.

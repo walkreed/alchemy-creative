@@ -531,6 +531,7 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 | Component | Base Class | Instances | Variants | Slots | Purpose |
 |-----------|------------|-----------|----------|-------|---------|
 | Nav | `.nav` | — (not yet transferred) | `cc-current` on `.nav_link` | `nav_menu`, `nav_dropdown` | Global navigation: logo, primary links, CTA, and the "Our Work" dropdown panel |
+| Footer | `.footer` | — (not yet transferred) | — | `footer_menu`, `footer_social` | Global footer bar: primary links, centred brand mark, social icons |
 
 
 ### Class patterns & global behaviours (not Webflow components)

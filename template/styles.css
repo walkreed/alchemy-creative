@@ -917,30 +917,31 @@ blockquote {
    Footer (global)
    ============================================================ */
 .footer {
-    padding: var(--space-2xl) 0;
     background: var(--primary-background);
     color: var(--primary-text);
-    border-top: 1px solid var(--primary-border);
 }
 
+/* Full-bleed like the nav: the footer bar spans the viewport rather than
+   sitting inside the content container. */
 .container.cc-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: var(--space-lg);
-    flex-wrap: wrap;
-}
-
-.footer_copy {
-    margin: 0;
-    font-size: var(--font-size-body-sm);
-    color: var(--primary-text-muted);
+    gap: var(--gap-main);
+    max-width: none;
+    min-height: 6.25rem;
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    padding-left: var(--space-4xl);
+    padding-right: var(--space-4xl);
 }
 
 .footer_menu {
     display: flex;
+    flex: 1 1 0%;
     align-items: center;
-    gap: var(--space-lg);
+    justify-content: flex-start;
+    gap: var(--gap-main);
     margin: 0;
     padding: 0;
     list-style: none;
@@ -951,12 +952,94 @@ blockquote {
 }
 
 .footer_link {
-    font-size: var(--font-size-body-sm);
-    color: var(--primary-text-muted);
+    font-family: var(--font-heading);
+    font-size: var(--body-sm-font-size);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    color: var(--primary-text);
+    text-decoration: none;
+    transition: color var(--transition-base);
 }
 
 .footer_link:hover {
+    color: var(--primary-accent);
+}
+
+.footer_link:focus-visible {
+    outline: 2px solid var(--primary-accent);
+    outline-offset: 4px;
+}
+
+/* The mark sits optically centred: the menu and social rails both flex, so
+   the brand lands in the middle without absolute positioning. */
+.footer_brand {
+    display: block;
+    flex: none;
+    color: var(--primary-accent);
+    text-decoration: none;
+}
+
+.footer_brand-mark {
+    display: block;
+    width: 3.5625rem;
+    height: auto;
+}
+
+.footer_social {
+    display: flex;
+    flex: 1 1 0%;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--space-2xl);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.footer_social-item {
+    display: block;
+}
+
+.footer_social-link {
+    display: block;
     color: var(--primary-text);
+    transition: color var(--transition-base);
+}
+
+.footer_social-link:hover {
+    color: var(--primary-accent);
+}
+
+.footer_social-link:focus-visible {
+    outline: 2px solid var(--primary-accent);
+    outline-offset: 4px;
+}
+
+.footer_social-icon {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+}
+
+@media (max-width: 767px) {
+    .container.cc-footer {
+        flex-direction: column;
+        gap: var(--space-2xl);
+        padding-left: var(--space-2xl);
+        padding-right: var(--space-2xl);
+    }
+
+    .footer_menu {
+        flex: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-xl);
+    }
+
+    .footer_social {
+        flex: none;
+        justify-content: center;
+    }
 }
 
 /* ============================================================
