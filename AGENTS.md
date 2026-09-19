@@ -688,6 +688,37 @@ Hard-won constraints from importing `template/style-guide.html` into Webflow wit
 - **Fix pattern**: create a new combo scoped to the actual class being overridden (e.g. `.container.cc-nav`, `.container.cc-footer` — combo of the generic class, not a new standalone class), carrying every property the source's scoped selector declared (not just the diff from the base — Webflow does still cascade the base `.container` class normally, so only genuinely *overridden* properties need to be in the combo). Apply the combo directly to the specific element instance.
 - **Before building/fixing any component or page, grep the source CSS for this pattern first** and treat every match as a todo item — don't wait for a visual "doesn't look right" report to discover them one at a time, since the most damaging ones often look fine in a quick glance and only show up as "subtly off" until specifically diffed against source.
 
+### What the builder does with markup-only inserts (verified 2026-09-19)
+
+Inserting HTML with **no `css` param** behaves better than the warnings suggest, but has one
+silent failure:
+
+- **Structure maps natively and correctly.** `div` -> Block, `ul` -> List, `li` -> ListItem,
+  `a` -> Link, text -> String. The tree matched the source markup exactly.
+- **`ul` did NOT spawn three default ListItems.** Five authored `li` produced exactly five
+  ListItems. The older warning about auto-spawned defaults did not reproduce.
+- **Combo chains survive**: `class="container cc-nav"` came back as
+  `styleNames: ["container","cc-nav"]`.
+- **The builder attaches styles that already exist, and silently ignores names it does not
+  know.** It does not create styles when no `css` is supplied. The call returns `success`
+  and the structure is right, so the only way to catch it is to re-query the tree and check
+  `styleNames` on every element — a nav insert came back with 11 of 16 elements carrying no
+  class at all.
+
+So the reliable sequence is: `create_style` for every class first, **then** insert markup,
+or insert markup and `set_style` each element afterwards.
+
+### Check the site's existing class vocabulary before naming anything
+
+The Webflow site already carries MAST's own class family, and its naming may not match what
+`AGENTS.md` prescribes. On this site the nav is `.nav-menu` / `.nav-link` / `.nav-logo_link`
+— hyphen after `nav`, underscore only for a deeper element scope — where our static build
+used `.nav_menu` / `.nav_link` / `.nav_logo`.
+
+**Query `query_styles` for the component's vocabulary before authoring class names.** Two
+parallel families for the same component is the expensive mistake here, and renaming after
+pages depend on the names is worse.
+
 ### Parallel-agent stylesheet collisions
 - Multiple agents writing to the **same global stylesheet** concurrently is a real hazard, not a theoretical one. In this project, a "components" agent rebuilding the Portfolio Item *component* and a "home page" agent building the Home *page* both independently needed `brand-name-portfolio-item*` classes at the same time — Webflow gave the second writer suffixed names (`brand-name-portfolio-item-1`, etc.), so the component definition ended up pointing at the `-1` set while the live page used the clean set. Nothing errored; both agents self-reported success.
 - Reconciliation requires: querying the actual class list (`get_styles`/`query_styles` with `include_properties`) to find which set is canonical, re-pointing every element via `set_style` to the canonical names, then `remove_style` on the orphans **one at a time** (a batched remove on this API errored — go one by one and stop on first failure rather than risk a half-broken stylesheet).
