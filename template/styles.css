@@ -2656,6 +2656,92 @@ blockquote {
 }
 
 /* ============================================================
+   Project Thumbnail
+
+   Work-grid card: an image that reveals client and project name on
+   hover, behind a Deep Forest scrim. Two variants in Figma (Default /
+   Hover) — here that is one element with a hover state, not a variant
+   class, because nothing about the markup changes.
+
+   **The overlay carries the hover, not the card.** It covers the whole
+   card, so hovering the card is hovering the overlay — which keeps the
+   reveal a plain per-element class state instead of needing a Webflow
+   Interaction or a banned descendant selector (.card:hover .overlay).
+
+   The scrim is always dark, so the labels bind to --color-bone rather
+   than --primary-text: this is a fixed surface, and --primary-text would
+   flip to Deep Forest on a light page and vanish into the scrim.
+   ============================================================ */
+
+.project-thumbnail {
+    position: relative;
+    display: block;
+    aspect-ratio: 443 / 298;
+    overflow: hidden;
+    border-radius: var(--card-border-radius);
+}
+
+.project-thumbnail_image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.project-thumbnail_overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: var(--space-xl);
+    background: color-mix(in srgb, var(--color-deep-forest) 80%, transparent);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+/* focus-within so keyboard users reach it too — the card is a link. */
+.project-thumbnail_overlay:hover,
+.project-thumbnail_overlay:focus-within {
+    opacity: 1;
+}
+
+.project-thumbnail_client {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: var(--eyebrow-font-size);
+    font-weight: var(--eyebrow-font-weight);
+    line-height: var(--eyebrow-line-height);
+    letter-spacing: var(--eyebrow-letter-spacing);
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--color-bone);
+}
+
+/* Auto margins centre it in the space left under the client name. The
+   comp puts it at y=140 of 298; this computes to about 145. */
+.project-thumbnail_title {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 0;
+    margin-right: 0;
+    font-size: var(--h4-font-size);
+    font-weight: var(--h4-font-weight);
+    line-height: var(--h4-line-height);
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--color-bone);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-thumbnail_overlay {
+        transition: none;
+    }
+}
+
+/* ============================================================
    Journal list
 
    Two CMS-backed lists. The featured pair alternates text/image, which

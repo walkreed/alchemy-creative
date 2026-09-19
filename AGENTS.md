@@ -600,6 +600,7 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 | Featured Post | `.featured-post` | — (not yet transferred) | — | — | Wide journal card: text column + media at 568/370. **CMS-backed.** Alternation is DOM order across two Collection Lists, not a variant — see PAGE-LOG. |
 | Post Grid | `.post-grid` / `.post-card` | — (not yet transferred) | — | — | 3-up journal card grid at a 10px gutter (`--gap-sm`), 2-up at 991, 1-up at 767. **CMS-backed.** |
 | FAQ Accordion | `.accordion-component` / `.faq-list` | — (not yet transferred) | — | Slot (answer) | Flush accordion list, 800px centred. **Mirrors MAST's Accordion on class names** (real `<details>`/`<summary>`) but is styled flush, not MAST's bordered box — so on transfer these become combos. **CMS-backed.** |
+| Project Thumbnail | `.project-thumbnail` | — (not yet transferred) | — | — | Work-grid card: image with a Deep Forest scrim revealing client and project name on hover. The **overlay** carries the hover, not the card, so no Interaction and no descendant selector. |
 
 
 ### Class patterns & global behaviours (not Webflow components)

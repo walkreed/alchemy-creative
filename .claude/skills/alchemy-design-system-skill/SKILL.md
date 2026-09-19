@@ -263,6 +263,27 @@ render — a third will not appear.**
 also how a Collection List wrapper behaves anyway. Measured against the comp: 393px columns,
 10px gutter, 64px row gap, featured media exactly 568x370.
 
+### Project Thumbnail (`.project-thumbnail`)
+Work-grid card: an image that reveals client and project name on hover behind a Deep Forest
+scrim. Elements: `_image`, `_overlay`, `_client` (eyebrow metrics), `_title` (H4). No variants —
+Figma's Default/Hover pair is one element with a hover state, since no markup changes.
+
+**The overlay carries the hover, not the card.** It covers the whole card, so hovering the card
+is hovering the overlay. That keeps the reveal a plain per-element class state rather than a
+Webflow Interaction or a `.card:hover .overlay` descendant selector, which Webflow cannot
+represent. `:focus-within` mirrors it for keyboard users.
+
+**Labels bind to `--color-bone`, not `--primary-text`** — a deliberate exception to the
+themed-property rule. The scrim is always dark, so a themed text colour would flip to Deep
+Forest on a light page and vanish into it. This is the fixed-surface case.
+
+Scrim is `color-mix(in srgb, var(--color-deep-forest) 80%, transparent)`. **No tint token
+exists**: the `-oNN` family this document describes was never actually defined in
+`styles.css`. Worth closing that gap in a `/styleguide` pass.
+
+Known gap: hover has no touch equivalent, so on a phone the labels never appear. The work grid
+that holds these may want them permanently visible below 767px.
+
 ### FAQ Accordion (`.accordion-component`, `.faq-list`)
 Flush accordion list, 800px centred, **CMS-backed** by the `FAQs` collection
 (`6aaef5db7b6168269348044d`): `Name` is the question, `Answer` is **Rich Text**, `Order` is a

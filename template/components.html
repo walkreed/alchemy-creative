@@ -513,6 +513,60 @@ Notes:
                         </div>
                     </section>
                 </section>
+
+                <!-- ===================== PROJECT THUMBNAIL ===================== -->
+                <section class="components__item">
+                    <div class="container">
+                        <h2>Project Thumbnail</h2>
+                        <pre class="components__props">Component: ProjectThumbnail
+Props:
+  - image (Image)
+  - client (Text)
+  - title (Text)
+  - link (Link)
+Variants:
+  - none — Figma's Default/Hover variants are one element with a hover
+    state here, because no markup changes between them
+Slots:
+  - none
+Notes:
+  - THE OVERLAY CARRIES THE HOVER, NOT THE CARD. It covers the whole card,
+    so hovering the card is hovering the overlay. That keeps the reveal a
+    plain per-element class state — no Webflow Interaction, and no banned
+    .card:hover .overlay descendant selector.
+  - Labels bind to --color-bone, NOT --primary-text. The scrim is always
+    dark; --primary-text would flip to Deep Forest on a light page and
+    disappear into it. Deliberate exception to the themed-property rule.
+  - Scrim is Deep Forest at 80% via color-mix. No tint token exists — the
+    design system documents an -oNN family it never actually defined.
+  - Source copy is sentence case; the uppercase is CSS, so the CMS keeps
+    readable values.
+  - :focus-within mirrors the hover so keyboard users reach it.
+  - Hover has no touch equivalent — on a phone the labels never show.
+    Flagged; the work grid may want them always visible below 767px.</pre>
+                    </div>
+
+                    <!--
+                      Project Thumbnail (Figma 423:1386)
+                      Base: .project-thumbnail
+                      Hover the card to reveal the overlay.
+                    -->
+                    <section class="section cc-light">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col col-lg-5 col-md-12">
+                                    <a class="project-thumbnail" href="#">
+                                        <div class="project-thumbnail_image media-placeholder"></div>
+                                        <div class="project-thumbnail_overlay">
+                                            <span class="project-thumbnail_client">Client Name</span>
+                                            <span class="project-thumbnail_title">Project Name</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
             </main>
 
             <footer class="footer">
