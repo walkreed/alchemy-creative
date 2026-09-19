@@ -20,4 +20,6 @@ site-scripts/.build-check/
 Thumbs.db
 *.log
 .webflow-transfer/
+# Scratch: screenshots and stylesheet backups. The derivation record
+# lives in FIGMA-EXTRACT.md, which IS tracked.
 .work/

@@ -243,7 +243,7 @@ of nodes' `fontSize` / `height` and confirm they match the spec you documented.
 
 ## Step 8 — Hand off
 
-Record in the project's `.work/figma-extract.md` (or equivalent): every paint style with hex,
+Record in the project's `FIGMA-EXTRACT.md` (or equivalent): every paint style with hex,
 every text style with full spec, every variable, the derived spacing scale **with its evidence**,
 the page-frame node IDs, and any font that must be activated or uploaded later.
 `/styleguide` reads this instead of re-querying Figma.

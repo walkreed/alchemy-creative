@@ -6,7 +6,7 @@ description: "Design system reference for the Alchemy Creative Webflow project. 
 # Alchemy Creative — Design System
 
 Source of truth: `template/styles.css` + `template/style-guide.html`.
-Derived from Figma `87WtDnZvViuoMrc0JNpxl6` (Design page); evidence in `.work/figma-extract.md`.
+Derived from Figma `87WtDnZvViuoMrc0JNpxl6` (Design page); evidence in `FIGMA-EXTRACT.md`.
 Tokens **mirror the MAST variable structure** of the Webflow site `6aad7d4121d8828938eb64fd`
 so transfer is a value-for-value mapping, not a reconciliation of two systems.
 

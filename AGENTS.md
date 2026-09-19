@@ -21,6 +21,11 @@ Project name: Alchemy Creative
 
 Full pipeline: **`PROCESS.md`** (repo root). Read it before starting a new stage.
 
+**`FIGMA-EXTRACT.md`** - the derivation record: every token with the evidence behind it, the
+measured spacing scale, the theme table, the Webflow variable mapping, and **the node ID of
+every page frame in the Figma file**. Read it before any Figma work; it saves re-deriving
+node IDs from scratch.
+
 Stage order: `/figma-styleguide` -> `/styleguide` -> `/component` -> `/page` -> `/webflow-transfer`
 
 Stage 0 (`/figma-styleguide`) is our addition to the upstream template. It builds a Style
@@ -486,6 +491,41 @@ Required sections:
 6. **Icons** — icon usage examples
 7. **Cards** — all card variants
 8. **Grid** — row/column layout examples at each breakpoint
+
+---
+
+## Section Architecture
+
+**Sections are components by default.** Almost every page section in this project should be
+built as a reusable component, not as page-scoped CSS — even where it currently appears on
+one page, and even though the Figma file only formally componentises Nav, Footer, CTA,
+Button, Project Thumbnail and Question.
+
+Why: the client owns the Webflow site. A component library means they can assemble new pages
+in the Designer from blocks that already match the brand, rather than copying markup and
+drifting. A section that exists only as page markup cannot be reused without detaching.
+
+Consequences for `/page`:
+
+- Do **not** ask per section whether to build a component or write inline CSS. Default to a
+  component. Only use page-scoped CSS when the block is genuinely singular *and* structurally
+  trivial (a one-off spacer, a page-specific utility wrapper).
+- Check the Components Index first and reuse. The Figma frame names are auto-numbered
+  (`Frame 22` appears on four pages at unrelated sizes), so **never treat a matching frame
+  name as evidence of reuse** — compare structure and dimensions.
+- Name by structure, never by page. `.work-grid`, not `.all-work-grid` — the same block is
+  reused on Category, and a page-scoped name would be wrong the moment it moved.
+
+Known repeats across the comps, confirmed by matching dimensions:
+
+| Block | Pages | Evidence |
+|---|---|---|
+| Work grid | All Work, Category | `Frame 11`, 2613 / 2811 tall |
+| Logo wall | Home, About Us | `Frame 25`, both exactly 907 tall |
+| Callout | Project ×2 | named `Callout`, 351 and 526 — one block, two variants |
+| Page header | every page | `Frame 10` / `Frame 28` at y=88, heights 219-1039 |
+
+Roughly 33 page sections exist across the nine pages, about 29 distinct after those repeats.
 
 ---
 
