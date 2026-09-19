@@ -10,9 +10,19 @@ a future session does not have to re-derive any of it.
 cannot see this site. Both have needed re-auth at least once — if a call returns
 "connector requires authentication", re-auth in claude.ai connector settings.
 
-**Status:** Color and Theme are **applied, renamed and verified** (2026-09-19).
-Typography, Layout and Components are still at MAST starter values.
-`Eyebrow/Font` was fixed manually by Walker — it now aliases Primary Font.
+**Status (2026-09-19):** Color, Theme, Typography, Layout and Components are all
+**applied and verified**. The only manual step was pasting the eight fluid font-size
+expressions into the Designer, which Walker has done — the API cannot write custom
+expressions, so the Min/Max number variables exist to drive them from here on.
+
+Type levels in use: H1-H6, Paragraph (Body), Paragraph LG (= our `.lede`), Paragraph SM
+(= Figma `P-Sm`), Eyebrow. **Paragraph XL was deleted** — no Figma equivalent and no
+reference anywhere in our build.
+
+**Open:** the Rich Text component (72 instances) still offers a `Paragraph XL` variant
+whose styles now reference deleted variables. `Inherit` is the selected variant, so
+nothing renders as XL today, but the option should be removed from the component so the
+client is not offered a broken choice.
 
 ---
 

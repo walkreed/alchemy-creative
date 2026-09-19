@@ -117,6 +117,10 @@ Tokens: `--h1-font-size`, `--h1-font-weight`, `--h1-line-height`, `--h1-letter-s
 `--h1-bottom-margin` … through H6, plus `--body-*`, `--body-sm-*`, `--lede-font-size`,
 `--eyebrow-*`.
 
+Webflow type levels map as: H1-H6 direct · `Paragraph (Body)` = `p` · `Paragraph LG` =
+`.lede` · `Paragraph SM` = Figma `P-Sm` · `Eyebrow`. **There is no Paragraph XL** — it had
+no Figma equivalent and was removed.
+
 Max values are the Figma desktop sizes. **Minimums were derived, not specified** — flag them
 if a designer reviews mobile.
 
