@@ -110,6 +110,33 @@ than judging from a downscaled screenshot.
 
 ---
 
+## Component slots are a Designer step
+
+The Webflow site is assembled from layout components — `Section`, `Grid Row`, `Grid Column`
+(19 / 42 / 84 instances) — each of which is a shell wrapped around a **Slot**. A page built
+the site's way is Section > Grid Row > Grid Column, with Theme, Top/Bottom Spacing, Column
+Size and Column Alignment driven by props rather than by classes.
+
+**The MCP cannot put anything into a slot.** Verified four ways on 2026-09-19:
+
+| Attempt | Result |
+|---|---|
+| `insert_component_instance` anchored on the instance | *"the Designer rejects inserts that use a component instance as the anchor"* |
+| `move_element` into the instance | *"Cannot append an element to a component instance"* |
+| `data_element_builder` with the slot id passed as `prop` | *"Text prop not found"* — `prop` is only for text props |
+| `query_elements` scoped to a **populated** slot on Home | `total_matches: 0` — slot children are not page elements |
+
+So the division of labour on any slotted layout is fixed: the MCP can create classes, variables,
+styles and component *definitions*, and can place *un-slotted* elements; a human assembles the
+Section/Row/Column shell in the Designer and drags the content blocks into the slots.
+
+**Plan for it rather than discovering it per page.** Build the content blocks as self-contained
+elements with their classes already attached — they drag into a slot in one gesture — and hand
+over a short list of which block goes in which slot with which variants. Do not silently ship a
+hand-built `.section > .container > .row > .col` stack as though it were equivalent: it renders
+the same but exposes none of the props, and it is missing the `.slot` wrapper divs and the
+Spacer-driven spacing the real components use.
+
 ## Restyle before you rebuild
 
 The original plan — author every component locally, then push the markup up — is **wrong for

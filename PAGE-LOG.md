@@ -112,6 +112,16 @@ static build stops matching the comp) or restyle `.input` in Webflow (the site s
 MAST). Until then the two are knowingly out of sync, which is the "two parallel families"
 situation `AGENTS.md` warns about.
 
+**Open — convert to the Layout components.** The section is currently a hand-built
+`.section > .container > .row > .col` stack. It renders correctly and every class matches what
+the components apply, but it is not assembled from `Section` / `Grid Row` / `Grid Column`, so
+none of the Theme, Top/Bottom Spacing, Column Size or Column Alignment props are available on
+this page. The MCP cannot populate a slot (see PROCESS.md), so the conversion is a Designer job:
+drop Section (Theme: Dark) > Grid Row (**Top Between** — it reproduces the comp's 100px gap with
+no offset class) > Grid Column **5/12** and **6/12**, then drag `.contact-intro` into the first
+slot and `.card.cc-light.cc-form` into the second and delete the leftover wrapper. Walker parked
+this on 2026-09-19 to come back to.
+
 **Open.** Budget bands await sign-off. The form's `action` is still `#` —
 in Webflow the native Form element handles submission, so this is only a
 placeholder for the static build.
