@@ -124,10 +124,14 @@ trade working native behaviour for custom code the client cannot touch.
 
 **So the rule is:**
 
-| Component | Approach |
+| Situation | Approach |
 |---|---|
-| MAST already provides it (Nav, Footer, CTA, Button, Card, Row, Column, Heading, Rich text, Image, Section, Accordion, Tabs) | **Restyle in place.** Query the component's structure, keep it, change only the properties that differ. |
+| MAST's structure is a superset you **want** (Nav: its dropdown, mobile menu button and skip link are better than ours) | **Restyle in place.** Keep the structure, change only the properties that differ. |
+| MAST's structure is a superset you **don't** (Footer: four link columns, a divider and a copyright row that this design has no use for) | **Restructure in place.** Keep the component and its classes, delete the parts the design does not use, rearrange the rest. |
 | MAST has no equivalent (most page sections) | Build it, following MAST's structure and naming conventions. |
+
+Read the component before deciding which of the three applies — the Nav and the Footer look
+like the same case from the outside and are not.
 
 And the direction of sync inverts for the first group: **the static build mirrors the Webflow
 component**, not the other way round. Our `template/` version exists so pages can be previewed
