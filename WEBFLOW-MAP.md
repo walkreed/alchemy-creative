@@ -10,8 +10,9 @@ a future session does not have to re-derive any of it.
 cannot see this site. Both have needed re-auth at least once — if a call returns
 "connector requires authentication", re-auth in claude.ai connector settings.
 
-**Status:** Color and Theme are **applied and verified** (2026-09-19). Typography,
-Layout and Components are still at MAST starter values.
+**Status:** Color and Theme are **applied, renamed and verified** (2026-09-19).
+Typography, Layout and Components are still at MAST starter values.
+`Eyebrow/Font` was fixed manually by Walker — it now aliases Primary Font.
 
 ---
 
@@ -42,28 +43,24 @@ Neither is caused by our build; both are starter defaults meeting this brand's f
 
 ## Color — `collection-b79ca2fc-c9a8-5c66-ffb3-278fd315150c`
 
-Names stay MAST-generic deliberately: the `o10`/`o20`/`o50` tints are `color-mix`
-expressions that reference the base variables **by cssName**, so renaming a base
-variable breaks them. Set values in place; rename later, together with the
-expressions, if at all.
+**Settled.** Exactly the seven paint styles from the Figma file, named as the brand
+names them. No tints — the four MAST tint variables were deleted because nothing in
+the Figma file or the style guide defines them, and nothing referenced them.
 
-| Variable | ID | Live | Target |
-|---|---|---|---|
-| Base/Brand Primary | `variable-ba25d908` | `#006acc` | **`#c6dc42`** Lichen |
-| Base/Brand Dark | `variable-30076ef4-ff89-29b2-6a0d-5816f8c84942` | `color-mix(primary, black 80%)` | **`#17251c`** Deep Forest (static — removes the derivation) |
-| Base/Brand Secondary | `variable-48b90597-b46c-7c22-b28e-0dd7a0847d66` | `#6b5d3f` | **`#667a3a`** Moss |
-| Base/Brand Neutral | `variable-89813b2f-b046-8d42-1c20-be3c83c4d3c8` | `#dfe6d1` | **`#d8d0b8`** Oat |
-| Base/White | `variable-0065a3d9` | `white` | **`#f0ebdd`** Bone |
-| Base/Brand Primary - o10 | `variable-a916a5ae-6a4a-f950-0bb1-5cd931bd284b` | color-mix | leave |
-| Base/Dark - o20 | `variable-dbdca7f3-d014-c246-2f9b-11a0f1765d45` | color-mix | leave |
-| Base/White - o10 | `variable-ac274924-c489-d25b-17c5-efb74892a7f9` | color-mix | leave |
-| Base/White - o50 | `variable-9f9683d3-0c26-a3e6-39b1-86185de4ce88` | color-mix | leave |
+| Variable | ID | Value |
+|---|---|---|
+| Base/Deep Forest | `variable-30076ef4-ff89-29b2-6a0d-5816f8c84942` | `#17251c` |
+| Base/Charred Bark | `variable-010b5a84-4295-742c-b92d-e4ee9faed9bb` | `#24231e` |
+| Base/Moss | `variable-48b90597-b46c-7c22-b28e-0dd7a0847d66` | `#667a3a` |
+| Base/Lichen | `variable-ba25d908` | `#c6dc42` |
+| Base/Clay | `variable-18a6580f-08ff-9e87-b620-156ab7b79734` | `#a56f52` |
+| Base/Oat | `variable-89813b2f-b046-8d42-1c20-be3c83c4d3c8` | `#d8d0b8` |
+| Base/Bone | `variable-0065a3d9` | `#f0ebdd` |
 
-**Created:** `Base/Charred Bark` `#24231e` = `variable-010b5a84-4295-742c-b92d-e4ee9faed9bb` ·
-`Base/Clay` `#a56f52` = `variable-18a6580f-08ff-9e87-b620-156ab7b79734`
-
-Note "Base/White" will hold Bone, which reads oddly. Accepted for now to avoid
-breaking the tint expressions.
+**Renaming is safe once cssName-dependent expressions are gone.** Webflow binds styles
+and Theme roles by variable **ID**, so every binding survived the renames. The only
+things that referenced cssNames were the `color-mix` tints, and deleting those first
+removed the hazard entirely. Order matters: delete expressions, then rename.
 
 ---
 

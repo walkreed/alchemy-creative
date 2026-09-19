@@ -73,11 +73,6 @@
     --color-oat: #d8d0b8;
     --color-bone: #f0ebdd;
 
-    /* Derived tints (MAST's o10/o20 pattern) */
-    --color-bone-o10: color-mix(in srgb, var(--color-bone) 10%, transparent);
-    --color-bone-o50: color-mix(in srgb, var(--color-bone) 50%, transparent);
-    --color-deep-forest-o20: color-mix(in srgb, var(--color-deep-forest) 20%, transparent);
-
     /* Neutral ramp — retuned to the brand, kept for inherited MAST rules */
     --color-neutral-100: #f0ebdd;
     --color-neutral-200: #d8d0b8;
