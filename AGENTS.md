@@ -563,9 +563,9 @@ The canonical list of every page built in this project. Each entry maps to a fil
 | Style Guide | `template/style-guide.html` | — (not yet in Webflow) | Foundations: color, themes, typography, spacing, radii |
 | Components | `template/components.html` | — (not yet in Webflow) | One live instance of every reusable component |
 | Contact | `template/contact.html` | `6aaea9f05359c79adc9be9fe` · `/contact` (draft) | Select options must be typed in the Designer — the API cannot write them. Budget bands need client sign-off. **Static build and Webflow now use different form patterns** — see PAGE-LOG. |
-| About | `template/about.html` | — (not yet in Webflow) | 13 image placeholders — no photography exists in the comp. Nav renders dark; the comp's About nav is light (the Webflow Nav has a Color Mode prop, the static nav does not). |
-| Journal | `template/journal.html` | — (not yet in Webflow) | Both lists are CMS-backed. **The `Blogs` collection must be renamed to Journal in the Designer** — the CMS API has no `update_collection` action. Card copy is the comp's lorem, left verbatim. |
-| FAQs | `template/faqs.html` | — (not yet in Webflow) | FAQ collection created and seeded with all 10 items as **drafts** — review and publish in the Designer. |
+| About | `template/about.html` | `6aaef915768369a8efd88200` · `/about` (draft) | 13 image placeholders — no photography exists in the comp. Nav renders dark; the comp's About nav is light (the Webflow Nav has a Color Mode prop, the static nav does not). |
+| Journal | `template/journal.html` | `6aaef9155f53c18f08b65c5e` · `/journal` (draft) | Both lists are CMS-backed. **The `Blogs` collection must be renamed to Journal in the Designer** — the CMS API has no `update_collection` action. Card copy is the comp's lorem, left verbatim. |
+| FAQs | `template/faqs.html` | `6aaef917b2288cb5ac2ca38f` · `/faqs` (draft) | FAQ collection created and seeded with all 10 items as **drafts** — review and publish in the Designer. |
 
 Add a row per page as it is built. Record the Webflow page id and path once the page has been transferred.
 
@@ -838,7 +838,9 @@ pages depend on the names is worse.
 - **Some style blocks reject ALL breakpoint/pseudo/remove writes** (`[Conflict] style block store`). Ship those rules in the head freeform CSS bucket under a clearly-marked comment and retry the Designer class in a later session (past conflicts have cleared).
 - **`set_visibility` cannot set CMS conditional visibility** on collection template pages ("Element is not inside a CMS context") — it is a manual Designer step; call it out in the report.
 - **Image elements expose no `loading` setting** via MCP — Load: Eager is a manual Designer step.
-- **Unrepresentable tags (`<details>`/`<summary>`, etc.) re-import as plain `<div>`s** — drive JS off attributes (`[open]`) rather than element APIs, and supply the lost native behaviours (collapse, indicator toggle) via the head freeform CSS.
+- **`<details>`/`<summary>` DO map natively** (verified 2026-09-19 on the FAQs transfer): they come back as DOM nodes with the right tags and with their classes attached. The older claim that they re-import as plain `<div>`s did not reproduce. Still drive JS off attributes (`[open]`) rather than element APIs.
+- **`<label>` is rejected outright** — *"Field Label can only be placed in a Form."* The builder maps it to a FormBlockLabel, so a `<label>` outside a Form fails the **whole** insert. MAST's Accordion uses one for its title; use a `<span>`.
+- **A `cc-*` combo the builder auto-creates has NO variable mode.** Inserting markup with `class="section cc-light"` minted `.section.cc-light` as an empty combo, so every light page rendered in Base (dark) — class attached, tree correct, nothing errored, page simply the wrong colour. After any builder pass that introduces a mode combo, read `get_style_variable_modes` back and apply the mode.
 - **A Collection List cannot hold loose elements between items** — put dividers/borders on the Collection Item class itself (`border-top` + `:first-child` reset).
 - **Multi-value fallback stacks don't survive** (`min-height: 100vh; min-height: 100svh` stores only one value); `object-position` keywords are stored as percentages (`50% 0%`).
 - **CMS dates render in Webflow's date formats** — custom patterns like "apr / 12 / 26" have no representation.

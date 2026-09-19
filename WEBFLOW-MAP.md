@@ -228,3 +228,67 @@ mode but nothing consumed it. This is the first class that does.
   Webflow's own internal input class, not ours; harmless.
 - Spacing: the Layout collection has grid gaps and em margins but **no rem `--space-*` scale**, so
   `.card.cc-form`'s 3rem/2rem padding is a literal. Create the scale if more pages need it.
+
+
+---
+
+## Full transfer (2026-09-19)
+
+**Pages created, all DRAFTS, none published.**
+
+| Page | ID | Slug |
+|---|---|---|
+| Contact | `6aaea9f05359c79adc9be9fe` | `/contact` |
+| About | `6aaef915768369a8efd88200` | `/about` |
+| Journal | `6aaef9155f53c18f08b65c5e` | `/journal` |
+| FAQs | `6aaef917b2288cb5ac2ca38f` | `/faqs` |
+
+### Variables added
+
+The rem spacing scale and the prose measure had never been transferred — the Layout
+collection only had em margins and grid gaps, so every new class would have carried literals.
+Created `Space/XS`-`8XL` (12) in Layout and `Measure` (45.625rem) in Components.
+Also `Primary/Text Muted` and `Input/Border Radius` -> 0 in the Contact pass.
+
+### Classes created (56)
+
+Interior Hero (4 + `cc-center`) · Logo Wall (5) · `section-label` · `media-placeholder` ·
+`marquee-item` + `cc-a/b/c` · `section.cc-surface` · `intro-split_body` · Process Steps (6) ·
+Image Row (2 + `cc-a/b/c`) · Team Grid (5) · Value List (4) · Journal list (11) · `faq-list` ·
+accordion `cc-flush` x3 · CTA band (4).
+
+Every colour, spacing and type property is **bound to a variable**. Four deliberate literals,
+all noted in the hand-off: `media-placeholder` background, `faq-list` max-width 50rem, the
+`marquee-item` / `image-row_item` pixel sizes, and `aspect-ratio` fractions.
+
+### Three things the transfer caught
+
+- **`.section.cc-light` was auto-created by the builder as an EMPTY combo with no variable
+  mode.** Every light page was therefore rendering in Base (dark). Fixed by applying the Light
+  mode and verified by reading the modes back. **This is the dangerous failure mode**: the
+  class attaches, the tree looks right, nothing errors, and the page is simply the wrong
+  colour. Check `get_style_variable_modes` on any `cc-*` the builder created.
+- **`<label>` is rejected outright**: *"Field Label can only be placed in a Form."* The builder
+  maps it to a FormBlockLabel. MAST's Accordion uses a `label` for its title; use a `span`.
+- **`<details>` / `<summary>` DO map natively** as DOM nodes with the right tags and with
+  classes attached — contradicting the older note in `AGENTS.md` that they re-import as plain
+  `div`s. Verified on the FAQs page.
+
+### CTA band
+
+`.cta` was never transferred and **no CTA component exists on the site** — only the Button
+component, which is easy to grab by mistake. Created the four `.cta*` classes and placed the
+band as a plain section on all three new pages.
+
+### Still manual in the Designer
+
+- **Publish nothing yet** — all four pages are drafts.
+- **Rename `Blogs` to Journal.** The CMS API has no `update_collection` action.
+- **Bind the Collection Lists.** The Journal and FAQ lists are static markup here; the
+  Collection List wrappers, filters and sorts are a Designer step. Bindings are documented in
+  the design-system skill.
+- **Publish the 10 FAQ items** (seeded as drafts).
+- **Type the two Contact select option lists** — a FormSelect exposes no choices key.
+- **Slotted layout.** Nothing uses the Section / Grid Row / Grid Column components, because
+  the MCP cannot populate a slot (see PROCESS.md).
+- **Images.** Every page uses `media-placeholder` divs; no photography exists in the comps.
