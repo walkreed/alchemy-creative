@@ -21,6 +21,10 @@ Project name: Alchemy Creative
 
 Full pipeline: **`PROCESS.md`** (repo root). Read it before starting a new stage.
 
+**`WEBFLOW-MAP.md`** - every Webflow variable ID with its live value and its target,
+plus the two font-weight bugs already live on the site. Read it before any transfer;
+it saves re-reading the whole variable system.
+
 **`FIGMA-EXTRACT.md`** - the derivation record: every token with the evidence behind it, the
 measured spacing scale, the theme table, the Webflow variable mapping, and **the node ID of
 every page frame in the Figma file**. Read it before any Figma work; it saves re-deriving
