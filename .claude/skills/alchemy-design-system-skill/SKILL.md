@@ -168,9 +168,9 @@ Section padding is a single fluid value — **there are no breakpoint overrides 
 
 ### Nav (`.nav`)
 Global navigation — logo, primary links, CTA button, and the "Our Work" dropdown panel.
-Page chrome, so unprefixed. Elements: `.nav_logo` / `.nav_logo-mark` (inline SVG, inherits
-`--primary-accent` via `currentColor`), `.nav_menu` / `.nav_item` / `.nav_link` / `.nav_caret`,
-`.nav_dropdown` / `.nav_dropdown-list` / `.nav_dropdown-item` / `.nav_dropdown-link`.
+Page chrome, so unprefixed. Elements: `.nav-logo_link` / `.nav-logo_mark` (inline SVG, inherits
+`--primary-accent` via `currentColor`), `.nav-menu` / `.nav-menu_item` / `.nav-link` / `.nav-dropdown_arrow`,
+`.nav-dropdown` / `.nav-dropdown_list` / `.nav-dropdown_item` / `.nav-dropdown_link`.
 Variants: `cc-current` on the active link. The CTA uses `.button.cc-sm`.
 Full-bleed: `.container.cc-nav` clears the base `max-width` and uses flat 32px side padding.
 Behaviour: `site-scripts/nav-dropdown.js`, driven by `[data-nav-toggle]` / `[data-nav-panel]`.
@@ -178,19 +178,19 @@ The `[hidden]` and caret-rotation rules live in the CUSTOM CODE CSS EMBED block.
 
 ### Footer (`.footer`)
 Global footer bar — primary links, centred brand mark, social icon links. Page chrome, so
-unprefixed. Elements: `.footer_menu` / `.footer_item` / `.footer_link`, `.footer_brand` /
-`.footer_brand-mark` (mark-only lockup, inherits `--primary-accent`), `.footer_social` /
-`.footer_social-item` / `.footer_social-link` / `.footer_social-icon` (inherit
+unprefixed. Elements: `.footer-menu_list` / `.footer-menu_item` / `.footer-link`, `.footer-logo_link` /
+`.footer-logo_mark` (mark-only lockup, inherits `--primary-accent`), `.footer-social_list` /
+`.footer-social_item` / `.footer-social_link` / `.footer-social_icon` (inherit
 `--primary-text`). No variants.
 Full-bleed: `.container.cc-footer` clears the base `max-width`, 100px min-height, 48px side
-padding. The mark centres because `.footer_menu` and `.footer_social` both `flex: 1` — no
+padding. The mark centres because `.footer-menu_list` and `.footer-social_list` both `flex: 1` — no
 absolute positioning. Stacks to a centred column below 767px.
 Assets: `logo-alchemy-mark.svg`, `icon-vimeo.svg`, `icon-instagram.svg`, `icon-linkedin.svg`.
 
 ### CTA band (`.cta`)
-Full-bleed invitation band that sits above the footer on every page. Elements: `.cta_inner`
-(centred column, 32px gap), `.cta_title` (h2-sized, sentence case, `text-wrap: balance`),
-`.cta_email` (dashed outline link, not a filled `.button`). No variants.
+Full-bleed invitation band that sits above the footer on every page. Elements: `.cta-inner`
+(centred column, 32px gap), `.cta-title` (h2-sized, sentence case, `text-wrap: balance`),
+`.cta-email` (dashed outline link, not a filled `.button`). No variants.
 The email deliberately uses the **card** radius (10px) and a 1px dashed `--primary-accent`
 border rather than the button radius and fill, so it reads quieter than a primary action.
 CSS cannot set dash length, so the comp's 8/8 pattern is approximated by `dashed` — which is
@@ -220,7 +220,7 @@ Transfer notes that bite:
 
 Base: `section` `container` `row` `col` `button` `card` `tag` `form` `input` `select`
 `checkbox` `radio` `toggle` `icon` `label` `eyebrow` `lede` `caption`
-Chrome: `page-wrapper` `main-wrapper` `nav_*` `footer_*` `skip-link`
+Chrome: `page-wrapper` `main-wrapper` `nav_*` `footer_*` `nav-skip-link`
 Combos: `cc-light` `cc-dark` `cc-wide` `cc-narrow` `cc-nav` `cc-footer` `cc-sm` `cc-lg`
 `cc-ghost` `cc-secondary` `cc-full` `cc-uppercase` `cc-featured` `cc-compact` `cc-accent`
 Row/col modifiers are standalone, **not** combos: `row-align-center` `row-justify-between`

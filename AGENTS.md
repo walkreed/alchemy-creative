@@ -143,7 +143,7 @@ grep -nE '^\s*\.[a-z][a-zA-Z0-9_-]*(\.[a-zA-Z0-9_-]+)*\s+(\.[a-zA-Z_-]|>|\[)|\s>
 - **Dash (`-`)** — separates words: `card-tag`, `hero-heading`, `u-bg-primary`
 - **Underscore (`_`)** — separates a *deeper* element scope from its component: `nav-logo_link`,
   `nav-dropdown_content`, `nav-menu_btn`. The component name itself stays dash-separated, so it
-  is `nav-link` and `nav-menu`, not `nav_link` / `nav_menu`. This matches the vocabulary already
+  is `nav-link` and `nav-menu`, not `nav-link` / `nav-menu`. This matches the vocabulary already
   in the Webflow site — **query `query_styles` before authoring any class name.**
 - **Breakpoint infix**: `-lg-` (desktop), `-md-` (tablet), `-sm-` (mobile landscape), `-xs-` (mobile portrait)
 - **Size postfix**: `-sm`, `-md`, `-lg`, `-xl`
@@ -464,7 +464,7 @@ if (!sliders.length) return;
 - Nav must include a skip link as the first child:
 
 ```html
-<a class="skip-link" href="#main">Skip to content</a>
+<a class="nav-skip-link" href="#main">Skip to content</a>
 ```
 
 - All images require `alt` text; purely decorative images use `alt=""`
@@ -581,8 +581,8 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 
 | Component | Base Class | Instances | Variants | Slots | Purpose |
 |-----------|------------|-----------|----------|-------|---------|
-| Nav | `.nav` | — (not yet transferred) | `cc-current` on `.nav_link` | `nav_menu`, `nav_dropdown` | Global navigation: logo, primary links, CTA, and the "Our Work" dropdown panel |
-| Footer | `.footer` | — (not yet transferred) | — | `footer_menu`, `footer_social` | Global footer bar: primary links, centred brand mark, social icons |
+| Nav | `.nav` | — (not yet transferred) | `cc-current` on `.nav-link` | `nav-menu`, `nav-dropdown` | Global navigation: logo, primary links, CTA, and the "Our Work" dropdown panel |
+| Footer | `.footer` | — (not yet transferred) | — | `footer-menu_list`, `footer-social_list` | Global footer bar: primary links, centred brand mark, social icons |
 | CTA band | `.cta` | — (not yet transferred) | — | — | Full-bleed invitation band above the footer: heading plus a dashed email link |
 
 
@@ -682,7 +682,7 @@ Hard-won constraints from importing `template/style-guide.html` into Webflow wit
 
 ### Descendant AND child-combinator selectors don't translate — sweep the whole stylesheet before building
 - The static source uses `.component.cc-variant .sub-element { ... }` (descendant) and `.component > .container { ... }` (direct child) selectors **extensively** — not just for nav/footer. A sitewide grep (`grep -nE '^\.[a-zA-Z_-]+(\.cc-[a-zA-Z0-9-]+)? *> *\.[a-zA-Z_-]+|^\.[a-zA-Z_-]+\.cc-[a-zA-Z-]+ \.[a-zA-Z_-]'`) found **74 such rules** across ~20 components. Most do not translate to Webflow's per-element combo-class model — but **they are not all the same problem.** Triage into four buckets (full table in the `/webflow-transfer` skill → Phase 0):
-  - **A. Mode cascade** (`.footer.cc-dark .footer_link`, `.cc-light .card`) → **don't flatten**; reproduce via **variable modes** (`set_style_variable_mode` on the `.cc-*` combo cascades to descendants, so long as the child consumes Mode variables). This is the majority of the 74.
+  - **A. Mode cascade** (`.footer.cc-dark .footer-link`, `.cc-light .card`) → **don't flatten**; reproduce via **variable modes** (`set_style_variable_mode` on the `.cc-*` combo cascades to descendants, so long as the child consumes Mode variables). This is the majority of the 74.
   - **B. Structural child/descendant** (`.brand-name-nav > .container`, `.brand-name-form-hero_form .brand-name-input`, `.brand-name-editorial-split.cc-stacked .*`) → **flatten** to a combo on the child (see Fix pattern below).
   - **C. `:nth-child` fans** (`.brand-name-unique_grid > .brand-name-glass-card:nth-child(1)`) → **flatten** to explicit `.cc-1/2/3` combos in the markup.
   - **D. Runtime/JS state** (`.brand-name-js …[data-*]`, `.brand-name-portfolio-item[open] > …`, `.is-armed`) → **don't classify**; ship as a Webflow **Custom Code CSS embed**.
@@ -716,7 +716,7 @@ or insert markup and `set_style` each element afterwards.
 The Webflow site already carries MAST's own class family, and its naming may not match what
 `AGENTS.md` prescribes. On this site the nav is `.nav-menu` / `.nav-link` / `.nav-logo_link`
 — hyphen after `nav`, underscore only for a deeper element scope — where our static build
-used `.nav_menu` / `.nav_link` / `.nav_logo`.
+used `.nav-menu` / `.nav-link` / `.nav-logo_link`.
 
 **Query `query_styles` for the component's vocabulary before authoring class names.** Two
 parallel families for the same component is the expensive mistake here, and renaming after

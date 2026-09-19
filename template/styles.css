@@ -359,7 +359,7 @@ code {
     display: block;
 }
 
-.skip-link {
+.nav-skip-link {
     position: absolute;
     top: auto;
     left: -10000px;
@@ -368,7 +368,7 @@ code {
     overflow: hidden;
 }
 
-.skip-link:focus {
+.nav-skip-link:focus {
     position: fixed;
     top: 1rem;
     left: 1rem;
@@ -801,20 +801,20 @@ blockquote {
     padding-right: var(--space-2xl);
 }
 
-.nav_logo {
+.nav-logo_link {
     display: block;
     flex: none;
     color: var(--primary-accent);
     text-decoration: none;
 }
 
-.nav_logo-mark {
+.nav-logo_mark {
     display: block;
     width: 14.25rem;
     height: auto;
 }
 
-.nav_menu {
+.nav-menu {
     display: flex;
     align-items: center;
     gap: var(--gap-main);
@@ -823,11 +823,11 @@ blockquote {
     list-style: none;
 }
 
-.nav_item {
+.nav-menu_item {
     display: block;
 }
 
-.nav_link {
+.nav-link {
     display: inline-flex;
     align-items: center;
     gap: var(--space-xs);
@@ -845,27 +845,27 @@ blockquote {
     transition: color var(--transition-base);
 }
 
-.nav_link:hover {
+.nav-link:hover {
     color: var(--primary-accent);
 }
 
-.nav_link:focus-visible {
+.nav-link:focus-visible {
     outline: 2px solid var(--primary-accent);
     outline-offset: 4px;
 }
 
-.nav_link.cc-current {
+.nav-link.cc-current {
     color: var(--primary-accent);
 }
 
-.nav_caret {
+.nav-dropdown_arrow {
     width: 0.6875rem;
     height: 0.375rem;
     flex: none;
     transition: transform var(--transition-base);
 }
 
-.nav_dropdown {
+.nav-dropdown {
     position: absolute;
     top: 100%;
     left: var(--space-2xl);
@@ -878,7 +878,7 @@ blockquote {
     padding-right: var(--space-lg);
 }
 
-.nav_dropdown-list {
+.nav-dropdown_list {
     display: flex;
     flex-direction: column;
     gap: var(--space-xl);
@@ -887,11 +887,11 @@ blockquote {
     list-style: none;
 }
 
-.nav_dropdown-item {
+.nav-dropdown_item {
     display: block;
 }
 
-.nav_dropdown-link {
+.nav-dropdown_link {
     font-family: var(--font-heading);
     font-size: var(--body-sm-font-size);
     font-weight: var(--font-weight-semibold);
@@ -901,11 +901,11 @@ blockquote {
     transition: color var(--transition-base);
 }
 
-.nav_dropdown-link:hover {
+.nav-dropdown_link:hover {
     color: var(--primary-accent);
 }
 
-.nav_dropdown-link:focus-visible {
+.nav-dropdown_link:focus-visible {
     outline: 2px solid var(--primary-accent);
     outline-offset: 4px;
 }
@@ -934,7 +934,7 @@ blockquote {
     padding-right: var(--space-4xl);
 }
 
-.footer_menu {
+.footer-menu_list {
     display: flex;
     flex: 1 1 0%;
     align-items: center;
@@ -945,11 +945,11 @@ blockquote {
     list-style: none;
 }
 
-.footer_item {
+.footer-menu_item {
     display: block;
 }
 
-.footer_link {
+.footer-link {
     font-family: var(--font-heading);
     font-size: var(--body-sm-font-size);
     font-weight: var(--font-weight-semibold);
@@ -959,31 +959,31 @@ blockquote {
     transition: color var(--transition-base);
 }
 
-.footer_link:hover {
+.footer-link:hover {
     color: var(--primary-accent);
 }
 
-.footer_link:focus-visible {
+.footer-link:focus-visible {
     outline: 2px solid var(--primary-accent);
     outline-offset: 4px;
 }
 
 /* The mark sits optically centred: the menu and social rails both flex, so
    the brand lands in the middle without absolute positioning. */
-.footer_brand {
+.footer-logo_link {
     display: block;
     flex: none;
     color: var(--primary-accent);
     text-decoration: none;
 }
 
-.footer_brand-mark {
+.footer-logo_mark {
     display: block;
     width: 3.5625rem;
     height: auto;
 }
 
-.footer_social {
+.footer-social_list {
     display: flex;
     flex: 1 1 0%;
     align-items: center;
@@ -994,26 +994,26 @@ blockquote {
     list-style: none;
 }
 
-.footer_social-item {
+.footer-social_item {
     display: block;
 }
 
-.footer_social-link {
+.footer-social_link {
     display: block;
     color: var(--primary-text);
     transition: color var(--transition-base);
 }
 
-.footer_social-link:hover {
+.footer-social_link:hover {
     color: var(--primary-accent);
 }
 
-.footer_social-link:focus-visible {
+.footer-social_link:focus-visible {
     outline: 2px solid var(--primary-accent);
     outline-offset: 4px;
 }
 
-.footer_social-icon {
+.footer-social_icon {
     display: block;
     width: 2rem;
     height: 2rem;
@@ -1027,14 +1027,14 @@ blockquote {
         padding-right: var(--space-2xl);
     }
 
-    .footer_menu {
+    .footer-menu_list {
         flex: none;
         flex-wrap: wrap;
         justify-content: center;
         gap: var(--space-xl);
     }
 
-    .footer_social {
+    .footer-social_list {
         flex: none;
         justify-content: center;
     }
@@ -2115,7 +2115,7 @@ blockquote {
     color: var(--primary-text);
 }
 
-.cta_inner {
+.cta-inner {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -2123,7 +2123,7 @@ blockquote {
     text-align: center;
 }
 
-.cta_title {
+.cta-title {
     margin-top: 0;
     margin-bottom: 0;
     color: var(--primary-text);
@@ -2134,7 +2134,7 @@ blockquote {
    .button so the CTA reads as an invitation, not a primary action. CSS
    cannot set the dash length, so the comp's 8/8 pattern is approximated
    by `dashed` — which is also all the Designer exposes. */
-.cta_email {
+.cta-email {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2169,12 +2169,12 @@ blockquote {
     transition: background-color var(--transition-base), color var(--transition-base);
 }
 
-.cta_email:hover {
+.cta-email:hover {
     background: var(--primary-accent);
     color: var(--primary-background);
 }
 
-.cta_email:focus-visible {
+.cta-email:focus-visible {
     outline: 2px solid var(--primary-accent);
     outline-offset: 4px;
 }
@@ -2255,6 +2255,6 @@ blockquote {
     display: none;
 }
 
-.nav_link[aria-expanded="true"] .nav_caret {
+.nav-link[aria-expanded="true"] .nav-dropdown_arrow {
     transform: rotate(180deg);
 }
