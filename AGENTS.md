@@ -581,8 +581,8 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 
 | Component | Base Class | Instances | Variants | Slots | Purpose |
 |-----------|------------|-----------|----------|-------|---------|
-| Nav | `.nav` | — (not yet transferred) | `cc-current` on `.nav-link` | `nav-menu`, `nav-dropdown` | Global navigation: logo, primary links, CTA, and the "Our Work" dropdown panel |
-| Footer | `.footer` | — (not yet transferred) | — | `footer-menu_list`, `footer-social_list` | Global footer bar: primary links, centred brand mark, social icons |
+| Nav | `.nav` | definition built · content matched 2026-09-19 (page instances not yet audited) | `cc-current` on `.nav-link` | `nav-menu`, `nav-dropdown` | Global navigation: logo, primary links, CTA, and the "Our Work" dropdown panel. **About and FAQs are plain `Link`s, not native `NavbarLink`s** — the builder cannot create that type; convert in the Designer if `w--current` is wanted. |
+| Footer | `.section.cc-footer` | definition built · content matched 2026-09-19 (page instances not yet audited) | — | `footer-menu_list`, `footer-social_list` | Global footer bar: primary links, centred brand mark, Vimeo/Instagram/LinkedIn icons |
 | CTA band | `.cta` | — (not yet transferred) | — | — | Full-bleed invitation band above the footer: heading plus a dashed email link |
 
 
@@ -710,6 +710,41 @@ silent failure:
 
 So the reliable sequence is: `create_style` for every class first, **then** insert markup,
 or insert markup and `set_style` each element afterwards.
+
+### Creating native Webflow element types (verified 2026-09-19)
+
+Some Webflow elements have no `type` in `data_element_builder`'s enum - `DropdownLink`,
+`NavbarLink`, `DropdownToggle`, `DropdownList`, `NavbarMenu` are all absent. Building one
+with the nearest generic type produces a plain `Link`, which **looks** right (the `.nav-link`
+class still attaches and styles it) but loses the native behaviour: `w--current` on the
+active page, and Webflow's close-on-click for dropdowns and the mobile menu.
+
+**`data_whtml_builder` recovers some of these via the `w-` marker class**, but only where the
+parent element *requires* that child type:
+
+| Markup inserted | Parent | Result |
+|---|---|---|
+| `<a class="… w-dropdown-link">` | `DropdownList` | **`DropdownLink`** - native |
+| `<a class="… w-nav-link">` | `Block` inside the menu | `Link` |
+| `<a class="… w-nav-link">` | `NavbarMenu` itself | `Link` - still not coerced |
+
+So: a DropdownList coerces its children because it accepts nothing else; a NavbarMenu accepts
+arbitrary children, so it does not. **Native NavbarLinks can only be added in the Designer**
+(duplicate an existing one). Plan for that rather than discovering it mid-build - and note the
+`w-` class does not survive as a Webflow style, it is only read as a build-time hint.
+
+### Two more verified quirks
+
+- **The WHTML builder splits label text on `&`** into three String nodes - `Product Films & Launches`
+  came back as `"Product Films "` + `"&"` + `" Launches"`. The rendered copy is correct and
+  verbatim, but the Designer shows three text nodes. Collapse with `set_text` on the *link*
+  afterwards, then re-query to confirm a single String.
+- **`set_text` is rejected on a `Block`** ("This element doesn't support text") even when the
+  Block's only child is a String - as in a `DropdownToggle`'s label wrapper. Target the
+  **String node itself**, which `set_text` accepts.
+- **`query_elements` with `element_id` silently returns `total_matches: 0`** for an element
+  inside a component definition when `scope_component_id` is omitted. It reads as "the element
+  does not exist"; it actually means "not found on the page tree". Always pass the scope.
 
 ### `update_style` merges, it does not replace
 
