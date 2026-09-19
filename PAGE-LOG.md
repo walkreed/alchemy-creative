@@ -93,6 +93,25 @@ nothing in the design implies them, they are conventional for commercial
 production, and they exist so the control is usable. Both are commented as
 needing client sign-off.
 
+**Webflow transfer (2026-09-19).** Page `6aaea9f05359c79adc9be9fe`, slug `/contact`, left as
+a **draft**. Everything mapped native and every class attached first time. Details and the two
+`.container` defects it uncovered are in `WEBFLOW-MAP.md`.
+
+**The static build and the Webflow page now use different form patterns, deliberately.** Asked
+how to reconcile, Walker chose MAST's defaults. So Webflow uses MAST's floating-label field —
+`.input-group` > `.input-label` + `.input`, with the input absolutely positioned and 2rem of top
+padding to clear the label — plus `.input.cc-select` and `.input-group.cc-textarea`. The static
+build still carries the comp's flat placeholder-only fields with `.select`, `.cc-flat` and
+`.form.cc-tight`.
+
+The consequence is worth being explicit about: **the live Contact form does not look like the
+Figma comp.** It has visible labels above each field and MAST's 1px Moss borders, where the comp
+has borderless Bone fields with placeholder text only. That was the choice, not an accident.
+Reconciling means picking one: either restyle `template/styles.css` to MAST's pattern (the
+static build stops matching the comp) or restyle `.input` in Webflow (the site stops matching
+MAST). Until then the two are knowingly out of sync, which is the "two parallel families"
+situation `AGENTS.md` warns about.
+
 **Open.** Budget bands await sign-off. The form's `action` is still `#` —
 in Webflow the native Form element handles submission, so this is only a
 placeholder for the static build.

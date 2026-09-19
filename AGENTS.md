@@ -562,7 +562,7 @@ The canonical list of every page built in this project. Each entry maps to a fil
 | Home | `template/index.html` | — (not yet in Webflow) | Baseline scaffold — replace the placeholder hero and feature cards with the client's content |
 | Style Guide | `template/style-guide.html` | — (not yet in Webflow) | Foundations: color, themes, typography, spacing, radii |
 | Components | `template/components.html` | — (not yet in Webflow) | One live instance of every reusable component |
-| Contact | `template/contact.html` | — (not yet in Webflow) | Budget bands are proposed, not designed — client sign-off needed. Form `action` is still `#`. |
+| Contact | `template/contact.html` | `6aaea9f05359c79adc9be9fe` · `/contact` (draft) | Select options must be typed in the Designer — the API cannot write them. Budget bands need client sign-off. **Static build and Webflow now use different form patterns** — see PAGE-LOG. |
 
 Add a row per page as it is built. Record the Webflow page id and path once the page has been transferred.
 

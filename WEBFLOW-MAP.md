@@ -175,3 +175,56 @@ literal `"IBM Plex Mono"` to an alias of Primary Font.
 6. Only then classes and components.
 
 Variable changes do not reach the published site until it is republished.
+
+
+---
+
+## Contact page transfer (2026-09-19)
+
+**Page** `6aaea9f05359c79adc9be9fe` · slug `/contact` · **still a draft, not published.**
+
+Structure matches Home: `.page-wrapper.u-minh-100vh` > Nav instance · Custom Code instance ·
+`main.page-main` > `section.section` · Footer instance. Every element came back native —
+FormWrapper / FormForm / FormTextInput x3 / FormSelect x2 / FormTextarea / FormButton — and
+every class attached on the first pass.
+
+### Two live defects found and fixed
+
+- **`.container` had `max-width` bound to `Container/Gutter` (6vw), not `Container / Max Width`.**
+  Nothing had caught it because Nav and Footer both use `.container.cc-nav` / `.cc-footer`,
+  which clear the base max-width — the Contact page is the first thing on the site to use a
+  bare `.container`. Now `max-width: calc(75rem + 12vw)` as a **var-free literal** (the style
+  API coerces `var()` inside `calc()` to a bare binding, so the literal is deliberate) with
+  `padding-left/right` bound to `Container/Gutter`. **If Container / Max Width or the gutter
+  ever changes, this literal must be updated by hand.**
+- **`.container` had no horizontal padding at all**, so content would have touched the viewport
+  edge on narrow screens. Restored.
+
+### Variables
+
+| Variable | ID | Change |
+|---|---|---|
+| Input/Border Radius | `variable-05dc4f3e-a996-3923-909d-b2ca561e705f` | 0.25rem -> **0rem** |
+| Primary/Text Muted | `variable-4765388e-ae0f-3d24-470a-d2bd973a732a` | **created** — Base = Oat, Light = Charred Bark |
+
+`Primary/Text Muted` was documented in the design system but had never been created; the Theme
+collection only had six roles. `Primary/Text Dim` is still missing — create it when something needs it.
+
+### Classes created
+
+`.card.cc-light` (Theme collection set to the **Light** mode, so every field inside inherits the
+flip) · `.card.cc-form` · `.button.cc-dark` · `.contact-intro` · `.contact-email` ·
+`.contact-note` · `.contact-note_icon` · `.contact-note_text` · `.contact-form_actions`.
+
+`.cc-light` did not exist anywhere on the site before this — the Theme collection had its Light
+mode but nothing consumed it. This is the first class that does.
+
+### Gotchas
+
+- **`<option>` lists do NOT transfer.** A FormSelect exposes only `domId`, `visibility`, `name`,
+  `required` and `attributes` — there is no settable choices/options key. Both selects are live
+  but empty; **the option lists must be typed in the Designer by hand.**
+- The builder warned `Class "._w-input" could not be created ... duplicate style names`. That is
+  Webflow's own internal input class, not ours; harmless.
+- Spacing: the Layout collection has grid gaps and em margins but **no rem `--space-*` scale**, so
+  `.card.cc-form`'s 3rem/2rem padding is a literal. Create the scale if more pages need it.
