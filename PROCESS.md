@@ -107,3 +107,66 @@ than judging from a downscaled screenshot.
 - **Browser** — keep a browser available so pages can be checked during `/page`.
 - **Models** — Opus/Fable on high for stages 0–3, where the foundation is set. Drop to Sonnet
   for incremental edits once the design system exists.
+
+---
+
+## Restyle before you rebuild
+
+The original plan — author every component locally, then push the markup up — is **wrong for
+any component MAST already provides**. Verified on the Nav, 2026-09-19.
+
+The Webflow Nav is better than the one we built. It uses Webflow's native Navbar elements
+(`NavbarWrapper`, `NavbarBrand`, `NavbarButton`, `NavbarMenu`, `NavbarLink`) plus real
+`DropdownWrapper`s, so it ships responsive menu behaviour, a mobile menu button, a skip link
+and a native dropdown that the client can edit in the Designer. Its CTA is a `ComponentInstance`
+of the shared Button with a full prop set. Replacing that with our div-and-JS version would
+trade working native behaviour for custom code the client cannot touch.
+
+**So the rule is:**
+
+| Component | Approach |
+|---|---|
+| MAST already provides it (Nav, Footer, CTA, Button, Card, Row, Column, Heading, Rich text, Image, Section, Accordion, Tabs) | **Restyle in place.** Query the component's structure, keep it, change only the properties that differ. |
+| MAST has no equivalent (most page sections) | Build it, following MAST's structure and naming conventions. |
+
+And the direction of sync inverts for the first group: **the static build mirrors the Webflow
+component**, not the other way round. Our `template/` version exists so pages can be previewed
+and reasoned about locally; Webflow holds the canonical structure.
+
+### Why variables-first matters more than it looks
+
+MAST's classes are already bound to the Theme roles. `.nav-dropdown_overlay` binds its
+background to `Primary/Background`, `.nav-menu_btn-bar` to `Primary/Text`, `.nav-logo_link` to
+`Primary/Accent`. Once the Theme collection held Alchemy's values, the nav inherited the whole
+palette **without a single colour being restyled**. Only geometry needed changing.
+
+Do the variables first and most of the "restyling" turns out to be already done.
+
+### Watch for shared-variable couplings
+
+`.nav-link` binds its padding to `Button/Vertical Padding` and `Button/Horizontal Padding`.
+Setting the button's padding to the measured 1em/2em therefore inflated the nav links too.
+MAST reuses component variables across unrelated components, so **after changing any
+Components-collection variable, check what else consumes it** rather than assuming the change
+is local.
+
+### What the WHTML builder actually does (markup-only insert)
+
+Better than the warnings suggest, with one silent failure:
+
+- Structure maps natively and exactly — `div`/`ul`/`li`/`a` become Block/List/ListItem/Link.
+- A `ul` produced exactly the authored `li` count. **No auto-spawned default ListItems.**
+- Combo chains survive: `class="container cc-nav"` → `styleNames: ["container","cc-nav"]`.
+- **It attaches only classes that already exist, and silently ignores the rest** while still
+  returning `success`. A nav insert left 11 of 16 elements with no class at all.
+
+So: `create_style` first, then insert — or insert, then `set_style` every element. And always
+re-query the tree and read `styleNames`; the return value will not tell you.
+
+### Check the site's class vocabulary before naming anything
+
+The site's nav family is `.nav-menu` / `.nav-link` / `.nav-logo_link` — hyphen after the
+component name, underscore only for a deeper element scope. Our build had used `.nav_menu` /
+`.nav_link` / `.nav_logo`. **The site's convention wins**; query `query_styles` for a
+component's vocabulary before authoring class names, because two parallel families for one
+component is expensive to unpick later.

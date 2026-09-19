@@ -141,7 +141,10 @@ grep -nE '^\s*\.[a-z][a-zA-Z0-9_-]*(\.[a-zA-Z0-9_-]+)*\s+(\.[a-zA-Z_-]|>|\[)|\s>
 
 - **Lowercase only** — consistency between Designer and live HTML
 - **Dash (`-`)** — separates words: `card-tag`, `hero-heading`, `u-bg-primary`
-- **Underscore (`_`)** — separates component scope from element: `blog_card-title`, `nav_dropdown-link`
+- **Underscore (`_`)** — separates a *deeper* element scope from its component: `nav-logo_link`,
+  `nav-dropdown_content`, `nav-menu_btn`. The component name itself stays dash-separated, so it
+  is `nav-link` and `nav-menu`, not `nav_link` / `nav_menu`. This matches the vocabulary already
+  in the Webflow site — **query `query_styles` before authoring any class name.**
 - **Breakpoint infix**: `-lg-` (desktop), `-md-` (tablet), `-sm-` (mobile landscape), `-xs-` (mobile portrait)
 - **Size postfix**: `-sm`, `-md`, `-lg`, `-xl`
 
