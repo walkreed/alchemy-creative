@@ -2764,6 +2764,86 @@ blockquote {
 }
 
 /* ============================================================
+   FAQ accordion
+
+   Mirrors MAST's Accordion component 1:1 on class NAMES —
+   .accordion-component (a real <details>) > .accordion-trigger
+   (<summary>) > .accordion-title + .accordion-icon, then
+   .accordion-content > .accordion-content_spacer — so the transfer is a
+   rename-free swap.
+
+   The STYLING deliberately differs from MAST's. MAST draws a full 1px
+   box with the card radius and pads the trigger on all four sides; the
+   comp is a flush list with a bottom rule only and no horizontal
+   padding. Our Figma file is the source of truth, so these base classes
+   carry the comp's look. **On transfer that means combos** — MAST's
+   accordion has 9 instances elsewhere on the site, so restyling its
+   classes globally would change all of them.
+
+   The open/closed state rules ([open], ::marker) live in the CUSTOM CODE
+   CSS EMBED block at the foot of this file: they are runtime state, not
+   Designer classes.
+   ============================================================ */
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.accordion-component {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    padding-top: var(--space-4xl);
+    padding-bottom: var(--space-4xl);
+    border-bottom: 1px solid var(--primary-border);
+    text-align: left;
+}
+
+.accordion-trigger {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4xl);
+    cursor: pointer;
+    list-style: none;
+}
+
+.accordion-title {
+    margin: 0;
+    padding-right: 0.5em;
+    pointer-events: none;
+    font-family: var(--font-heading);
+    font-size: var(--h5-font-size);
+    font-weight: var(--h5-font-weight);
+    line-height: var(--h5-line-height);
+}
+
+.accordion-icon {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
+    width: 2em;
+    height: 2em;
+    color: var(--primary-accent);
+    transition: transform var(--transition-base);
+}
+
+.accordion-content {
+    overflow: hidden;
+    width: 100%;
+}
+
+.accordion-content_spacer {
+    padding-bottom: 0;
+}
+
+/* ============================================================
    Page: contact.html
 
    Local to the Contact page. The form card itself is built from
@@ -2883,4 +2963,17 @@ blockquote {
 
 .nav-link[aria-expanded="true"] .nav-dropdown_arrow {
     transform: rotate(180deg);
+}
+
+/* Accordion open/closed state. Runtime state, not a Designer class —
+   in Webflow these ship in the Custom Code embed (the Accordion toggle
+   on the Custom Code component). The plus becomes a minus by rotating
+   45 degrees, which is why the icon is a plus rather than a chevron. */
+
+.accordion-trigger::-webkit-details-marker {
+    display: none;
+}
+
+.accordion-component[open] .accordion-icon {
+    transform: rotate(45deg);
 }

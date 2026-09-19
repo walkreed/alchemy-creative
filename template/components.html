@@ -443,6 +443,76 @@ Notes:
                         </div>
                     </section>
                 </section>
+
+                <!-- ===================== FAQ ACCORDION ===================== -->
+                <section class="components__item">
+                    <div class="container">
+                        <h2>FAQ Accordion</h2>
+                        <pre class="components__props">Component: FaqAccordion
+Mirrors MAST's "Accordion" component on class names (rename-free transfer).
+Structure (real &lt;details&gt; / &lt;summary&gt;):
+  .accordion-component &gt; .accordion-trigger &gt; .accordion-title + .accordion-icon
+                       &gt; .accordion-content &gt; .accordion-content_spacer &gt; answer
+Collection List: FAQs (6aaef5db7b6168269348044d), sort Order ascending
+  .accordion-title -&gt; Name (the question)
+  .rich-text       -&gt; Answer (Rich Text)
+Notes:
+  - STYLING differs from MAST on purpose. MAST draws a full 1px box with the
+    card radius and pads the trigger on all sides; the comp is flush — bottom
+    rule only, no radius, no horizontal padding. On transfer these become
+    COMBOS, not a restyle: MAST's Accordion has 9 instances elsewhere.
+  - The icon is a plus, not a chevron, because [open] rotates it 45deg into a
+    cross. That rule and the ::-webkit-details-marker reset are runtime state,
+    so they live in the CUSTOM CODE CSS EMBED block at the foot of styles.css.
+  - Answer must stay Rich Text: one answer contains a bulleted list.
+  - Closed by default on the live page; the comp shows them open for review.</pre>
+                    </div>
+
+                    <section class="section cc-light">
+                        <div class="container">
+                            <div class="faq-list">
+                                <details class="accordion-component">
+                                    <summary class="accordion-trigger">
+                                        <label class="accordion-title">Do you partner with agencies?</label>
+                                        <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M17 17L27.3137 17L27.3137 15H17V4.68631L15 4.68631L15 15H4.68629L4.68629 17L15 17V27.3137H17V17Z" fill="currentColor"/>
+                                        </svg>
+                                    </summary>
+                                    <div class="accordion-content" data-accordion="content">
+                                        <div class="accordion-content_spacer">
+                                            <div class="rich-text-component">
+                                                <div class="rich-text">
+                                                    <p>Absolutely. While we often work directly with brands, we love collaborating with agencies and other creative teams. We can partner on creative development from the start, which is our favorite, or come in specifically for production, post-production, or both.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </details>
+                                <details class="accordion-component" open>
+                                    <summary class="accordion-trigger">
+                                        <label class="accordion-title">Open state, with a rich-text answer</label>
+                                        <svg class="accordion-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M17 17L27.3137 17L27.3137 15H17V4.68631L15 4.68631L15 15H4.68629L4.68629 17L15 17V27.3137H17V17Z" fill="currentColor"/>
+                                        </svg>
+                                    </summary>
+                                    <div class="accordion-content" data-accordion="content">
+                                        <div class="accordion-content_spacer">
+                                            <div class="rich-text-component">
+                                                <div class="rich-text">
+                                                    <p>The plus rotates 45 degrees into a cross when open.</p>
+                                                    <ul>
+                                                        <li>Answers support lists</li>
+                                                        <li>which is why the field is Rich Text</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                    </section>
+                </section>
             </main>
 
             <footer class="footer">

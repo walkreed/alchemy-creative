@@ -43,6 +43,47 @@ equivalent.
 
 ---
 
+## FAQs — `template/faqs.html`
+
+Built 2026-09-19 from Figma **`424:1649`**. The node-id in the request (`243:1746`) points at a
+frame named **"Article"** — the post-detail template, with no FAQ content. `424:1649` is the
+one named "FAQs". Flagged rather than guessed; Walker confirmed.
+
+**MAST already had the component.** `Accordion` (Interactive, 9 instances) is a real
+`<details>` / `<summary>` with a plus icon — exactly the comp — and exposes `Text` for the
+question, a `Slot` for the answer, `Open on Live Page?` defaulting to false, plus `Group Name`
+and `Role: listitem` for screen readers. So the comp showing every row expanded is the Designer
+state, not the live one.
+
+**Class names mirror MAST; the styling does not.** MAST draws a full 1px box with the card
+radius and pads the trigger on all four sides. The comp is flush: bottom rule only, no radius,
+no horizontal padding, list 800px centred (measured 321->1105 in a 1440 frame; the build renders
+exactly 800). Our Figma file is the source of truth, so the base classes carry the comp's look —
+but **on transfer these must become combos, not a restyle**, because MAST's Accordion has 9
+instances elsewhere that would all change.
+
+**CMS.** No FAQ collection existed. Created `FAQs` (`6aaef5db7b6168269348044d`) with `Name`
+(the question), **`Answer` as Rich Text** — one answer contains a bulleted list, so PlainText
+would have destroyed it — and `Order` (Number) for manual sorting. Seeded with all ten real
+FAQs **as drafts**.
+
+**The copy is real, and it is verbatim.** Unlike Journal's lorem, these are the client's own
+answers. The Figma bridge started failing on `.characters` mid-extraction (the ~19.4KB preamble
+again), so the questions and answers came out in small batched calls once it recovered, and the
+page heading was cross-checked against the API's character count (28, exact). Source quirks are
+preserved deliberately and should **not** be "fixed" without asking: `India,and` (missing
+space), `scope.12 weeks + ` (missing space, trailing space), trailing spaces on several answers,
+and a curly apostrophe in `you’ll` where the rest use straight ones.
+
+**Open.**
+- The ten CMS items are **drafts** — review and publish in the Designer.
+- Figma's rule stroke reads `#17251c` (Deep Forest); the build uses `--primary-border` (Moss),
+  which matches the pale rule the comp actually renders. Worth a designer glance.
+- The comp's icon sits in a filled green rounded square; MAST's is a bare plus glyph. The build
+  follows MAST. Flagged rather than reinvented.
+
+---
+
 ## Journal — `template/journal.html`
 
 Built 2026-09-19 from Figma `243:1682` (1440 x 2670). Header reuses Interior Hero (H1 only —

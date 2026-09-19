@@ -263,6 +263,29 @@ render — a third will not appear.**
 also how a Collection List wrapper behaves anyway. Measured against the comp: 393px columns,
 10px gutter, 64px row gap, featured media exactly 568x370.
 
+### FAQ Accordion (`.accordion-component`, `.faq-list`)
+Flush accordion list, 800px centred, **CMS-backed** by the `FAQs` collection
+(`6aaef5db7b6168269348044d`): `Name` is the question, `Answer` is **Rich Text**, `Order` is a
+number for manual sorting. The list is a Collection List sorted by Order ascending.
+
+**Mirrors MAST's Accordion component on class names** so the transfer is a rename-free swap:
+`.accordion-component` (a real `<details>`) > `.accordion-trigger` (`<summary>`) >
+`.accordion-title` + `.accordion-icon`, then `.accordion-content` >
+`.accordion-content_spacer` > the answer.
+
+**The styling deliberately differs from MAST's.** MAST draws a full 1px box with the card
+radius and pads the trigger on all four sides; the comp is flush — a bottom rule only, no
+radius, no horizontal padding. Our Figma file is the source of truth, so the base classes here
+carry the comp's look. **On transfer that means combos, not a restyle**: MAST's Accordion has
+9 instances elsewhere on the site and restyling its classes globally would change all of them.
+
+The icon is a **plus** rather than a chevron because the open state rotates it 45 degrees into
+a cross. That rule and the `::-webkit-details-marker` reset are runtime state, so they live in
+the CUSTOM CODE CSS EMBED block — in Webflow they ship in the Custom Code embed (the Accordion
+toggle on the Custom Code component).
+
+**Answer must stay Rich Text.** One answer contains a bulleted list; PlainText would lose it.
+
 ### Logo Wall (`.logo-wall`)
 Client logo grid — a heading plus a 4-up grid of marks (2-up below 767px). Elements:
 `.logo-wall_title` (H4-sized, uppercase, `--primary-accent`), `.logo-wall_grid`,
