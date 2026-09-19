@@ -703,6 +703,21 @@ Hard-won constraints from importing `template/style-guide.html` into Webflow wit
   - Font-family variables hold a single family name (no fallback stack) — set them to the exact uploaded family name.
   - Generate the (often 200+) bind operations with a script and batch them through `update_style`; do it on a clean stylesheet to avoid duplicate-name ambiguity.
 
+### The variable API cannot write custom expressions
+
+- **`update_size_variable` rejects `custom_value`** with a bare "An internal error occurred".
+  It can *read* a stored expression (they come back as `{type:"custom", value:"clamp(...)"}`)
+  but cannot write one. Verified twice: a clamp referencing `var(--_layout---fluid--*)` and a
+  clamp with only literal numbers both failed, while `static_value` writes in the same batch
+  succeeded. So it is `custom_value` itself, not the `var()` references.
+- **Consequence for fluid values.** A value whose clamp is built from *number* variables can
+  be changed by writing those numbers — this is how `Section/Padding` works, and why setting
+  `Section/Padding Max (rem)` succeeded. A value with its numbers baked into the expression
+  (every Typography font size) has no number variable to write, so it can only be changed in
+  the Designer by hand.
+- Before assuming a fluid value is unreachable, check whether the collection exposes Min/Max
+  number variables for it. Prefer that route; fall back to a hand-off list of exact values.
+
 ### Variable-mode writes
 
 - **`mode_id: "base"` is rejected** by `update_color_variable` with a bare "An internal
