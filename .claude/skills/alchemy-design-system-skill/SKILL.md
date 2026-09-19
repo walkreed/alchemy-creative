@@ -82,12 +82,16 @@ a light region.
 | `--primary-text-dim` | Moss | Moss |
 | `--primary-border` | Moss | Moss |
 | `--primary-accent` | Lichen | Moss |
+| `--primary-button-text` | Deep Forest | Bone |
 
 MAST ships four roles (Background, Text, Border, Accent); Surface, Text Muted and Text Dim
 are our extensions — expected, since the template is a base each build extends.
 
-**Buttons need no color roles.** Fill is `--primary-accent`, label is `--primary-background`,
-and that resolves correctly in both modes. Never add a button color variable.
+**Button label has its own role.** Fill is `--primary-accent`, label is
+`--primary-button-text`. An earlier version resolved the label to `--primary-background` on
+the reasoning that the two always coincide — they do today, but that couples two unrelated
+things, and in Webflow the button picked up the theme's main text colour instead. An
+explicit role is less clever and more correct.
 
 **Rule: any themed property must consume a `--primary-*` role.** Bind a brand color directly
 and it will not flip — the most common way a theme silently breaks on transfer.

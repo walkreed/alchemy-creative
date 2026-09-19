@@ -21,6 +21,10 @@ Project name: Alchemy Creative
 
 Full pipeline: **`PROCESS.md`** (repo root). Read it before starting a new stage.
 
+**`TYPE-SCALE-EXPRESSIONS.md`** - the eight fluid font-size expressions to paste into the
+Designer once. The variable API cannot write custom expressions, so this is the only manual
+step in the transfer; after it, the Min/Max numbers drive the scale through the API.
+
 **`WEBFLOW-MAP.md`** - every Webflow variable ID with its live value and its target,
 plus the two font-weight bugs already live on the site. Read it before any transfer;
 it saves re-reading the whole variable system.

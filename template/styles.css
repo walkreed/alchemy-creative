@@ -102,6 +102,7 @@
     --primary-text-dim: var(--color-moss);
     --primary-border: var(--color-moss);
     --primary-accent: var(--color-lichen);
+    --primary-button-text: var(--color-deep-forest);
 
     /* ===== LAYOUT ===== */
     --grid-columns: 12;
@@ -396,6 +397,7 @@ code {
     --primary-text-dim: var(--color-moss);
     --primary-border: var(--color-moss);
     --primary-accent: var(--color-lichen);
+    --primary-button-text: var(--color-deep-forest);
 
     background: var(--primary-background);
     color: var(--primary-text);
@@ -411,6 +413,7 @@ code {
     --primary-text-dim: var(--color-moss);
     --primary-border: var(--color-moss);
     --primary-accent: var(--color-moss);
+    --primary-button-text: var(--color-bone);
 
     background: var(--primary-background);
     color: var(--primary-text);
@@ -1050,7 +1053,7 @@ blockquote {
     border: 1px solid transparent;
     border-radius: var(--button-border-radius);
     background: var(--primary-accent);
-    color: var(--primary-background);
+    color: var(--primary-button-text);
     font-family: var(--font-heading);
     font-size: var(--button-font-size);
     font-weight: var(--button-font-weight);
