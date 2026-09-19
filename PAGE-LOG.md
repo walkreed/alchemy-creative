@@ -43,6 +43,46 @@ equivalent.
 
 ---
 
+## Journal — `template/journal.html`
+
+Built 2026-09-19 from Figma `243:1682` (1440 x 2670). Header reuses Interior Hero (H1 only —
+no eyebrow, no copy, no accent words); the CTA band and chrome are existing components. The
+two lists are new and both CMS-backed.
+
+**The CMS was already there.** The `Blogs` collection carries every field these lists need —
+`featured` (Switch), `date`, `image`, `summary`, `body`, `name`, `slug`. Nothing needed
+creating. Note the brief said posts "tagged featured"; it is actually a **Switch**, so the
+filter is `Featured? is on` / `is off` rather than a tag match.
+
+**Alternation was the real design problem.** The two featured rows mirror each other —
+text/image, then image/text. A Collection List renders every item from one template, so
+per-item alternation needs `:nth-child`, which Webflow cannot represent and `AGENTS.md` bans.
+Walker chose two Collection Lists (both `Featured? is on`, Date desc, limit 1, offsets 0 and
+1), and that turns out to need **no CSS at all**: list B's template simply puts the media
+before the body. No variant, no custom-code embed, nothing outside the Designer. Verified in
+the browser — the two cards' child order reads `[body, media]` then `[media, body]`.
+
+**Trade-off, stated plainly: exactly two featured posts render.** A third flagged post will
+not appear anywhere on the page.
+
+**The grid is a CSS grid, not `.row` / `.col`.** The comp's 3-up gutter is 10px (`--gap-sm`);
+the grid system gives 40px and `.row-gap-sm` only sets the *row* gap. A grid is also how a
+Collection List wrapper actually behaves. Measured in the browser against the comp: 393px
+columns, 10px gutter, 64px row gap, and featured media at exactly 568x370 — the container fix
+from the Contact transfer is what makes those land on the nose.
+
+**Open.**
+- **Rename `Blogs` to Journal in the Designer.** The CMS API has no `update_collection`
+  action, so this cannot be done from here. Until it is, the collection and its `/blog/<slug>`
+  URLs read Blogs while the whole site reads Journal.
+- Card copy is the comp's lorem, left verbatim rather than invented — real content comes from
+  the collection. Every card title in the comp is the same 48-character lorem string.
+- 8 image placeholders (`#d9d9d9` in the comp).
+- Frame `243:1692` (568x8, zero children) sits above each featured title — an empty slot,
+  probably an unfilled date or category row. Left out.
+
+---
+
 ## About — `template/about.html`
 
 Built 2026-09-19 from Figma `243:1556` (1440 x 7617). Eleven sections; three reuse existing

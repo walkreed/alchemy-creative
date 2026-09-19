@@ -564,6 +564,7 @@ The canonical list of every page built in this project. Each entry maps to a fil
 | Components | `template/components.html` | — (not yet in Webflow) | One live instance of every reusable component |
 | Contact | `template/contact.html` | `6aaea9f05359c79adc9be9fe` · `/contact` (draft) | Select options must be typed in the Designer — the API cannot write them. Budget bands need client sign-off. **Static build and Webflow now use different form patterns** — see PAGE-LOG. |
 | About | `template/about.html` | — (not yet in Webflow) | 13 image placeholders — no photography exists in the comp. Nav renders dark; the comp's About nav is light (the Webflow Nav has a Color Mode prop, the static nav does not). |
+| Journal | `template/journal.html` | — (not yet in Webflow) | Both lists are CMS-backed. **The `Blogs` collection must be renamed to Journal in the Designer** — the CMS API has no `update_collection` action. Card copy is the comp's lorem, left verbatim. |
 
 Add a row per page as it is built. Record the Webflow page id and path once the page has been transferred.
 
@@ -595,6 +596,8 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 | Image Row | `.image-row` | — (not yet transferred) | `cc-a`/`cc-b`/`cc-c` on `.image-row_item` | — | Static 3-up image row at mixed sizes; stacks below 767px. |
 | Team Grid | `.team-grid` | — (not yet transferred) | — | — | Labelled split: 2-col grid of `.team-member` (portrait, name, role). Sits on `.section.cc-surface`. |
 | Value List | `.value-list` | — (not yet transferred) | — | — | Labelled split: stacked `.value-item` (`_title`, `_body`). |
+| Featured Post | `.featured-post` | — (not yet transferred) | — | — | Wide journal card: text column + media at 568/370. **CMS-backed.** Alternation is DOM order across two Collection Lists, not a variant — see PAGE-LOG. |
+| Post Grid | `.post-grid` / `.post-card` | — (not yet transferred) | — | — | 3-up journal card grid at a 10px gutter (`--gap-sm`), 2-up at 991, 1-up at 767. **CMS-backed.** |
 
 
 ### Class patterns & global behaviours (not Webflow components)

@@ -240,6 +240,29 @@ Stand-in for photography that does not exist yet — a `color-mix` tint of `--pr
 it reads correctly on both the background and the surface tone without a variant. Every
 instance carries `data-figma-node` pointing at the frame the real asset belongs to.
 
+### Featured Post (`.featured-post`) · Post Grid (`.post-grid` / `.post-card`)
+The two journal lists, both **CMS-backed** by the `Blogs` collection (`6aad7d41...64ef`), which
+already carries every field they need: `featured` (Switch), `date` (DateTime), `image`,
+`summary`, `body`, `name`, `slug`.
+
+| List | Filter | Sort | Limit |
+|---|---|---|---|
+| Featured A | `Featured?` is on | Date desc | 1 |
+| Featured B | `Featured?` is on | Date desc | 1, **offset 1** |
+| Post grid | `Featured?` is off | Date desc | — |
+
+**The featured pair alternates, and that alternation is DOM order — not a variant.** A
+Collection List renders every item from one template, so per-item alternation would need
+`:nth-child`, which Webflow cannot represent and which we ban. Two lists sidestep it entirely:
+list B's template simply puts `.featured-post_media` before `.featured-post_body`. No CSS, no
+custom-code embed, nothing outside the Designer. **Trade-off: exactly two featured posts
+render — a third will not appear.**
+
+`.post-grid` is a CSS grid rather than `.row` / `.col` because the comp's gutter is 10px
+(`--gap-sm`) where the grid gives 40px, and `.row-gap-sm` only sets the *row* gap. A grid is
+also how a Collection List wrapper behaves anyway. Measured against the comp: 393px columns,
+10px gutter, 64px row gap, featured media exactly 568x370.
+
 ### Logo Wall (`.logo-wall`)
 Client logo grid — a heading plus a 4-up grid of marks (2-up below 767px). Elements:
 `.logo-wall_title` (H4-sized, uppercase, `--primary-accent`), `.logo-wall_grid`,

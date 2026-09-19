@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="theme-color" content="#f0ebdd">
+        <title>Journal — Alchemy Creative</title>
+        <meta name="description" content="Notes from the studio — what we are making, how we make it, and what we are learning.">
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <!--
+            Journal index. Source: Figma 243:1682.
+
+            Both lists are CMS-backed (Blogs collection, to be renamed
+            Journal). Card copy below is the comp's lorem, left verbatim —
+            real content comes from the collection, so nothing here is
+            authored copy.
+        -->
+        <div class="page-wrapper">
+            <nav class="nav">
+                <a class="nav-skip-link" href="#main">Skip to content</a>
+                <div class="container cc-nav">
+                    <a class="nav-logo_link" href="index.html" aria-label="Alchemy Creative — home">
+                        <svg class="nav-logo_mark" viewBox="0 0 228 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><title id="alchemy-logo-title">Alchemy</title> <g clip-path="url(#alchemy-logo-clip)"> <path d="M71.2231 6.63611H76.2557L86.8858 31.5769H81.1833L78.9152 26.0247H68.4263L66.1582 31.5769H60.5969L71.2271 6.63611H71.2231ZM76.966 21.2138L73.6687 13.1836L70.3715 21.2138H76.9619H76.966Z" fill="currentColor"/> <path d="M88.585 6.8134H94.0413V26.625H106.407V31.5769H88.585V6.8134Z" fill="currentColor"/> <path d="M105.874 19.2677V19.1992C105.874 12.1602 111.189 6.39436 118.809 6.39436C123.486 6.39436 126.283 7.94964 128.587 10.2141L125.117 14.211C123.204 12.4785 121.254 11.4188 118.772 11.4188C114.591 11.4188 111.581 14.8839 111.581 19.1307V19.2032C111.581 23.446 114.523 26.9836 118.772 26.9836C121.606 26.9836 123.345 25.8514 125.29 24.0826L128.761 27.584C126.21 30.3077 123.373 32.004 118.591 32.004C111.29 32.004 105.87 26.3793 105.87 19.2677H105.874Z" fill="currentColor"/> <path d="M130.993 6.8134H136.449V16.6124H146.51V6.8134H151.966V31.5769H146.51V21.6369H136.449V31.5769H130.993V6.8134Z" fill="currentColor"/> <path d="M155.796 6.8134H174.502V11.6605H161.216V16.685H172.908V21.5321H161.216V26.7338H174.68V31.581H155.796V6.8134Z" fill="currentColor"/> <path d="M177.408 6.8134H183.288L189.806 17.2853L196.323 6.8134H202.203V31.5769H196.783V15.4117L189.802 25.9884H189.66L182.751 15.5165V31.5769H177.4V6.8134H177.408Z" fill="currentColor"/> <path d="M213.015 21.8142L203.483 6.81743H209.859L215.776 16.7575L221.801 6.81743H228L218.468 21.7094V31.5769H213.011V21.8142H213.015Z" fill="currentColor"/> <path d="M54.1962 31.5648H10.719L24.1782 17.0274H32.4717L36.8908 22.7288H27.4875L25.0984 25.2994H41.1808L28.6942 9.61773L8.60019 31.5648H0L29.0574 0L54.1962 31.5648Z" fill="currentColor"/> </g> <defs><clipPath id="alchemy-logo-clip"><rect width="228" height="32" fill="white"/></clipPath></defs> </svg>
+                    </a>
+                    <ul class="nav-menu">
+                        <li class="nav-menu_item">
+                            <button class="nav-link cc-current" type="button" data-nav-toggle="our-work" aria-expanded="false" aria-controls="nav-panel-our-work">
+                                Our Work
+                                <svg class="nav-dropdown_arrow" viewBox="0 0 11 6" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M1 1L5.5 5L10 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </button>
+                        </li>
+                        <li class="nav-menu_item"><a class="nav-link" href="#">Journal</a></li>
+                        <li class="nav-menu_item"><a class="nav-link" href="#">About</a></li>
+                        <li class="nav-menu_item"><a class="nav-link" href="#">FAQs</a></li>
+                        <li class="nav-menu_item"><a class="button cc-sm" href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+
+                <div class="nav-dropdown" id="nav-panel-our-work" data-nav-panel="our-work" hidden>
+                    <ul class="nav-dropdown_list">
+                        <li class="nav-dropdown_item"><a class="nav-dropdown_link" href="#">Awards &amp; Recognition</a></li>
+                        <li class="nav-dropdown_item"><a class="nav-dropdown_link" href="#">Brand Films</a></li>
+                        <li class="nav-dropdown_item"><a class="nav-dropdown_link" href="#">Commercial Production</a></li>
+                        <li class="nav-dropdown_item"><a class="nav-dropdown_link" href="#">Product Films &amp; Launches</a></li>
+                        <li class="nav-dropdown_item"><a class="nav-dropdown_link" href="#">B2B Customer Stories</a></li>
+                        <li class="nav-dropdown_item"><a class="nav-dropdown_link" href="#">Social Impact</a></li>
+                        <li class="nav-dropdown_item"><a class="nav-dropdown_link" href="#">Animation &amp; Motion Design</a></li>
+                        <li class="nav-dropdown_item"><a class="nav-dropdown_link" href="#">Photography</a></li>
+                        <li class="nav-dropdown_item"><a class="nav-dropdown_link" href="#">All Work</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="main-wrapper" id="main">
+                <!-- Page header -->
+                <section class="section cc-light">
+                    <div class="container">
+                        <div class="interior-hero">
+                            <h1 class="interior-hero_title">Our very private journal</h1>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section cc-light">
+                    <div class="container">
+                        <div class="journal-list">
+
+                            <!--
+                              Featured list A — Collection List
+                              source: Journal (currently "Blogs")
+                              filter: Featured? is on   sort: Date desc   limit: 1
+                            -->
+                            <article class="featured-post">
+                            <div class="featured-post_body">
+                                <div class="featured-post_text">
+                                    <h2 class="featured-post_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                    <p class="featured-post_excerpt">Lorem ipsum dolor sit amet consectetur. Purus blandit sed adipiscing nunc velit sit enim neque sit. Elementum ut integer nec id ornare dui. Blandit condimentum auctor vitae quam pretium nulla cras sed...</p>
+                                </div>
+                                <a class="button cc-sm" href="#">Read More</a>
+                            </div>
+                            <div class="featured-post_media media-placeholder" data-figma-node="243:1697"></div>
+                            </article>
+
+                            <!--
+                              Featured list B — Collection List
+                              same filter and sort, limit 1, OFFSET 1.
+                              The media comes FIRST in the DOM: that is the whole
+                              alternation mechanism. No variant, no nth-child.
+                            -->
+                            <article class="featured-post">
+                            <div class="featured-post_media media-placeholder" data-figma-node="243:1697"></div>
+                            <div class="featured-post_body">
+                                <div class="featured-post_text">
+                                    <h2 class="featured-post_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                    <p class="featured-post_excerpt">Lorem ipsum dolor sit amet consectetur. Purus blandit sed adipiscing nunc velit sit enim neque sit. Elementum ut integer nec id ornare dui. Blandit condimentum auctor vitae quam pretium nulla cras sed...</p>
+                                </div>
+                                <a class="button cc-sm" href="#">Read More</a>
+                            </div>
+                            </article>
+
+                            <!--
+                              Post grid — Collection List
+                              filter: Featured? is off   sort: Date desc
+                            -->
+                            <div class="post-grid">
+                                <article class="post-card">
+                                    <div class="post-card_media media-placeholder" data-figma-node="243:1708"></div>
+                                    <h2 class="post-card_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                    <a class="button cc-sm" href="#">Read More</a>
+                                </article>
+                                <article class="post-card">
+                                    <div class="post-card_media media-placeholder" data-figma-node="243:1708"></div>
+                                    <h2 class="post-card_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                    <a class="button cc-sm" href="#">Read More</a>
+                                </article>
+                                <article class="post-card">
+                                    <div class="post-card_media media-placeholder" data-figma-node="243:1708"></div>
+                                    <h2 class="post-card_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                    <a class="button cc-sm" href="#">Read More</a>
+                                </article>
+                                <article class="post-card">
+                                    <div class="post-card_media media-placeholder" data-figma-node="243:1708"></div>
+                                    <h2 class="post-card_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                    <a class="button cc-sm" href="#">Read More</a>
+                                </article>
+                                <article class="post-card">
+                                    <div class="post-card_media media-placeholder" data-figma-node="243:1708"></div>
+                                    <h2 class="post-card_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                    <a class="button cc-sm" href="#">Read More</a>
+                                </article>
+                                <article class="post-card">
+                                    <div class="post-card_media media-placeholder" data-figma-node="243:1708"></div>
+                                    <h2 class="post-card_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                    <a class="button cc-sm" href="#">Read More</a>
+                                </article>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CTA band -->
+                <section class="cta">
+                    <div class="container">
+                        <div class="cta-inner">
+                            <h2 class="cta-title">Let’s make something together.</h2>
+                            <a class="cta-email" href="mailto:hello@alchemycreative.tv">hello@alchemycreative.tv</a>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="footer">
+                <div class="container cc-footer">
+                    <ul class="footer-menu_list">
+                        <li class="footer-menu_item"><a class="footer-link" href="#">Our Work</a></li>
+                        <li class="footer-menu_item"><a class="footer-link" href="#">Journal</a></li>
+                        <li class="footer-menu_item"><a class="footer-link" href="#">About</a></li>
+                        <li class="footer-menu_item"><a class="footer-link" href="#">FAQs</a></li>
+                    </ul>
+
+                    <a class="footer-logo_link" href="index.html" aria-label="Alchemy Creative — home">
+                        <svg class="footer-logo_mark" viewBox="0 0 55 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M54.1962 31.5648H10.719L24.1782 17.0274H32.4717L36.8908 22.7288H27.4875L25.0984 25.2994H41.1808L28.6942 9.61773L8.60019 31.5648H0L29.0574 0L54.1962 31.5648Z" fill="currentColor"/></svg>
+                    </a>
+
+                    <ul class="footer-social_list">
+                        <li class="footer-social_item">
+                            <a class="footer-social_link" href="#" aria-label="Vimeo">
+                                <svg class="footer-social_icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M31.9697 8.55602C31.8297 11.6734 29.6497 15.9467 25.4444 21.368C21.087 27.0307 17.4097 29.8614 14.391 29.8614C12.511 29.8614 10.9537 28.136 9.65369 24.6867L7.09636 15.2C6.13813 11.7547 5.11058 10.0316 4.01369 10.0307C3.77369 10.0307 2.93769 10.5338 1.50569 11.54L-0.000976562 9.59736C1.56625 8.21876 3.12319 6.8285 4.66969 5.42669C6.77369 3.60269 8.35502 2.64669 9.40702 2.54669C11.8959 2.30669 13.4279 4.01291 14.003 7.66536C14.6235 11.6031 15.0546 14.0507 15.2964 15.008C16.0164 18.2747 16.8061 19.9076 17.6657 19.9067C18.3341 19.9067 19.3408 18.8467 20.6857 16.7267C22.0235 14.6085 22.7399 12.996 22.835 11.8894C23.027 10.0614 22.3084 9.14136 20.683 9.14136C19.9177 9.14136 19.127 9.30136 18.3137 9.66136C19.8937 4.50669 22.8924 1.98669 27.3297 2.14669C30.627 2.22669 32.167 4.36536 31.987 8.54269L31.9697 8.55602Z" fill="currentColor"/></svg>
+                            </a>
+                        </li>
+                        <li class="footer-social_item">
+                            <a class="footer-social_link" href="#" aria-label="Instagram">
+                                <svg class="footer-social_icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M9.37379 0.112053C7.67112 0.192053 6.50845 0.464053 5.49378 0.86272C4.42674 1.26692 3.4604 1.89841 2.66178 2.71339C1.85018 3.51421 1.22235 4.48188 0.821785 5.54939C0.428451 6.56805 0.160451 7.73339 0.0857846 9.43472C0.0111179 11.1361 -0.00621545 11.6854 0.00178455 16.0307C0.00978455 20.3761 0.0297846 20.9201 0.112451 22.6267C0.193785 24.3294 0.464451 25.4921 0.863118 26.5081C1.27378 27.5601 1.82312 28.4507 2.71378 29.3387C3.51538 30.1507 4.48399 30.7785 5.55245 31.1787C6.56979 31.5721 7.73379 31.8401 9.43645 31.9147C11.1405 31.9894 11.6885 32.0067 16.0325 31.9987C20.3765 31.9907 20.9231 31.9707 22.6285 31.8894C24.3351 31.8094 25.4911 31.5361 26.5085 31.1387C27.575 30.7343 28.5409 30.1029 29.3391 29.2881C30.151 28.4865 30.7789 27.5178 31.1791 26.4494C31.5725 25.4321 31.8405 24.2681 31.9138 22.5667C31.9885 20.8601 32.0071 20.3134 31.9978 15.9694C31.9898 11.6254 31.9711 11.0801 31.8898 9.37339C31.8098 7.66672 31.5378 6.50939 31.1378 5.49205C30.7338 4.42561 30.1028 3.45974 29.2885 2.66139C28.4872 1.84962 27.5191 1.22178 26.4511 0.821387C25.4324 0.429387 24.2698 0.160053 22.5658 0.0880534C20.8631 0.0120534 20.3151 -0.00794659 15.9698 5.34122e-05C11.6245 0.00805341 11.0805 0.0280534 9.37379 0.112053ZM9.56045 29.0361C8.00045 28.9694 7.15378 28.7094 6.58978 28.4921C5.89373 28.2377 5.26392 27.8298 4.74712 27.2987C4.21425 26.7841 3.8041 26.1562 3.54712 25.4614C3.32712 24.8974 3.06312 24.0507 2.99112 22.4907C2.91112 20.8054 2.89512 20.2987 2.88445 16.0267C2.87645 11.7547 2.89245 11.2494 2.96578 9.56272C3.03245 8.00405 3.29378 7.15605 3.50978 6.59205C3.79778 5.84405 4.14578 5.31205 4.70312 4.74939C5.21808 4.21635 5.84654 3.80619 6.54179 3.54939C7.10579 3.32939 7.95112 3.06805 9.51112 2.99339C11.1978 2.91339 11.7031 2.89739 15.9751 2.88672C20.2458 2.87872 20.7524 2.89472 22.4418 2.96939C23.9991 3.03605 24.8471 3.29472 25.4111 3.51339C26.1578 3.80139 26.6911 4.14672 27.2538 4.70672C27.8165 5.26672 28.1618 5.79605 28.4538 6.54405C28.6738 7.10672 28.9365 7.95205 29.0098 9.51339C29.0898 11.2001 29.1084 11.7067 29.1165 15.9774C29.1231 20.2481 29.1084 20.7547 29.0351 22.4414C28.9671 24.0014 28.7085 24.8481 28.4911 25.4147C28.2031 26.1614 27.8551 26.6947 27.2965 27.2547C26.7819 27.7876 26.1539 28.1977 25.4591 28.4547C24.8965 28.6747 24.0485 28.9374 22.4911 29.0121C20.8031 29.0921 20.2978 29.1081 16.0245 29.1174C11.7511 29.1267 11.2485 29.1081 9.56045 29.0361ZM22.6045 7.44805C22.605 7.82785 22.7181 8.19896 22.9296 8.51443C23.1411 8.82991 23.4414 9.07559 23.7925 9.22038C24.1436 9.36517 24.5298 9.40258 24.9021 9.32787C25.2745 9.25316 25.6164 9.06969 25.8845 8.80067C26.1525 8.53164 26.3348 8.18916 26.4082 7.81652C26.4817 7.44389 26.4429 7.05785 26.2969 6.70724C26.1509 6.35664 25.9042 6.05721 25.588 5.84684C25.2717 5.63646 24.9002 5.5246 24.5205 5.52539C24.0115 5.52645 23.5237 5.72957 23.1644 6.0901C22.8052 6.45063 22.6037 6.93907 22.6045 7.44805ZM7.78579 16.0161C7.79003 18.1949 8.65964 20.2828 10.2033 21.8205C11.747 23.3582 13.8383 24.2196 16.0171 24.2154C18.196 24.2111 20.2839 23.3415 21.8215 21.7979C23.3592 20.2542 24.2207 18.1629 24.2165 15.9841C24.185 13.8232 23.3035 11.7617 21.7628 10.2462C20.2222 8.73073 18.1464 7.88329 15.9853 7.8875C13.8242 7.89171 11.7518 8.74722 10.217 10.2687C8.68228 11.7902 7.80878 13.8551 7.78579 16.0161ZM10.6671 16.0107C10.665 14.9559 10.9757 13.9241 11.56 13.0459C12.1443 12.1677 12.9759 11.4824 13.9496 11.0768C14.9233 10.6712 15.9955 10.5634 17.0305 10.7671C18.0654 10.9709 19.0168 11.4769 19.7641 12.2213C20.5115 12.9657 21.0213 13.915 21.2292 14.9491C21.4371 15.9833 21.3336 17.0558 20.9319 18.0312C20.5302 19.0065 19.8482 19.8408 18.9724 20.4286C18.0965 21.0164 17.066 21.3313 16.0111 21.3334C15.3107 21.3348 14.6169 21.1982 13.9693 20.9315C13.3217 20.6648 12.733 20.2731 12.2368 19.7788C11.7405 19.2846 11.3465 18.6974 11.0772 18.0509C10.8079 17.4044 10.6685 16.7111 10.6671 16.0107Z" fill="currentColor"/></svg>
+                            </a>
+                        </li>
+                        <li class="footer-social_item">
+                            <a class="footer-social_link" href="#" aria-label="LinkedIn">
+                                <svg class="footer-social_icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M27.2627 27.2693H22.524V19.844C22.524 18.0733 22.488 15.7947 20.0547 15.7947C17.584 15.7947 17.2067 17.7213 17.2067 19.7133V27.2693H12.468V12H17.02V14.0813H17.0813C17.7173 12.8813 19.264 11.6147 21.5747 11.6147C26.376 11.6147 27.264 14.7747 27.264 18.888L27.2627 27.2693ZM7.116 9.91067C6.7544 9.91119 6.39626 9.84032 6.06213 9.7021C5.72799 9.56389 5.42443 9.36106 5.16886 9.10525C4.9133 8.84944 4.71076 8.54568 4.57288 8.21141C4.43498 7.87714 4.36446 7.51893 4.36533 7.15733C4.3656 6.61304 4.52726 6.08105 4.82987 5.62863C5.13248 5.17621 5.56246 4.82369 6.06542 4.61564C6.56838 4.40759 7.12175 4.35336 7.65553 4.45981C8.18931 4.56625 8.67955 4.82859 9.06423 5.21365C9.44892 5.59871 9.71079 6.0892 9.81671 6.62309C9.92264 7.15697 9.86788 7.71028 9.65934 8.21304C9.4508 8.71581 9.09786 9.14544 8.64515 9.44761C8.19244 9.74979 7.66029 9.91093 7.116 9.91067ZM9.492 27.2693H4.74V12H9.492V27.2693ZM29.6333 0H2.36133C1.056 0 0 1.032 0 2.30533V29.6947C0 30.9693 1.056 32 2.36133 32H29.6293C30.9333 32 32 30.9693 32 29.6947V2.30533C32 1.032 30.9333 0 29.6293 0H29.6333Z" fill="currentColor"/></svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </footer>
+        </div>
+        <script src="https://cdn.jsdelivr.net/gh/walkreed/alchemy-creative@v0.1.0/site-scripts/site-core.min.js"></script>
+        <!-- Preview only, not transferred: in Webflow the dropdown is a native
+             Dropdown element and needs no script. -->
+        <script src="../site-scripts/nav-dropdown.js"></script>
+    </body>
+</html>

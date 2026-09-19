@@ -369,6 +369,80 @@ Notes:
                         </div>
                     </section>
                 </section>
+
+                <!-- ===================== JOURNAL LISTS ===================== -->
+                <section class="components__item">
+                    <div class="container">
+                        <h2>Journal lists</h2>
+                        <pre class="components__props">Components: FeaturedPost · PostGrid / PostCard
+Both are CMS-backed by the Blogs collection (to be renamed Journal).
+Bindings:
+  .featured-post_title    -&gt; name
+  .featured-post_excerpt  -&gt; summary
+  .featured-post_media    -&gt; image
+  .post-card_title        -&gt; name
+  .post-card_media        -&gt; image
+  button link             -&gt; slug (collection page)
+Collection Lists:
+  Featured A  filter Featured? is on   sort Date desc  limit 1
+  Featured B  filter Featured? is on   sort Date desc  limit 1, offset 1
+  Post grid   filter Featured? is off  sort Date desc
+Notes:
+  - The featured pair ALTERNATES, and that is DOM order across two lists,
+    NOT a variant. One Collection List renders every item from one
+    template, so per-item alternation would need :nth-child — which
+    Webflow cannot represent. List B just puts the media first.
+  - Trade-off: exactly two featured posts render. A third will not appear.
+  - .post-grid is a CSS grid, not .row/.col: the comp's gutter is 10px
+    where the grid gives 40px, and .row-gap-sm only sets the row gap.
+  - Card copy below is the comp's lorem, left verbatim — real content
+    comes from the collection.</pre>
+                    </div>
+
+                    <section class="section cc-light">
+                        <div class="container">
+                            <div class="journal-list">
+                                <article class="featured-post">
+                                    <div class="featured-post_body">
+                                        <div class="featured-post_text">
+                                            <h2 class="featured-post_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                            <p class="featured-post_excerpt">Lorem ipsum dolor sit amet consectetur.</p>
+                                        </div>
+                                        <a class="button cc-sm" href="#">Read More</a>
+                                    </div>
+                                    <div class="featured-post_media media-placeholder"></div>
+                                </article>
+                                <article class="featured-post">
+                                    <div class="featured-post_media media-placeholder"></div>
+                                    <div class="featured-post_body">
+                                        <div class="featured-post_text">
+                                            <h2 class="featured-post_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                            <p class="featured-post_excerpt">Reversed: the media comes first in the DOM.</p>
+                                        </div>
+                                        <a class="button cc-sm" href="#">Read More</a>
+                                    </div>
+                                </article>
+                                <div class="post-grid">
+                                    <article class="post-card">
+                                        <div class="post-card_media media-placeholder"></div>
+                                        <h2 class="post-card_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                        <a class="button cc-sm" href="#">Read More</a>
+                                    </article>
+                                    <article class="post-card">
+                                        <div class="post-card_media media-placeholder"></div>
+                                        <h2 class="post-card_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                        <a class="button cc-sm" href="#">Read More</a>
+                                    </article>
+                                    <article class="post-card">
+                                        <div class="post-card_media media-placeholder"></div>
+                                        <h2 class="post-card_title">Headline lorem ipsum dolor sit amet consecteture</h2>
+                                        <a class="button cc-sm" href="#">Read More</a>
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
             </main>
 
             <footer class="footer">
