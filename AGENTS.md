@@ -703,6 +703,13 @@ Hard-won constraints from importing `template/style-guide.html` into Webflow wit
   - Font-family variables hold a single family name (no fallback stack) — set them to the exact uploaded family name.
   - Generate the (often 200+) bind operations with a script and batch them through `update_style`; do it on a clean stylesheet to avoid duplicate-name ambiguity.
 
+### Variable-mode writes
+
+- **`mode_id: "base"` is rejected** by `update_color_variable` with a bare "An internal
+  error occurred". Write the base/default value by **omitting `mode_id`**; pass it only for
+  named modes. Batched calls return per-action results, so half a batch can fail while the
+  call itself looks fine — read the per-action results, not just the outcome.
+
 ### Cleanup caveat
 - `remove_style`/`rename_style` are **name-based** and can't disambiguate duplicate names (global vs combo, or used vs orphan sharing a name). Once duplicates exist they're hard to purge safely. **Best defence: keep the stylesheet clean from the start** (one clean builder pass, or fully deterministic `create_style`+`set_style`). To rename a used canonical to a clean name that's taken, re-point the *minority* user of the clean name onto the suffixed name, delete the freed clean name, then `rename_style` (rename auto-propagates to combos + their variable modes).
 

@@ -10,10 +10,24 @@ a future session does not have to re-derive any of it.
 cannot see this site. Both have needed re-auth at least once — if a call returns
 "connector requires authentication", re-auth in claude.ai connector settings.
 
-**Nothing below has been applied yet.** The first write attempt failed on auth
-before any mutation, so the site is still in its MAST starter state.
+**Status:** Color and Theme are **applied and verified** (2026-09-19). Typography,
+Layout and Components are still at MAST starter values.
 
 ---
+
+## Write gotcha: `mode_id: "base"` is rejected
+
+`update_color_variable` fails with a bare `"An internal error occurred"` when passed
+`mode_id: "base"`. Every such call failed while the same batch's writes to the named
+Light mode succeeded — a partial failure that returns per-action results, so it is easy
+to miss if you only check that the call came back.
+
+**Write the base/default value by omitting `mode_id` entirely.** Only named modes take
+an explicit `mode_id`.
+
+This is worth catching because the failure is silent in effect: Base mode would have
+kept MAST's light defaults, leaving the primary theme inverted — light background, dark
+text — while Light mode looked correct.
 
 ## Two bugs already live on the site
 
@@ -45,7 +59,8 @@ expressions, if at all.
 | Base/White - o10 | `variable-ac274924-c489-d25b-17c5-efb74892a7f9` | color-mix | leave |
 | Base/White - o50 | `variable-9f9683d3-0c26-a3e6-39b1-86185de4ce88` | color-mix | leave |
 
-**Create:** `Base/Charred Bark` `#24231e` · `Base/Clay` `#a56f52`
+**Created:** `Base/Charred Bark` `#24231e` = `variable-010b5a84-4295-742c-b92d-e4ee9faed9bb` ·
+`Base/Clay` `#a56f52` = `variable-18a6580f-08ff-9e87-b620-156ab7b79734`
 
 Note "Base/White" will hold Bone, which reads oddly. Accepted for now to avoid
 breaking the tint expressions.
@@ -64,7 +79,8 @@ The Light mode id was previously "Accent" and still holds those values.
 | Primary/Border | `variable-11024737-13f6-2e44-62c6-dbf07da4d227` | Brand Secondary (Moss) | Brand Secondary |
 | Primary/Accent | `variable-509e6879-1afd-6ed5-a87a-b21acc301485` | Brand Primary (Lichen) | Brand Secondary (Moss) |
 
-**Create:** `Primary/Surface` — Base → Charred Bark, Light → Brand Neutral (Oat)
+**Created:** `Primary/Surface` = `variable-964d3db1-84c4-d98c-66b2-2cc7f291c4c1`
+— Base → Charred Bark, Light → Brand Neutral (Oat). Verified.
 
 Buttons need no colour role: fill = `Primary/Accent`, label = `Primary/Background`,
 correct in both modes.
@@ -142,9 +158,13 @@ literal `"IBM Plex Mono"` to an alias of Primary Font.
 
 ## Order when auth is restored
 
-1. **Color** — 5 updates + 2 creates. Cheapest meaningful test: the starter pages
-   should visibly restyle to Deep Forest and Lichen.
-2. **Theme** — 8 updates across two modes + 1 new Surface role. Proves modes work.
-3. Stop and look before going further.
-4. Typography (~40 writes), Layout (1), Components (7).
-5. Only then classes and components.
+1. ~~Color~~ — **done and verified.**
+2. ~~Theme~~ — **done and verified.** Base = dark, Light inverts, Accent swaps
+   Lichen → Moss.
+3. Typography (~40 writes) — includes fixing `Eyebrow/Font` and the 400 weights.
+4. Layout (1 write: Gap SM 8 → 10).
+5. Components (7 writes: section padding max, container width, card radius, button
+   weight / radius / paddings, input radius).
+6. Only then classes and components.
+
+Variable changes do not reach the published site until it is republished.
