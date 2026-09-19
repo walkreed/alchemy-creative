@@ -196,6 +196,65 @@ Notes:
                         </div>
                     </section>
                 </section>
+
+                <!-- ===================== LOGO WALL ===================== -->
+                <section class="components__item">
+                    <div class="container">
+                        <h2>Logo Wall</h2>
+                        <pre class="components__props">Component: LogoWall
+Props:
+  - title (Text)
+Collection List:
+  - source: Clients collection
+  - fields: Name (Text), Logo (Image)
+  - the img binds to Logo, the alt binds to Name
+Variants:
+  - none
+Slots:
+  - none
+Notes:
+  - Sits on a LIGHT section in the comps (Bone background) because the
+    client logos are dark. The component sets no background of its own.
+  - The heading is H4-sized and uses --primary-accent, so it is Moss on a
+    light section and Lichen on a dark one.
+  - 4-up on desktop, 2-up below 767px. The comp happens to show 16 logos
+    in 4 rows, but nothing here assumes a count — the Collection List
+    renders whatever the collection holds.
+  - Cell proportion is 300 x 169 (measured). The logo is constrained
+    inside the padded cell with object-fit, so a tight-cropped CMS upload
+    and a padded export both sit correctly.
+  - Logo colours are the brands' own and are deliberately NOT normalised
+    to the palette.
+  - Only 4 of the 16 marks ship as sample assets; the rest live in the CMS.</pre>
+                    </div>
+
+                    <!--
+                      Logo Wall (About Us, Figma 243:1635)
+                      Base: .logo-wall
+                      In Webflow the <ul> is a Collection List and each <li> a Collection Item.
+                    -->
+                    <section class="section cc-light">
+                        <div class="container">
+                            <div class="logo-wall">
+                                <h2 class="logo-wall_title">brands we’ve partnered with</h2>
+                                <ul class="logo-wall_grid">
+                                <li class="logo-wall_item">
+                                    <img class="logo-wall_logo" src="assets/logos/adobe.svg" alt="Adobe" width="135" height="34" loading="lazy">
+                                </li>
+                                <li class="logo-wall_item">
+                                    <img class="logo-wall_logo" src="assets/logos/servicenow.svg" alt="ServiceNow" width="182" height="28" loading="lazy">
+                                </li>
+                                <li class="logo-wall_item">
+                                    <img class="logo-wall_logo" src="assets/logos/tecovas.svg" alt="Tecovas" width="168" height="26" loading="lazy">
+                                </li>
+                                <li class="logo-wall_item">
+                                    <img class="logo-wall_logo" src="assets/logos/credit-karma.svg" alt="Credit Karma" width="186" height="27" loading="lazy">
+                                </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </section>
             </main>
 
             <footer class="footer">

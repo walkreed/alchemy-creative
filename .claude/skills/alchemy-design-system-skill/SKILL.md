@@ -206,6 +206,29 @@ The copy block **wraps the Rich Text component** rather than styling prose itsel
 size stays a Rich Text variant (`Paragraph SM` / `Inherit` / `Paragraph LG`) instead of
 becoming a second, competing scale.
 
+### Logo Wall (`.logo-wall`)
+Client logo grid — a heading plus a 4-up grid of marks (2-up below 767px). Elements:
+`.logo-wall_title` (H4-sized, uppercase, `--primary-accent`), `.logo-wall_grid`,
+`.logo-wall_item`, `.logo-wall_logo`. No variants.
+
+**CMS-driven.** In Webflow the `<ul>` is a **Collection List** bound to a `Clients`
+collection with `Name` (Text) and `Logo` (Image); the `img` binds to Logo and its `alt` to
+Name. Nothing in the CSS assumes a count — the comp happens to show 16 marks in 4 rows, but
+the grid renders whatever the collection holds.
+
+Sits on a **light** section in the comps (Bone), because the client marks are dark. The
+component sets no background itself, so the theme stays the section's job. The heading uses
+`--primary-accent`, which is Moss on light and Lichen on dark.
+
+The cell owns the proportion (300 x 169, measured) and the logo is **capped against the cell**
+at 63% x 31% — the widest and tallest marks in the comp — rather than padded inside it. A mark
+smaller than the cap renders at its own size, so logos keep their relative weight instead of
+all stretching to one width.
+
+**Logo colours are the brands' own and are deliberately NOT normalised** to the palette; the
+usual "normalise strays to Moss / Deep Forest" rule does not apply to third-party marks. Four
+sample marks ship in `template/assets/logos/`; the rest live in the CMS.
+
 ### Rich Text (`.rich-text-component` > `.rich-text`)
 Prose region, mirroring the Webflow component of the same name (72 instances). The wrapper
 carries the Size variant and Class prop; `.rich-text` only sets `text-wrap: pretty`. Prose

@@ -587,6 +587,7 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 | CTA band | `.cta` | — (not yet transferred) | — | — | Full-bleed invitation band above the footer: heading plus a dashed email link |
 | Interior Hero | `.interior-hero` | — (not yet transferred) | `cc-center` | — | Standing page header: eyebrow, H1 with optional accent words, and a Rich Text copy block. Base is left aligned. Background and padding come from the `.section` around it. |
 | Rich Text | `.rich-text-component` | 72 (Webflow, audited 2026-09-19) | `Size`: Inherit · Paragraph SM · Paragraph LG | — | Prose region. Already existed in Webflow; added here because Interior Hero depends on it. |
+| Logo Wall | `.logo-wall` | — (not yet transferred) | — | — | Client logo grid, 4-up (2-up below 767px). **CMS-driven** — the `<ul>` is a Collection List bound to a Clients collection. Sits on a light section; sets no background of its own. |
 
 
 ### Class patterns & global behaviours (not Webflow components)

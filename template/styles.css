@@ -2294,6 +2294,72 @@ blockquote {
 }
 
 /* ============================================================
+   Logo Wall
+
+   Client logo grid, 4-up. In Webflow the list is a Collection List
+   bound to a Clients collection, so the number of cells is whatever
+   the collection holds — the grid never assumes 16.
+
+   The cell owns the proportion (300 x 169, measured) and the padding;
+   the logo is constrained inside it with object-fit. That way a
+   tight-cropped CMS upload and a padded export both sit correctly
+   without per-logo styling.
+
+   Logos are client brand marks, so their colours are the brands' own
+   and are deliberately NOT normalised to the palette.
+   ============================================================ */
+
+.logo-wall {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4xl);
+}
+
+.logo-wall_title {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--h4-font-size);
+    font-weight: var(--h4-font-weight);
+    line-height: var(--h4-line-height);
+    letter-spacing: var(--h4-letter-spacing);
+    text-transform: uppercase;
+    color: var(--primary-accent);
+}
+
+.logo-wall_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.logo-wall_item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 300 / 169;
+    margin: 0;
+    padding: 0;
+}
+
+/* Capped against the cell, not padded inside it: 63% x 31% are the widest
+   and tallest marks in the comp (188 / 300 and 52 / 169). A logo smaller
+   than the cap renders at its own size, so marks keep their relative
+   weight instead of all being stretched to one width. */
+.logo-wall_logo {
+    max-width: 63%;
+    max-height: 31%;
+    object-fit: contain;
+}
+
+@media (max-width: 767px) {
+    .logo-wall_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ============================================================
    Interior Hero
 
    The standing page header: eyebrow, H1, and a rich-text copy block.
