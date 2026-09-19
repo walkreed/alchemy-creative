@@ -562,6 +562,7 @@ The canonical list of every page built in this project. Each entry maps to a fil
 | Home | `template/index.html` | — (not yet in Webflow) | Baseline scaffold — replace the placeholder hero and feature cards with the client's content |
 | Style Guide | `template/style-guide.html` | — (not yet in Webflow) | Foundations: color, themes, typography, spacing, radii |
 | Components | `template/components.html` | — (not yet in Webflow) | One live instance of every reusable component |
+| Contact | `template/contact.html` | — (not yet in Webflow) | Select option lists (service categories, budget bands) are not specified in the comp — confirm with the client |
 
 Add a row per page as it is built. Record the Webflow page id and path once the page has been transferred.
 

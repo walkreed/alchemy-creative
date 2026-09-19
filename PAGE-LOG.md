@@ -43,5 +43,53 @@ equivalent.
 
 ---
 
+## Contact — `template/contact.html`
+
+Built 2026-09-19 from Figma `243:1651` (1440x1104). One section: a two-column
+row, intro left and enquiry form right. No CTA band — the comp does not have
+one, and the band is not automatic.
+
+**Grid.** The comp's 518 / 100 / 582 split maps onto `col-lg-5` +
+`col-lg-offset-1` + `col-lg-6`. The card lands pixel-exact (738-1319 against
+the comp's 738-1320) because the row's negative margins absorb the outer
+column padding. The left column ends up with 480px of content against the
+comp's 518, so the intro paragraph wraps to four lines rather than three and
+the location note to two rather than one. That is grid snapping, not a bug —
+widening the left column moves the card off its mark, which is the more
+visible error.
+
+**The form card is a light panel in a dark section.** `.card.cc-light` flips
+the theme roles, so `.input` and `.select` inside pick up Bone on Oat with
+Deep Forest text without any of them naming a colour. The submit carries
+`.button.cc-dark` to force the Base treatment back — the comp keeps the
+Lichen button even on the light card. Webflow reproduces both with variable
+modes on the `cc-*` combo.
+
+**Three system changes came out of this page**, all confirmed before writing:
+- `--input-height` 3.25rem -> 3.75rem and `--input-border-radius` 0.25rem -> 0.
+  First form in the project, so first real evidence of input styling.
+- `.container` now uses `max-width: calc(var(--container-max-width) + 2 *
+  var(--container-gutter))`. Border-box was subtracting the 6vw gutter from
+  the 1200px max-width, so content narrowed as the viewport grew — 1027px at
+  1440, 970px at 1920. Every page gets wider; check `index.html` and
+  `style-guide.html` when you next touch them.
+- `.u-sr-only` added. The comp's fields are placeholder-only and a
+  placeholder is not an accessible name.
+
+**Gotchas found.**
+- `.icon` is a *wrapper* class (`display: inline-flex`). Applied straight to
+  an `<svg>` it collapses the width to nothing. Size the svg on its own class
+  the way `.footer-social_icon` does.
+- `.select`'s caret is a data-URI background image, so it cannot read a CSS
+  variable, and a `<select>` has no usable pseudo-element — the caret cannot
+  follow `currentColor` either. `.select.cc-flat` restates it in Deep Forest.
+  A theme-aware caret needs the control wrapped with an inline SVG.
+
+**Open.** Both selects ship with their placeholder option only. The comp shows
+the closed state, so the option lists are genuinely unspecified — marked TODO
+in the markup rather than invented.
+
+---
+
 <!-- No pages logged yet. The first /page or /webflow-page run should add its
      section above this line. -->

@@ -257,7 +257,7 @@
     --input-font-weight: var(--font-weight-medium);
     --input-font-size: 1rem;
     --input-line-height: 1.5em;
-    --input-border-radius: 0.25rem;
+    --input-border-radius: 0rem;
     --input-bottom-margin: 1rem;
     --input-label-font-weight: var(--font-weight-semibold);
     --input-label-font-size: 0.875rem;
@@ -275,7 +275,7 @@
     --button-height: 3.25rem;
     --button-height-sm: 2.5rem;
     --button-height-lg: 3.75rem;
-    --input-height: 3.25rem;
+    --input-height: 3.75rem;
     --shadow-card: 0 1px 2px rgba(23, 37, 28, 0.10), 0 8px 24px rgba(23, 37, 28, 0.12);
     --transition-base: 160ms ease;
 }
@@ -609,15 +609,19 @@ blockquote {
     overflow: hidden;
 }
 
+/* The gutter sits OUTSIDE the content box, so --container-max-width is the
+   width the content actually reaches. Without the calc, border-box subtracts
+   the gutter from the max-width and the content narrows as the viewport grows
+   (1027px at 1440, 970px at 1920) — measured against the comps at 1200px. */
 .container {
     width: 100%;
-    max-width: var(--container-max-width);
+    max-width: calc(var(--container-max-width) + 2 * var(--container-gutter));
     margin: 0 auto;
     padding: 0 var(--container-gutter);
 }
 
 .container.cc-narrow {
-    max-width: 56rem;
+    max-width: calc(56rem + 2 * var(--container-gutter));
 }
 
 /* ============================================================
@@ -1128,6 +1132,14 @@ blockquote {
     pointer-events: none;
 }
 
+/* Forces the Base (dark-theme) button treatment back on inside a light
+   region — Lichen fill, Deep Forest label. The comp's contact form keeps
+   the primary button unchanged even though its card is light. */
+.button.cc-dark {
+    --primary-accent: var(--color-lichen);
+    --primary-button-text: var(--color-deep-forest);
+}
+
 /* ============================================================
    Form / Input
    ============================================================ */
@@ -1135,6 +1147,12 @@ blockquote {
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
+}
+
+/* Dense stack used by the contact card, where the fields read as one
+   block rather than as separately labelled rows. */
+.form.cc-tight {
+    gap: var(--space-xs);
 }
 
 .form_field {
@@ -1212,6 +1230,13 @@ blockquote {
     resize: vertical;
 }
 
+/* Borderless field for use ON a surface, where the fill alone carries the
+   contrast. The default keeps its border because .input's fill is
+   --primary-background — the same colour as the section behind it. */
+.input.cc-flat {
+    border-color: transparent;
+}
+
 /* The caret is a data-URI background image. If Webflow's style API
    rejects it on transfer, ship this one declaration in the custom-code
    CSS embed instead. */
@@ -1237,6 +1262,15 @@ blockquote {
 .select:focus {
     outline: none;
     border-color: var(--primary-accent);
+}
+
+/* Matches .input.cc-flat, and restates the caret in Deep Forest because a
+   data-URI background image cannot read a CSS variable. A <select> has no
+   usable pseudo-element, so the caret cannot follow currentColor either —
+   to make it theme-aware the control needs a wrapper with an inline SVG. */
+.select.cc-flat {
+    border-color: transparent;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5l5-5' stroke='%2317251c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
 }
 
 .checkbox {
@@ -1441,6 +1475,29 @@ blockquote {
 
 .card.cc-raised {
     box-shadow: var(--shadow-card);
+}
+
+/* Mode cascade on a card, so a light panel can sit inside a dark section.
+   Same role set as .section.cc-light; Webflow reproduces it with a variable
+   mode on the .cc-light combo, which cascades to the fields inside. */
+.card.cc-light {
+    --primary-background: var(--color-bone);
+    --primary-surface: var(--color-oat);
+    --primary-text: var(--color-deep-forest);
+    --primary-text-muted: var(--color-charred-bark);
+    --primary-text-dim: var(--color-moss);
+    --primary-border: var(--color-moss);
+    --primary-accent: var(--color-moss);
+    --primary-button-text: var(--color-bone);
+
+    background: var(--primary-surface);
+    color: var(--primary-text);
+}
+
+/* Form-bearing card: roomier than a content card so the field stack has
+   breathing room at the top and bottom. */
+.card.cc-form {
+    padding: var(--space-4xl) var(--space-2xl);
 }
 
 /* ============================================================
@@ -1720,6 +1777,20 @@ blockquote {
 .u-mlr-auto {
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+/* Visible to assistive tech only. The contact form's fields are
+   placeholder-only in the comp, but a placeholder is not a label —
+   this keeps the accessible name without changing the design. */
+.u-sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
 
 .u-mt-0 {
@@ -2202,6 +2273,73 @@ blockquote {
     font-size: 0.8125rem;
     line-height: 1.6;
     white-space: pre-wrap;
+}
+
+/* ============================================================
+   Page: contact.html
+
+   Local to the Contact page. The form card itself is built from
+   .card.cc-light.cc-form + .form.cc-tight + .input/.select.cc-flat,
+   all of which are reusable — only the intro column below is
+   page-specific. Extract if a second page grows the same block.
+   ============================================================ */
+
+/* Uniform 40px rhythm, which is flatter than the per-element em margins
+   the type scale ships. Children carry u-mb-0 so the two spacing systems
+   never stack. */
+.contact-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3xl);
+}
+
+.contact-email {
+    color: var(--primary-accent);
+    text-decoration: none;
+    transition: text-decoration-color var(--transition-base);
+}
+
+.contact-email:hover,
+.contact-email:focus-visible {
+    text-decoration: underline;
+}
+
+/* Location line — pin plus note, optically centred on the text. */
+.contact-note {
+    display: flex;
+    align-items: center;
+    gap: var(--gap-button);
+}
+
+/* Sized on the svg itself, like .footer-social_icon. The generic .icon
+   class is a WRAPPER (display: inline-flex) — applied straight to an
+   <svg> it collapses the width. */
+.contact-note_icon {
+    display: block;
+    flex: 0 0 auto;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--primary-accent);
+}
+
+.contact-note_text {
+    margin: 0;
+    font-size: var(--font-size-body-sm);
+    line-height: var(--line-height-body);
+    color: var(--primary-text-muted);
+}
+
+/* The submit sits centred under the field stack, not full-width. */
+.contact-form_actions {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 991px) {
+    .contact-intro {
+        gap: var(--space-2xl);
+    }
 }
 
 /* ============================================================
