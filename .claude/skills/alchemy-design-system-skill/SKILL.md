@@ -206,6 +206,40 @@ The copy block **wraps the Rich Text component** rather than styling prose itsel
 size stays a Rich Text variant (`Paragraph SM` / `Inherit` / `Paragraph LG`) instead of
 becoming a second, competing scale.
 
+### Section Label (`.section-label`)
+Accent label that opens each split section on About — H4-sized, uppercase, `--primary-accent`.
+A plain **class, not a component**, because four components use it; they agree only on the
+label, each owns its own body.
+
+### Image Marquee (`.marquee-component`)
+Full-bleed scrolling image strip. **Mirrors MAST's Marquee component 1:1** —
+`.marquee-component` > `.marquee-wrapper` > `.marquee-content` > two `.marquee-group` — so the
+class names match on transfer. The second group is a **duplicate of the first**: that is what
+makes the `translateX(-50%)` loop seamless, and why MAST's component exposes two slots with
+"add the same set in each". Item sizes are explicit `cc-a`/`cc-b`/`cc-c` combos rather than
+`nth-child`, so the comp's varied tile heights survive.
+
+Duration and gap are custom properties on the root (`--marquee-duration`, `--marquee-gap`),
+matching MAST's Style-prop pattern. **In Webflow the animation lives in the Custom Code embed**
+(the Marquee toggle on the Custom Code component) because the style API cannot write
+`@keyframes`; it is in `styles.css` here so the static build actually moves. Honours
+`prefers-reduced-motion` by stopping the animation and making the strip scrollable.
+
+### Intro Split · Process Steps · Team Grid · Value List
+The four labelled-split sections on About. Each is `.section` > `.container` > `.row` >
+`.col-lg-4` (label) + `.col-lg-8` (body), with the body capped at `--measure` so it lands on
+the comp's 730px column. Bodies: `.intro-split_body` (Rich Text), `.process-steps` /
+`.process-step`, `.team-grid` / `.team-member`, `.value-list` / `.value-item`. Team Grid sits
+on `.section.cc-surface`.
+
+### Image Row (`.image-row`)
+Static 3-up image row at mixed sizes (`cc-a`/`cc-b`/`cc-c`), space-between; stacks below 767px.
+
+### Media Placeholder (`.media-placeholder`)
+Stand-in for photography that does not exist yet — a `color-mix` tint of `--primary-text`, so
+it reads correctly on both the background and the surface tone without a variant. Every
+instance carries `data-figma-node` pointing at the frame the real asset belongs to.
+
 ### Logo Wall (`.logo-wall`)
 Client logo grid — a heading plus a 4-up grid of marks (2-up below 767px). Elements:
 `.logo-wall_title` (H4-sized, uppercase, `--primary-accent`), `.logo-wall_grid`,

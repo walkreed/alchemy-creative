@@ -563,6 +563,7 @@ The canonical list of every page built in this project. Each entry maps to a fil
 | Style Guide | `template/style-guide.html` | — (not yet in Webflow) | Foundations: color, themes, typography, spacing, radii |
 | Components | `template/components.html` | — (not yet in Webflow) | One live instance of every reusable component |
 | Contact | `template/contact.html` | `6aaea9f05359c79adc9be9fe` · `/contact` (draft) | Select options must be typed in the Designer — the API cannot write them. Budget bands need client sign-off. **Static build and Webflow now use different form patterns** — see PAGE-LOG. |
+| About | `template/about.html` | — (not yet in Webflow) | 13 image placeholders — no photography exists in the comp. Nav renders dark; the comp's About nav is light (the Webflow Nav has a Color Mode prop, the static nav does not). |
 
 Add a row per page as it is built. Record the Webflow page id and path once the page has been transferred.
 
@@ -588,6 +589,12 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 | Interior Hero | `.interior-hero` | — (not yet transferred) | `cc-center` | — | Standing page header: eyebrow, H1 with optional accent words, and a Rich Text copy block. Base is left aligned. Background and padding come from the `.section` around it. |
 | Rich Text | `.rich-text-component` | 72 (Webflow, audited 2026-09-19) | `Size`: Inherit · Paragraph SM · Paragraph LG | — | Prose region. Already existed in Webflow; added here because Interior Hero depends on it. |
 | Logo Wall | `.logo-wall` | — (not yet transferred) | — | — | Client logo grid, 4-up (2-up below 767px). **CMS-driven** — the `<ul>` is a Collection List bound to a Clients collection. Sits on a light section; sets no background of its own. |
+| Image Marquee | `.marquee-component` | — (not yet transferred) | `cc-a`/`cc-b`/`cc-c` on `.marquee-item` | 2 groups | Full-bleed scrolling image strip. **Mirrors MAST's Marquee 1:1** so class names match on transfer. The second `.marquee-group` is a duplicate of the first — that is what makes the −50% loop seamless. |
+| Intro Split | `.intro-split_body` | — (not yet transferred) | — | — | Labelled split: `.section-label` + a Rich Text body capped at `--measure`. |
+| Process Steps | `.process-steps` | — (not yet transferred) | — | — | Labelled split: numbered steps (`.process-step` with `_num`, `_title`, `_body`). |
+| Image Row | `.image-row` | — (not yet transferred) | `cc-a`/`cc-b`/`cc-c` on `.image-row_item` | — | Static 3-up image row at mixed sizes; stacks below 767px. |
+| Team Grid | `.team-grid` | — (not yet transferred) | — | — | Labelled split: 2-col grid of `.team-member` (portrait, name, role). Sits on `.section.cc-surface`. |
+| Value List | `.value-list` | — (not yet transferred) | — | — | Labelled split: stacked `.value-item` (`_title`, `_body`). |
 
 
 ### Class patterns & global behaviours (not Webflow components)

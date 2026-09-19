@@ -255,6 +255,120 @@ Notes:
                         </div>
                     </section>
                 </section>
+
+                <!-- ===================== IMAGE MARQUEE ===================== -->
+                <section class="components__item">
+                    <div class="container">
+                        <h2>Image Marquee</h2>
+                        <pre class="components__props">Component: ImageMarquee
+Mirrors MAST's "Marquee" component 1:1 (class names match on transfer).
+Structure:
+  .marquee-component > .marquee-wrapper > .marquee-content > 2x .marquee-group
+Settings (custom properties on the root, matching MAST's Style prop):
+  --marquee-duration (default 45s)
+  --marquee-gap      (default --space-5xl)
+Variants:
+  - cc-a / cc-b / cc-c on .marquee-item (explicit sizes, never nth-child)
+Notes:
+  - The SECOND .marquee-group is a duplicate of the first. That is what makes
+    the translateX(-50%) loop seamless, and why MAST's component exposes two
+    slots tooltipped "add the same set of components in each slot".
+  - Full bleed: no .container, so the strip runs past both edges.
+  - In Webflow the @keyframes ship in the Custom Code embed (the Marquee toggle
+    on the Custom Code component) — the style API cannot write keyframes.
+  - Honours prefers-reduced-motion: animation off, strip becomes scrollable.</pre>
+                    </div>
+
+                    <section class="section cc-light">
+                        <div class="marquee-component">
+                            <div class="marquee-wrapper">
+                                <div class="marquee-content">
+                                    <div class="marquee-group">
+                                        <div class="marquee-item cc-a media-placeholder"></div>
+                                        <div class="marquee-item cc-b media-placeholder"></div>
+                                        <div class="marquee-item cc-c media-placeholder"></div>
+                                    </div>
+                                    <div class="marquee-group" aria-hidden="true">
+                                        <div class="marquee-item cc-a media-placeholder"></div>
+                                        <div class="marquee-item cc-b media-placeholder"></div>
+                                        <div class="marquee-item cc-c media-placeholder"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- ===================== LABELLED SPLIT SECTIONS ===================== -->
+                <section class="components__item">
+                    <div class="container">
+                        <h2>Labelled split sections</h2>
+                        <pre class="components__props">Components: IntroSplit · ProcessSteps · TeamGrid · ValueList
+Shared shell (existing layout classes, not a component):
+  .section &gt; .container &gt; .row &gt; .col-lg-4 (label) + .col-lg-8 (body)
+  label uses the shared .section-label class
+  body is capped at --measure so it lands on the comp's 730px column
+Bodies:
+  .intro-split_body   — wraps the Rich Text component
+  .process-steps      — .process-step with _num / _title / _body
+  .team-grid          — .team-member with _portrait / _name / _role
+  .value-list         — .value-item with _title / _body
+Notes:
+  - Team Grid sits on .section.cc-surface (the surface tone, not the background).
+  - .media-placeholder stands in for photography that does not exist yet; every
+    instance carries data-figma-node pointing at the frame it belongs to.
+  - One example of each body is shown below; about.html is the full live instance.</pre>
+                    </div>
+
+                    <section class="section cc-light">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col col-lg-4 col-md-12">
+                                    <h2 class="section-label">Who we are</h2>
+                                </div>
+                                <div class="col col-lg-8 col-md-12">
+                                    <div class="process-steps">
+                                        <div class="process-step">
+                                            <div class="process-step_head">
+                                                <span class="process-step_num">01</span>
+                                                <h3 class="process-step_title">Creative Development</h3>
+                                            </div>
+                                            <p class="process-step_body">One step of the numbered process list.</p>
+                                        </div>
+                                    </div>
+                                    <div class="team-grid u-mt-3xl">
+                                        <div class="team-member">
+                                            <div class="team-member_portrait media-placeholder"></div>
+                                            <h3 class="team-member_name">TREVOR</h3>
+                                            <p class="team-member_role">Founding Partner / Creative Director</p>
+                                        </div>
+                                        <div class="team-member">
+                                            <div class="team-member_portrait media-placeholder"></div>
+                                            <h3 class="team-member_name">AMANDA</h3>
+                                            <p class="team-member_role">Managing Partner / Operations</p>
+                                        </div>
+                                    </div>
+                                    <div class="value-list u-mt-3xl">
+                                        <div class="value-item">
+                                            <h3 class="value-item_title">Story over spectacle</h3>
+                                            <p class="value-item_body">The best brands sell a way of living, not a product. We build the connection underneath.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="section cc-light">
+                        <div class="container">
+                            <div class="image-row">
+                                <div class="image-row_item cc-a media-placeholder"></div>
+                                <div class="image-row_item cc-b media-placeholder"></div>
+                                <div class="image-row_item cc-c media-placeholder"></div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
             </main>
 
             <footer class="footer">

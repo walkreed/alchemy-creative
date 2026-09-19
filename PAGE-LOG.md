@@ -43,6 +43,54 @@ equivalent.
 
 ---
 
+## About — `template/about.html`
+
+Built 2026-09-19 from Figma `243:1556` (1440 x 7617). Eleven sections; three reuse existing
+components (Interior Hero, Logo Wall, CTA band) and six are new.
+
+**Four sections share one shape** — Who we are, Research/Concept/Create, Meet the team, we
+believe in are all an accent label column plus a 730px body. Walker chose a component per
+section using the existing `.section` / `.row` / `.col` classes, so the shell is
+`col-lg-4` + `col-lg-8` with the body capped at `--measure`, and the label is a shared
+`.section-label` **class** rather than a component — four components use it and they agree
+only on the label.
+
+**The marquee mirrors MAST 1:1.** `.marquee-component` > `.marquee-wrapper` >
+`.marquee-content` > two `.marquee-group`, same class names as the Webflow component, so the
+transfer is a rename-free swap. The second group is a duplicate of the first — that is what
+makes `translateX(-50%)` loop seamlessly, and why MAST's component exposes two slots
+tooltipped "add the same set of components in each slot". Verified in the browser: two groups
+at exactly 2286px each, 4572px of content, `overflow: hidden`, no horizontal page overflow.
+The `@keyframes` live in `styles.css` here; **in Webflow they belong in the Custom Code embed**
+(the Marquee toggle on the Custom Code component) because the style API cannot write keyframes.
+
+Figma confirms the intent rather than me guessing: that strip's four tiles total 2222px against
+a 1440 frame with **zero** horizontal padding, so it is built to overflow.
+
+**Extraction gotcha worth remembering.** Node `243:1564` crashes every `use_figma` call that
+touches it — the documented single-node failure, and its layer *name* is the full paragraph.
+Truncating the name (`c.name.slice(0,60)`) worked; reading `.characters` on it never did. The
+copy came from high-resolution screenshots instead, and every string was then **cross-checked
+against the character counts** the API would return (`n.characters.length` works fine), so the
+verbatim text is confirmed exact rather than transcribed by eye.
+
+**Deliberately excluded.** Node `499:1927` in the Research section reads
+`Moodbaards / lkjsd / lksjdf / lksdjf` — leftover working text. Not shipped. Riley's role,
+`We're working on it...`, reads as intentional and is kept verbatim.
+
+**Open.**
+- 13 image placeholders. No photography exists in the comp — every image is a solid rectangle.
+  Each placeholder carries `data-figma-node` pointing at the frame its asset belongs to.
+- The nav renders dark; the comp's About nav is light. The Webflow Nav component has a
+  `Color Mode` prop, the static nav does not — needs a decision before transfer.
+- Image sections use the default 120px section padding; the comp uses 65px on the two image
+  blocks only. Left consistent with the page rhythm rather than adding a combo on one page's
+  evidence.
+- The "we believe in" body copy renders near-black (`--primary-text-muted` is Charred Bark in
+  Light) where the comp shows a warm grey. Flagged rather than inventing a grey.
+
+---
+
 ## Contact — `template/contact.html`
 
 Built 2026-09-19 from Figma `243:1651` (1440x1104). One section: a two-column
