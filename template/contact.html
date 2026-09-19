@@ -34,7 +34,7 @@
                         <li class="nav-menu_item"><a class="nav-link" href="#">Journal</a></li>
                         <li class="nav-menu_item"><a class="nav-link" href="#">About</a></li>
                         <li class="nav-menu_item"><a class="nav-link" href="#">FAQs</a></li>
-                        <li class="nav-menu_item"><a class="button cc-sm" href="#">Contact Us</a></li>
+                        <li class="nav-menu_item"><a class="button cc-sm" href="contact.html" aria-current="page">Contact Us</a></li>
                     </ul>
                 </div>
 
@@ -86,18 +86,34 @@
                                         <label class="u-sr-only" for="contact-company">Company</label>
                                         <input class="input cc-flat" type="text" id="contact-company" name="company" placeholder="Company" autocomplete="organization">
 
-                                        <!-- TODO: option list not specified in the comp — confirm the
-                                             service categories with the client before launch. -->
+                                        <!-- Options are the site's own Our Work taxonomy, minus the two
+                                             entries that are portfolio views rather than services
+                                             ("Awards & Recognition" and "All Work"). Confirm with the client. -->
                                         <label class="u-sr-only" for="contact-topic">What can we help with?</label>
                                         <select class="select cc-flat" id="contact-topic" name="topic">
                                             <option value="" selected>What can we help with?</option>
+                                            <option value="brand-films">Brand Films</option>
+                                            <option value="commercial-production">Commercial Production</option>
+                                            <option value="product-films-launches">Product Films &amp; Launches</option>
+                                            <option value="b2b-customer-stories">B2B Customer Stories</option>
+                                            <option value="social-impact">Social Impact</option>
+                                            <option value="animation-motion-design">Animation &amp; Motion Design</option>
+                                            <option value="photography">Photography</option>
+                                            <option value="something-else">Something else</option>
                                         </select>
 
-                                        <!-- TODO: option list not specified in the comp — confirm the
-                                             budget bands with the client before launch. -->
+                                        <!-- PROPOSED bands — nothing in the comp specifies these. They are
+                                             conventional for commercial production and exist so the control
+                                             works; the client must sign them off before launch. -->
                                         <label class="u-sr-only" for="contact-budget">Ballpark Budget</label>
                                         <select class="select cc-flat" id="contact-budget" name="budget">
                                             <option value="" selected>Ballpark Budget</option>
+                                            <option value="under-25k">Under $25k</option>
+                                            <option value="25k-50k">$25k–$50k</option>
+                                            <option value="50k-100k">$50k–$100k</option>
+                                            <option value="100k-250k">$100k–$250k</option>
+                                            <option value="250k-plus">$250k+</option>
+                                            <option value="not-sure">Not sure yet</option>
                                         </select>
 
                                         <label class="u-sr-only" for="contact-message">Tell us about it...</label>

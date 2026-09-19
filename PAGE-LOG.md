@@ -85,9 +85,17 @@ modes on the `cc-*` combo.
   follow `currentColor` either. `.select.cc-flat` restates it in Deep Forest.
   A theme-aware caret needs the control wrapped with an inline SVG.
 
-**Open.** Both selects ship with their placeholder option only. The comp shows
-the closed state, so the option lists are genuinely unspecified — marked TODO
-in the markup rather than invented.
+**Select options.** The comp only shows the closed state, so neither list was
+designed. "What can we help with?" is filled from the site's own Our Work
+taxonomy, minus "Awards & Recognition" and "All Work" — those are portfolio
+views, not services someone requests. The budget bands are **proposed**:
+nothing in the design implies them, they are conventional for commercial
+production, and they exist so the control is usable. Both are commented as
+needing client sign-off.
+
+**Open.** Budget bands await sign-off. The form's `action` is still `#` —
+in Webflow the native Form element handles submission, so this is only a
+placeholder for the static build.
 
 ---
 
