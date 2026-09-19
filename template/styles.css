@@ -2276,6 +2276,67 @@ blockquote {
 }
 
 /* ============================================================
+   Rich Text
+
+   Mirrors the Webflow "Rich Text" component (72 instances):
+   .rich-text-component wraps a .rich-text region. The wrapper is
+   deliberately empty — it exists so the component has a root to hang
+   its Size variant and Class prop on. Prose inherits the body scale;
+   size is a Rich Text variant, not a class here.
+   ============================================================ */
+
+.rich-text-component {
+    display: block;
+}
+
+.rich-text {
+    text-wrap: pretty;
+}
+
+/* ============================================================
+   Interior Hero
+
+   The standing page header: eyebrow, H1, and a rich-text copy block.
+   Background and vertical padding belong to the .section around it —
+   this component owns only the stack, its alignment and the prose
+   measure, so it drops into a light or dark section unchanged.
+
+   The copy block wraps the Rich Text component rather than styling
+   prose itself, so size stays a Rich Text variant.
+   ============================================================ */
+
+.interior-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2xl);
+    text-align: left;
+}
+
+.interior-hero.cc-center {
+    align-items: center;
+    text-align: center;
+}
+
+/* The flex gap owns the rhythm, so the heading's own bottom margin
+   would double it. */
+.interior-hero_title {
+    margin: 0;
+}
+
+/* Inline accent words inside the heading. Consumes --primary-accent, so
+   it is Lichen on a dark section and Moss on a light one with no variant. */
+.interior-hero_accent {
+    color: var(--primary-accent);
+    font-style: inherit;
+}
+
+.interior-hero_copy {
+    max-width: var(--measure);
+    color: var(--primary-text-muted);
+}
+
+/* ============================================================
    Page: contact.html
 
    Local to the Contact page. The form card itself is built from

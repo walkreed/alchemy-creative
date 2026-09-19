@@ -138,6 +138,64 @@ Notes:
                         </div>
                     </section>
                 </section>
+
+                <!-- ===================== INTERIOR HERO ===================== -->
+                <section class="components__item">
+                    <div class="container">
+                        <h2>Interior Hero</h2>
+                        <pre class="components__props">Component: InteriorHero
+Props:
+  - eyebrow (Text)
+  - title (Text, may contain an accent span)
+  - copy (Rich Text component, Size variant)
+Variants:
+  - cc-center
+Slots:
+  - none
+Notes:
+  - Base is LEFT aligned; cc-center centres both the blocks and the text.
+  - Eyebrow and copy are both optional: About has no copy, Home has no eyebrow.
+  - Background and vertical padding come from the .section wrapper, so the
+    same component works on a dark or a .cc-light section unchanged.
+  - .interior-hero_accent consumes --primary-accent, so accent words in the
+    heading flip Lichen/Moss with the section theme and need no variant.
+  - The copy block wraps the Rich Text component rather than styling prose,
+    so size stays a Rich Text variant.</pre>
+                    </div>
+
+                    <!--
+                      Interior Hero — left aligned (About Us, Figma 243:1558)
+                      Base: .interior-hero
+                      Variants: cc-center
+                    -->
+                    <section class="section">
+                        <div class="container">
+                            <div class="interior-hero">
+                                <span class="eyebrow">About alchemy</span>
+                                <h1 class="interior-hero_title">We are a <span class="interior-hero_accent">creative</span> video production &amp; post-production <span class="interior-hero_accent">studio</span></h1>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!--
+                      Interior Hero — centred, with copy (Category, Figma 499:1085)
+                    -->
+                    <section class="section">
+                        <div class="container">
+                            <div class="interior-hero cc-center">
+                                <span class="eyebrow">Our Work</span>
+                                <h1 class="interior-hero_title">Brand Films</h1>
+                                <div class="interior-hero_copy">
+                                    <div class="rich-text-component">
+                                        <div class="rich-text">
+                                            <p>Brand films are our chance to tell the bigger story. Not just what you make, but what drives you, what you care about, and why people should remember. We love finding the human truth at the center of a brand and turning it into something cinematic, memorable, and true to the brand. </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
             </main>
 
             <footer class="footer">

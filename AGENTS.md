@@ -585,6 +585,8 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 | Nav | `.nav` | definition built · content matched 2026-09-19 (page instances not yet audited) | `cc-current` on `.nav-link` | `nav-menu`, `nav-dropdown` | Global navigation: logo, primary links, CTA, and the "Our Work" dropdown panel. **About and FAQs are plain `Link`s, not native `NavbarLink`s** — the builder cannot create that type; convert in the Designer if `w--current` is wanted. |
 | Footer | `.section.cc-footer` | definition built · content matched 2026-09-19 (page instances not yet audited) | — | `footer-menu_list`, `footer-social_list` | Global footer bar: primary links, centred brand mark, Vimeo/Instagram/LinkedIn icons |
 | CTA band | `.cta` | — (not yet transferred) | — | — | Full-bleed invitation band above the footer: heading plus a dashed email link |
+| Interior Hero | `.interior-hero` | — (not yet transferred) | `cc-center` | — | Standing page header: eyebrow, H1 with optional accent words, and a Rich Text copy block. Base is left aligned. Background and padding come from the `.section` around it. |
+| Rich Text | `.rich-text-component` | 72 (Webflow, audited 2026-09-19) | `Size`: Inherit · Paragraph SM · Paragraph LG | — | Prose region. Already existed in Webflow; added here because Interior Hero depends on it. |
 
 
 ### Class patterns & global behaviours (not Webflow components)

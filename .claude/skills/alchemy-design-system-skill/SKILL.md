@@ -187,6 +187,30 @@ padding. The mark centres because `.footer-menu_list` and `.footer-social_list` 
 absolute positioning. Stacks to a centred column below 767px.
 Assets: `logo-alchemy-mark.svg`, `icon-vimeo.svg`, `icon-instagram.svg`, `icon-linkedin.svg`.
 
+### Interior Hero (`.interior-hero`)
+The standing page header on every interior page: eyebrow, H1, and a Rich Text copy block.
+Elements: `.interior-hero_title` (zeroes the heading's own bottom margin, since the flex gap
+owns the rhythm), `.interior-hero_accent` (inline accent words inside the heading),
+`.interior-hero_copy` (constrains prose to `--measure` and tints it `--primary-text-muted`).
+Variants: `cc-center` — centres both the blocks and the text. **Base is left aligned.**
+Stack gap is `--space-2xl` (32px).
+
+Background and vertical padding belong to the `.section` wrapper, never to the hero, so the
+same component works on a dark section or a `.cc-light` one with no variant. For the same
+reason `.interior-hero_accent` consumes `--primary-accent` rather than a brand colour: accent
+words are Lichen on dark and Moss on light automatically.
+
+Eyebrow and copy are both optional — About Us has no copy, the Home hero has no eyebrow.
+
+The copy block **wraps the Rich Text component** rather than styling prose itself, so prose
+size stays a Rich Text variant (`Paragraph SM` / `Inherit` / `Paragraph LG`) instead of
+becoming a second, competing scale.
+
+### Rich Text (`.rich-text-component` > `.rich-text`)
+Prose region, mirroring the Webflow component of the same name (72 instances). The wrapper
+carries the Size variant and Class prop; `.rich-text` only sets `text-wrap: pretty`. Prose
+inherits the body scale. **Paragraph XL was removed** — it had no Figma equivalent.
+
 ### CTA band (`.cta`)
 Full-bleed invitation band that sits above the footer on every page. Elements: `.cta-inner`
 (centred column, 32px gap), `.cta-title` (h2-sized, sentence case, `text-wrap: balance`),
