@@ -711,6 +711,17 @@ silent failure:
 So the reliable sequence is: `create_style` for every class first, **then** insert markup,
 or insert markup and `set_style` each element afterwards.
 
+### `update_style` merges, it does not replace
+
+Updating a style leaves every property you did not mention in place. Restyling a MAST class
+therefore inherits its leftovers: `.footer-link` kept `opacity: 0.8`, `.section.cc-footer`
+kept a `border-top`, `.footer-social_link` kept a bound `width`. None of these look broken —
+a faded link reads as a design choice — so they survive review.
+
+**After restyling an inherited class, read its full property list back and `remove_properties`
+anything the design does not call for.** Do not assume the properties you wrote are the only
+ones present.
+
 ### Check the site's existing class vocabulary before naming anything
 
 The Webflow site already carries MAST's own class family, and its naming may not match what
