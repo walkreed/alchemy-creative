@@ -4,18 +4,20 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="theme-color" content="#ffffff">
-        <title>Home — [BRAND-NAME]</title>
-        <meta name="description" content="">
+        <title>Alchemy Creative — Creative Video Production &amp; Post-Production</title>
+        <meta name="description" content="A creative production and post-production studio. You have a story to tell. We help you find it.">
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <!--
-            Home page.
+            Home. Source: Figma 243:1337.
 
-            Copy this file to start a new page: keep the page-wrapper /
-            nav / main-wrapper / footer structure exactly as it is and
-            replace only the contents of <main>. Nav and footer are
-            global components — never fork their markup per page.
+            Dark throughout except the logo wall. The reel and the work
+            grid both bleed past .container to a 20px gutter, matching
+            the comp's 1400 of 1440.
+
+            Featured Work binds to the Projects collection
+            (6aaf05795e9ec8aac7abb06f), filter Featured, sort Order.
         -->
         <div class="page-wrapper">
             <nav class="nav">
@@ -54,46 +56,113 @@
             </nav>
 
             <main class="main-wrapper" id="main">
+                <!-- Hero -->
                 <section class="section">
                     <div class="container">
-                        <div class="row row-align-center">
-                            <div class="col col-lg-8 col-md-12">
-                                <span class="eyebrow">Starter template</span>
-                                <h1>Replace this headline with the client's</h1>
-                                <p class="lede">A neutral MAST-derived baseline for Webflow projects. Run the styleguide skill to swap these tokens for the client's design system, then build pages from this structure.</p>
-                                <div class="row row-gap-md u-mt-xl">
-                                    <div class="col col-shrink"><a class="button" href="style-guide.html">View style guide</a></div>
-                                    <div class="col col-shrink"><a class="button cc-ghost" href="#features">Learn more</a></div>
+                        <div class="interior-hero cc-center">
+                            <h1 class="interior-hero_title">A <span class="interior-hero_accent">Creative</span> Production + Post-Production <span class="interior-hero_accent">Studio</span></h1>
+                            <div class="interior-hero_copy">
+                                <div class="rich-text-component">
+                                    <div class="rich-text">
+                                        <p>You have a story to tell. We help you find it.</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <section class="section cc-sm" id="features">
+                <!--
+                  Video Reel — background video autoplays from markup attributes;
+                  site-scripts/video-reel.js owns only the full-screen launch.
+                  TODO: swap the source for Alchemy's reel. This is MAST's demo
+                  asset, used so the component actually plays in the static build.
+                -->
+                <section class="section cc-flush">
+                    <div class="video-reel">
+                        <video class="video-reel_video" autoplay muted loop playsinline
+                               src="https://dhygzobemt712.cloudfront.net/Web/home/09-2025/home-hero.mp4"></video>
+                        <button class="video-reel_trigger" type="button" data-reel-open="showreel">
+                            <span>Watch Our Reel</span>
+                            <svg class="video-reel_trigger-icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 1l10 6-10 6z" fill="currentColor"/></svg>
+                        </button>
+                    </div>
+                    <dialog class="video-reel_modal" data-reel="showreel">
+                        <button class="video-reel_close" type="button" data-reel-close aria-label="Close reel">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                        </button>
+                        <video class="video-reel_modal-video" controls playsinline
+                               src="https://dhygzobemt712.cloudfront.net/Web/home/09-2025/home-hero.mp4"></video>
+                    </dialog>
+                </section>
+
+                <!--
+                  Featured Work — Collection List
+                  source: Projects (6aaf05795e9ec8aac7abb06f)
+                  filter: Featured is on   sort: Order ascending
+                  .project-thumbnail_client -> Client
+                  .project-thumbnail_title  -> Name
+                  image / video             -> Thumbnail / Vimeo ID
+                -->
+                <section class="section">
+                    <div class="work-section">
+                        <h2 class="work-heading">Featured Work</h2>
+                        <div class="work-grid">
+                                <a class="project-thumbnail" href="#">
+                                    <div class="project-thumbnail_image media-placeholder"></div>
+                                    <div class="project-thumbnail_overlay">
+                                        <span class="project-thumbnail_client">Client Name</span>
+                                        <span class="project-thumbnail_title">Project Name</span>
+                                    </div>
+                                </a>
+                                <a class="project-thumbnail" href="#">
+                                    <div class="project-thumbnail_image media-placeholder"></div>
+                                    <div class="project-thumbnail_overlay">
+                                        <span class="project-thumbnail_client">Client Name</span>
+                                        <span class="project-thumbnail_title">Project Name</span>
+                                    </div>
+                                </a>
+                                <a class="project-thumbnail" href="#">
+                                    <div class="project-thumbnail_image media-placeholder"></div>
+                                    <div class="project-thumbnail_overlay">
+                                        <span class="project-thumbnail_client">Client Name</span>
+                                        <span class="project-thumbnail_title">Project Name</span>
+                                    </div>
+                                </a>
+                                <a class="project-thumbnail" href="#">
+                                    <div class="project-thumbnail_image media-placeholder"></div>
+                                    <div class="project-thumbnail_overlay">
+                                        <span class="project-thumbnail_client">Client Name</span>
+                                        <span class="project-thumbnail_title">Project Name</span>
+                                    </div>
+                                </a>
+                                <a class="project-thumbnail" href="#">
+                                    <div class="project-thumbnail_image media-placeholder"></div>
+                                    <div class="project-thumbnail_overlay">
+                                        <span class="project-thumbnail_client">Client Name</span>
+                                        <span class="project-thumbnail_title">Project Name</span>
+                                    </div>
+                                </a>
+                        </div>
+                        <a class="button" href="#">All Work</a>
+                    </div>
+                </section>
+
+                <!-- Logo Wall -->
+                <section class="section cc-light">
                     <div class="container">
-                        <div class="row">
-                            <div class="col col-lg-4 col-md-6 col-sm-12">
-                                <div class="card">
-                                    <h2 class="card_title h5">Twelve-column grid</h2>
-                                    <p class="card_description">Flexbox row and col classes with desktop, tablet, mobile landscape and mobile portrait variants.</p>
-                                </div>
-                            </div>
-                            <div class="col col-lg-4 col-md-6 col-sm-12">
-                                <div class="card">
-                                    <h2 class="card_title h5">Fluid typography</h2>
-                                    <p class="card_description">Headings scale with clamp between 480px and 1440px, so no per-breakpoint size overrides are needed.</p>
-                                </div>
-                            </div>
-                            <div class="col col-lg-4 col-md-12 col-sm-12">
-                                <div class="card">
-                                    <h2 class="card_title h5">Webflow-flat CSS</h2>
-                                    <p class="card_description">No descendant or child selectors, so every rule has somewhere to live as a Designer class on import.</p>
-                                </div>
-                            </div>
+                        <div class="logo-wall">
+                            <h2 class="logo-wall_title">brands we’ve partnered with</h2>
+                            <ul class="logo-wall_grid">
+                                <li class="logo-wall_item"><img class="logo-wall_logo" src="assets/logos/adobe.svg" alt="Adobe" width="135" height="34" loading="lazy"></li>
+                                <li class="logo-wall_item"><img class="logo-wall_logo" src="assets/logos/servicenow.svg" alt="ServiceNow" width="182" height="28" loading="lazy"></li>
+                                <li class="logo-wall_item"><img class="logo-wall_logo" src="assets/logos/tecovas.svg" alt="Tecovas" width="168" height="26" loading="lazy"></li>
+                                <li class="logo-wall_item"><img class="logo-wall_logo" src="assets/logos/credit-karma.svg" alt="Credit Karma" width="186" height="27" loading="lazy"></li>
+                            </ul>
                         </div>
                     </div>
                 </section>
+
                 <!-- CTA band -->
                 <section class="cta">
                     <div class="container">

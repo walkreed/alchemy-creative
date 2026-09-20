@@ -43,6 +43,52 @@ equivalent.
 
 ---
 
+## Home — `template/index.html`
+
+Built 2026-09-19 from Figma `243:1337`, replacing the baseline scaffold. Dark throughout except
+the logo wall. Reuses Interior Hero (centred, accent words), Logo Wall, CTA band and chrome.
+
+**Video reel.** Autoplay background that opens full screen on click. The background needs no
+JS — it autoplays muted and looping from markup attributes. `site-scripts/video-reel.js` owns
+only the `<dialog>` launch.
+
+Writing that module surfaced a real bug worth remembering: **pausing a video while its `play()`
+promise is still pending does nothing** — the pause is overridden when the promise lands, and
+audio keeps playing behind a closed dialog. Caught it because closing via the backdrop left the
+video running. The module now holds the promise and pauses once it settles; verified on all
+three close paths (button, backdrop, Escape).
+
+**Consequence for the bundle:** `site-core.js` is now **10,610 bytes**, past Webflow's
+10,000-character footer limit. `AGENTS.md` previously said the jsDelivr pin was "not yet earning
+its keep" — that is no longer true, and the note is corrected. The pin is now load-bearing.
+
+**Featured Work.** The comp is a five-card mosaic at five different sizes (671+719 / 1400 /
+695+695). One Collection List cannot vary items without `:nth-child`, so Walker chose a uniform
+grid, which scales to any number of featured projects. Measured against the comp: grid exactly
+1400 wide, 695+695 columns, 10px gap — the same numbers as the comp's bottom row.
+
+**Project Thumbnail extended** on Walker's spec: an autoplay Vimeo embed
+(`?background=1&autoplay=1&loop=1&muted=1`) that replaces the image when a Vimeo ID is set, plus
+an aspect toggle (16:9 base, `cc-1x1`, `cc-9x16`). The toggle matches the *card* to the *asset*,
+which is why the video fills rather than using a cover trick. `pointer-events: none` on the
+iframe is load-bearing — without it the embed swallows the mouse and the hover overlay never
+fires.
+
+**Projects collection created** (`6aaf05795e9ec8aac7abb06f`) with Name, Slug, Client, Thumbnail,
+Vimeo ID, Aspect Ratio, Featured, Order, Summary and Category. **Left empty** — unlike the FAQs,
+no project content exists in the comps, so there was nothing to seed.
+
+**Open.**
+- The reel uses **MAST's own demo video** as a placeholder so the component actually plays.
+  Swap it for Alchemy's reel.
+- Autoplay could not be confirmed in the browser pane: the attributes are correct and `play()`
+  advances the timeline, but the pane pauses background video. Worth one look in a real browser.
+- "Video shows / image hides" is **CMS conditional visibility** on the Vimeo ID field — a
+  Designer-only setting the MCP cannot write.
+- The 5 thumbnails are placeholders; the collection is empty.
+
+---
+
 ## FAQs — `template/faqs.html`
 
 Built 2026-09-19 from Figma **`424:1649`**. The node-id in the request (`243:1746`) points at a

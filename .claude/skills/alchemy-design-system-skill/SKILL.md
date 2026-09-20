@@ -263,6 +263,36 @@ render — a third will not appear.**
 also how a Collection List wrapper behaves anyway. Measured against the comp: 393px columns,
 10px gutter, 64px row gap, featured media exactly 568x370.
 
+### Video Reel (`.video-reel`)
+Autoplay background video that opens full screen on click. Elements: `_video`, `_trigger` (the
+Lichen pill, `--radius-full`), `_trigger-icon`, `_modal`, `_modal-video`, `_close`.
+
+**The background needs no JS** — it autoplays muted and looping from markup attributes.
+`site-scripts/video-reel.js` owns only the full-screen launch, because a native `<dialog>`
+needs `showModal()`. The module holds the `play()` promise and pauses only once it settles:
+pausing while play is still pending gets overridden, and audio keeps running behind a closed
+dialog. Verified on all three close paths — button, backdrop and Escape.
+
+Bleeds past `.container` to a 20px gutter, matching the comp's 1400 of 1440.
+
+**In Webflow this is MAST's Inline Video** (`Play on scroll into view` = true) **inside MAST's
+Modal**, whose Slot holds the full-screen player. The Slot is a Designer step.
+
+### Work Grid (`.work-grid`, `.work-section`)
+Uniform grid of Project Thumbnails, **CMS-backed** by Projects — filter Featured, sort Order.
+Two up, one up below 767px, bleeding to a 20px gutter.
+
+The comp's home instance is a five-card mosaic at five different sizes. That cannot come from
+one Collection List without `:nth-child`, so this is the uniform grid chosen instead; it scales
+to any number of featured projects. `AGENTS.md` records the same block on All Work and
+Category, which is why it is a component rather than page CSS.
+
+### Projects collection (`6aaf05795e9ec8aac7abb06f`)
+`Name` (project title) · `Slug` · `Client` · `Thumbnail` (image) · `Vimeo ID` · `Aspect Ratio`
+(option: 16:9 / 1:1 / 9:16) · `Featured` (switch) · `Order` · `Summary` · `Category` (option,
+mirroring the Our Work nav taxonomy so Category pages can filter on it). **Created empty** — no
+project content exists in the comps.
+
 ### Project Thumbnail (`.project-thumbnail`)
 Work-grid card: an image that reveals client and project name on hover behind a Deep Forest
 scrim. Elements: `_image`, `_overlay`, `_client` (eyebrow metrics), `_title` (H4). No variants —
@@ -276,6 +306,17 @@ represent. `:focus-within` mirrors it for keyboard users.
 **Labels bind to `--color-bone`, not `--primary-text`** — a deliberate exception to the
 themed-property rule. The scrim is always dark, so a themed text colour would flip to Deep
 Forest on a light page and vanish into it. This is the fixed-surface case.
+
+**Media is either an image or an autoplay Vimeo embed.** `_video` is an iframe on
+`player.vimeo.com/video/<ID>?background=1&autoplay=1&loop=1&muted=1` — chromeless, looping,
+muted. When a Vimeo ID is set the video shows and the image hides; in Webflow that is **CMS
+conditional visibility** on the Vimeo ID field, which is a Designer-only setting. `pointer-events:
+none` on the iframe is load-bearing: without it the embed swallows the mouse and the hover
+overlay never fires.
+
+**Aspect toggle:** base `16:9`, `cc-1x1`, `cc-9x16`. The toggle matches the *card* to the
+*asset*, which is why the video fills rather than using a cover trick — pick the ratio your
+source actually is and nothing letterboxes.
 
 Scrim is `color-mix(in srgb, var(--color-deep-forest) 80%, transparent)`. **No tint token
 exists**: the `-oNN` family this document describes was never actually defined in

@@ -559,7 +559,7 @@ The canonical list of every page built in this project. Each entry maps to a fil
 
 | Page | File | Webflow page (id · path) | Outstanding |
 |------|------|--------------------------|-------------|
-| Home | `template/index.html` | — (not yet in Webflow) | Baseline scaffold — replace the placeholder hero and feature cards with the client's content |
+| Home | `template/index.html` | — (not yet in Webflow) | Built 2026-09-19 from Figma 243:1337. Reel uses **MAST's demo video** as a placeholder — swap for Alchemy's. Featured Work binds to Projects (`6aaf05795e9ec8aac7abb06f`). |
 | Style Guide | `template/style-guide.html` | — (not yet in Webflow) | Foundations: color, themes, typography, spacing, radii |
 | Components | `template/components.html` | — (not yet in Webflow) | One live instance of every reusable component |
 | Contact | `template/contact.html` | `6aaea9f05359c79adc9be9fe` · `/contact` (draft) | Select options must be typed in the Designer — the API cannot write them. Budget bands need client sign-off. **Static build and Webflow now use different form patterns** — see PAGE-LOG. |
@@ -600,7 +600,9 @@ Blocks that exist as real components in Webflow. Record the site-wide page-level
 | Featured Post | `.featured-post` | — (not yet transferred) | — | — | Wide journal card: text column + media at 568/370. **CMS-backed.** Alternation is DOM order across two Collection Lists, not a variant — see PAGE-LOG. |
 | Post Grid | `.post-grid` / `.post-card` | — (not yet transferred) | — | — | 3-up journal card grid at a 10px gutter (`--gap-sm`), 2-up at 991, 1-up at 767. **CMS-backed.** |
 | FAQ Accordion | `.accordion-component` / `.faq-list` | — (not yet transferred) | — | Slot (answer) | Flush accordion list, 800px centred. **Mirrors MAST's Accordion on class names** (real `<details>`/`<summary>`) but is styled flush, not MAST's bordered box — so on transfer these become combos. **CMS-backed.** |
-| Project Thumbnail | `.project-thumbnail` | — (not yet transferred) | — | — | Work-grid card: image with a Deep Forest scrim revealing client and project name on hover. The **overlay** carries the hover, not the card, so no Interaction and no descendant selector. |
+| Project Thumbnail | `.project-thumbnail` | — (not yet transferred) | `cc-1x1`, `cc-9x16` (base 16:9) | — | Work-grid card. Image **or** an autoplay Vimeo embed (video shows / image hides on the Vimeo ID field). Deep Forest scrim reveals client and project name on hover; the **overlay** carries the hover, not the card. |
+| Video Reel | `.video-reel` | — (not yet transferred) | — | — | Autoplay background video that opens full screen on click. Background autoplays from markup attributes; `site-scripts/video-reel.js` owns only the `<dialog>` launch. In Webflow: MAST's Inline Video inside MAST's Modal. |
+| Work Grid | `.work-grid` / `.work-section` | — (not yet transferred) | — | — | Uniform grid of Project Thumbnails, bleeding to a 20px gutter. **CMS-backed** by Projects. |
 
 
 ### Class patterns & global behaviours (not Webflow components)
@@ -619,9 +621,10 @@ Reusable class families and site-wide behaviours that deliberately have **no** W
 
 > **Status:** the bundle currently ships **no behaviour any page uses** — `page-init.js` is
 > scaffolding and `example-module.js` is an unused demo (no page has a `data-reveal` hook).
-> At 7KB it also fits inside Webflow's 10,000-character footer field, so the jsDelivr pin is
-> not yet earning its keep. **Do not add the `<script>` tag to Webflow until a module does
-> something.** The nav dropdown is deliberately NOT in the bundle — in Webflow it is a native
+> **As of 2026-09-19 this is no longer true.** `video-reel.js` is a real module the home page
+> depends on, and the bundle is now **10,610 bytes — past Webflow's 10,000-character footer
+> limit**. The jsDelivr pin is now load-bearing, not optional: the script tag has to go into
+> Webflow, and it has to be the CDN URL rather than pasted source. The nav dropdown is deliberately NOT in the bundle — in Webflow it is a native
 > Dropdown element, so the client owns that behaviour in the Designer.
 
 

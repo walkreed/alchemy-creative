@@ -2656,6 +2656,151 @@ blockquote {
 }
 
 /* ============================================================
+   Work Grid
+
+   Uniform grid of Project Thumbnails. AGENTS.md records this block on
+   All Work and Category as well as Home, so it is a component, not page
+   CSS.
+
+   The comp's home instance is a 5-card mosaic at five different sizes.
+   That cannot come from one Collection List without :nth-child, so this
+   is the uniform grid Walker chose instead — it scales to any number of
+   featured projects. Bleeds to a 20px gutter like the comp.
+   ============================================================ */
+
+.work-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3xl);
+    padding-left: var(--space-lg);
+    padding-right: var(--space-lg);
+}
+
+.work-heading {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--gap-sm);
+    width: 100%;
+}
+
+@media (max-width: 767px) {
+    .work-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================
+   Video Reel
+
+   Autoplay background video that opens full screen on click. The
+   background video autoplays muted and looping from markup attributes —
+   no JS needed for that. site-scripts/video-reel.js owns only the
+   full-screen launch, because a native <dialog> needs showModal().
+
+   The reel bleeds wider than .container: the comp runs it to 1400 of
+   1440, i.e. a 20px gutter, so it sits outside the container entirely.
+
+   In Webflow this is MAST's Inline Video (Play on scroll into view =
+   true) inside MAST's Modal, whose Slot holds the full-screen player.
+   The Slot is a Designer step — the MCP cannot populate slots.
+   ============================================================ */
+
+.video-reel {
+    position: relative;
+    margin-left: var(--space-lg);
+    margin-right: var(--space-lg);
+    aspect-ratio: 1400 / 713;
+    overflow: hidden;
+    border-radius: var(--card-border-radius);
+}
+
+.video-reel_video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-reel_trigger {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-lg) var(--space-xl);
+    border-width: 0;
+    border-radius: var(--radius-full);
+    background: var(--primary-accent);
+    color: var(--primary-button-text);
+    font-family: var(--font-heading);
+    font-size: var(--body-font-size);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    cursor: pointer;
+    transition: background-color var(--transition-base);
+}
+
+.video-reel_trigger:hover {
+    background: var(--color-primary-hover);
+}
+
+.video-reel_trigger-icon {
+    display: block;
+    width: 0.875rem;
+    height: 0.875rem;
+    flex-grow: 0;
+    flex-shrink: 0;
+}
+
+.video-reel_modal {
+    width: min(90vw, 80rem);
+    max-width: none;
+    padding: 0;
+    border-width: 0;
+    border-radius: var(--card-border-radius);
+    background: var(--color-deep-forest);
+    overflow: hidden;
+}
+
+.video-reel_modal-video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+}
+
+.video-reel_close {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0;
+    border-width: 0;
+    border-radius: var(--radius-full);
+    background: var(--color-deep-forest);
+    color: var(--color-bone);
+    cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .video-reel_trigger {
+        transition: none;
+    }
+}
+
+/* ============================================================
    Project Thumbnail
 
    Work-grid card: an image that reveals client and project name on
@@ -2676,15 +2821,43 @@ blockquote {
 .project-thumbnail {
     position: relative;
     display: block;
-    aspect-ratio: 443 / 298;
+    aspect-ratio: 16 / 9;
     overflow: hidden;
     border-radius: var(--card-border-radius);
+}
+
+/* The ratio toggle matches the CARD to the ASSET, which is why the video
+   simply fills rather than using a cover trick — pick the ratio your
+   Vimeo source actually is and nothing letterboxes. */
+.project-thumbnail.cc-1x1 {
+    aspect-ratio: 1 / 1;
+}
+
+.project-thumbnail.cc-9x16 {
+    aspect-ratio: 9 / 16;
 }
 
 .project-thumbnail_image {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* Vimeo background embed: chromeless, autoplaying, looping, muted via
+   the ?background=1 parameter. pointer-events:none is load-bearing —
+   without it the iframe swallows the mouse and the hover overlay never
+   fires. In Webflow, show this and hide the image with CMS conditional
+   visibility on the Vimeo ID field (a Designer-only setting). */
+.project-thumbnail_video {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-width: 0;
+    pointer-events: none;
 }
 
 .project-thumbnail_overlay {

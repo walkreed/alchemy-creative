@@ -520,50 +520,161 @@ Notes:
                         <h2>Project Thumbnail</h2>
                         <pre class="components__props">Component: ProjectThumbnail
 Props:
-  - image (Image)
+  - image (Image)        — shown when Vimeo ID is empty
+  - vimeoId (Text)       — when set, the video shows and the image hides
   - client (Text)
   - title (Text)
   - link (Link)
-Variants:
-  - none — Figma's Default/Hover variants are one element with a hover
-    state here, because no markup changes between them
+Variants (aspect ratio of the asset):
+  - base    16:9
+  - cc-1x1   1:1
+  - cc-9x16  9:16
 Slots:
   - none
+Vimeo embed URL:
+  https://player.vimeo.com/video/&lt;ID&gt;?background=1&amp;autoplay=1&amp;loop=1&amp;muted=1
+  background=1 gives a chromeless, autoplaying, looping, muted video.
 Notes:
+  - THE RATIO TOGGLE MATCHES THE CARD TO THE ASSET. That is why the video
+    simply fills the card instead of using a cover trick — pick the ratio
+    your source actually is and nothing letterboxes.
+  - pointer-events:none on the iframe is load-bearing. Without it the
+    embed swallows the mouse and the hover overlay never fires.
   - THE OVERLAY CARRIES THE HOVER, NOT THE CARD. It covers the whole card,
-    so hovering the card is hovering the overlay. That keeps the reveal a
-    plain per-element class state — no Webflow Interaction, and no banned
-    .card:hover .overlay descendant selector.
-  - Labels bind to --color-bone, NOT --primary-text. The scrim is always
-    dark; --primary-text would flip to Deep Forest on a light page and
-    disappear into it. Deliberate exception to the themed-property rule.
-  - Scrim is Deep Forest at 80% via color-mix. No tint token exists — the
-    design system documents an -oNN family it never actually defined.
-  - Source copy is sentence case; the uppercase is CSS, so the CMS keeps
-    readable values.
-  - :focus-within mirrors the hover so keyboard users reach it.
-  - Hover has no touch equivalent — on a phone the labels never show.
-    Flagged; the work grid may want them always visible below 767px.</pre>
+    so hovering the card is hovering the overlay — no Webflow Interaction
+    and no banned .card:hover .overlay descendant selector.
+  - Labels bind to --color-bone, NOT --primary-text: the scrim is always
+    dark, so a themed colour would flip and vanish into it.
+  - In Webflow, "video shows / image hides" is CMS CONDITIONAL VISIBILITY
+    on the Vimeo ID field — a Designer-only setting, not settable by MCP.
+  - Hover has no touch equivalent; below 767px the work grid may want the
+    labels always visible.</pre>
                     </div>
 
                     <!--
                       Project Thumbnail (Figma 423:1386)
-                      Base: .project-thumbnail
-                      Hover the card to reveal the overlay.
+                      Base: .project-thumbnail   Variants: cc-1x1, cc-9x16
+                      The three below show the ratio toggle in the image state.
+                      The video state swaps _image for _video — markup above.
                     -->
                     <section class="section cc-light">
                         <div class="container">
                             <div class="row">
-                                <div class="col col-lg-5 col-md-12">
+                                <div class="col col-lg-6 col-md-12">
                                     <a class="project-thumbnail" href="#">
                                         <div class="project-thumbnail_image media-placeholder"></div>
                                         <div class="project-thumbnail_overlay">
                                             <span class="project-thumbnail_client">Client Name</span>
-                                            <span class="project-thumbnail_title">Project Name</span>
+                                            <span class="project-thumbnail_title">16 by 9</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col col-lg-3 col-md-6">
+                                    <a class="project-thumbnail cc-1x1" href="#">
+                                        <div class="project-thumbnail_image media-placeholder"></div>
+                                        <div class="project-thumbnail_overlay">
+                                            <span class="project-thumbnail_client">Client Name</span>
+                                            <span class="project-thumbnail_title">Square</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col col-lg-3 col-md-6">
+                                    <a class="project-thumbnail cc-9x16" href="#">
+                                        <div class="project-thumbnail_image media-placeholder"></div>
+                                        <div class="project-thumbnail_overlay">
+                                            <span class="project-thumbnail_client">Client Name</span>
+                                            <span class="project-thumbnail_title">Vertical</span>
                                         </div>
                                     </a>
                                 </div>
                             </div>
+                        </div>
+                    </section>
+                </section>
+
+                <!-- ===================== VIDEO REEL ===================== -->
+                <section class="components__item">
+                    <div class="container">
+                        <h2>Video Reel</h2>
+                        <pre class="components__props">Component: VideoReel
+Props:
+  - source (Text)   — hosted video URL
+  - poster (Image)
+  - label (Text)    — trigger pill copy
+Variants: none
+Slots:  the dialog body (the full-screen player)
+Notes:
+  - THE BACKGROUND NEEDS NO JS. It autoplays muted + looping from markup
+    attributes. site-scripts/video-reel.js owns ONLY the full-screen
+    launch, because a native &lt;dialog&gt; needs showModal().
+  - The module holds the play() promise and pauses only once it settles.
+    Pausing while play is still pending gets overridden, and audio keeps
+    running behind a closed dialog. Verified on all three close paths:
+    button, backdrop and Escape.
+  - Bleeds past .container to a 20px gutter (comp is 1400 of 1440).
+  - In Webflow: MAST's Inline Video (Play on scroll into view = true)
+    inside MAST's Modal, whose Slot holds the player. Slot = Designer step.
+  - The demo below uses MAST's own placeholder asset so it actually plays.</pre>
+                    </div>
+
+                    <section class="section cc-flush">
+                        <div class="video-reel">
+                            <video class="video-reel_video" autoplay muted loop playsinline
+                                   src="https://dhygzobemt712.cloudfront.net/Web/home/09-2025/home-hero.mp4"></video>
+                            <button class="video-reel_trigger" type="button" data-reel-open="demo-reel">
+                                <span>Watch Our Reel</span>
+                                <svg class="video-reel_trigger-icon" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M2 1l10 6-10 6z" fill="currentColor"/></svg>
+                            </button>
+                        </div>
+                        <dialog class="video-reel_modal" data-reel="demo-reel">
+                            <button class="video-reel_close" type="button" data-reel-close aria-label="Close reel">
+                                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+                            </button>
+                            <video class="video-reel_modal-video" controls playsinline
+                                   src="https://dhygzobemt712.cloudfront.net/Web/home/09-2025/home-hero.mp4"></video>
+                        </dialog>
+                    </section>
+                </section>
+
+                <!-- ===================== WORK GRID ===================== -->
+                <section class="components__item">
+                    <div class="container">
+                        <h2>Work Grid</h2>
+                        <pre class="components__props">Component: WorkGrid
+Structure: .work-section (centred column) &gt; .work-heading + .work-grid + button
+Collection List: Projects (6aaf05795e9ec8aac7abb06f)
+  filter: Featured is on   sort: Order ascending
+  each item is a Project Thumbnail
+Variants: none
+Notes:
+  - The comp's home instance is a FIVE-CARD MOSAIC at five different sizes.
+    One Collection List cannot vary items without :nth-child, so this is a
+    uniform grid instead — it scales to any number of featured projects.
+  - Bleeds to a 20px gutter, matching the comp's 1400 of 1440.
+  - AGENTS.md records the same block on All Work and Category, which is why
+    it is a component rather than page CSS.</pre>
+                    </div>
+
+                    <section class="section">
+                        <div class="work-section">
+                            <h2 class="work-heading">Featured Work</h2>
+                            <div class="work-grid">
+                                <a class="project-thumbnail" href="#">
+                                    <div class="project-thumbnail_image media-placeholder"></div>
+                                    <div class="project-thumbnail_overlay">
+                                        <span class="project-thumbnail_client">Client Name</span>
+                                        <span class="project-thumbnail_title">Project Name</span>
+                                    </div>
+                                </a>
+                                <a class="project-thumbnail" href="#">
+                                    <div class="project-thumbnail_image media-placeholder"></div>
+                                    <div class="project-thumbnail_overlay">
+                                        <span class="project-thumbnail_client">Client Name</span>
+                                        <span class="project-thumbnail_title">Project Name</span>
+                                    </div>
+                                </a>
+                            </div>
+                            <a class="button" href="#">All Work</a>
                         </div>
                     </section>
                 </section>
