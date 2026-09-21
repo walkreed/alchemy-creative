@@ -793,6 +793,34 @@ pages depend on the names is worse.
 - Reconciliation requires: querying the actual class list (`get_styles`/`query_styles` with `include_properties`) to find which set is canonical, re-pointing every element via `set_style` to the canonical names, then `remove_style` on the orphans **one at a time** (a batched remove on this API errored — go one by one and stop on first failure rather than risk a half-broken stylesheet).
 - Mitigation: have ONE agent own creation of any shared/global class family (e.g. component base classes); other agents should only `set_style` onto classes that already exist, never `create_style` a name that might be claimed elsewhere. When in doubt, `query_styles` immediately before creating.
 
+### Attached is not the same as correct — verify the RENDER (learned the hard way 2026-09-21)
+
+Every check this project prescribes — `get_all_elements`, `query_elements`, `styleNames`
+populated, properties bound to `{id: variable-…}` — **passed** on the Contact, About, Journal
+and FAQs transfers. The pages still came out broken, and Walker found it in the Designer, not
+me. The checks verify that markup and classes exist. They say nothing about what the page
+*looks like*.
+
+What slipped through, all of it invisible to class-level checks:
+
+| Symptom | Cause |
+|---|---|
+| FAQs and About had invisible text | **`.section` in Webflow sets `background-color` but no `color`.** Our `styles.css` sets both. So `.section.cc-light` flipped the background to Bone while the text kept inheriting Bone from `body` — Bone on Bone. Every class was attached and every binding correct. |
+| Footer social icons enormous | The svgs carried `.u-w-100` (`width: 100%`), not `.footer-social_icon` (`2rem`). Their parent is `display: block` with no width, so a percentage width has nothing to resolve against. |
+| Dropdown items flush to the panel edge | `.nav-link.cc-dropdown-link` sets only `display:block` and vertical padding — **no horizontal padding at all**. |
+| Active nav link unstyled | **`.nav-link.cc-current` did not exist.** The design system documents it; MAST never shipped it and nothing ever created it. |
+
+**The rule:** a transfer is not done when the classes attach. It is done when someone has seen
+the page. `element_snapshot_tool` needs a live Designer session, so the practical options are
+(a) publish to the **staging** `webflow.io` domain and screenshot it in the browser, or (b) ask
+the user to look before moving on. Pick one — do not report a page complete on element-tree
+evidence alone.
+
+**Corollary worth checking on every base class you rely on:** where our `styles.css` sets a
+property that MAST's equivalent class does not, the Webflow render silently differs. `.section`
+(color) and `.container` (max-width binding, padding) have both now bitten. Diff the property
+list, not just the class name.
+
 ### Trust but verify — agent self-reports are not ground truth
 - Agents reported components "fully verified" / "15/19 attached" based on the WHTML builder returning `success`, or based on `query_styles` showing a class *exists* — neither confirms the class is *attached to the right element* or that the element actually renders correctly. The only reliable check is `get_all_elements`/`query_elements` on the actual page or component scope, inspecting `styleNames` on every individual element.
 - Concretely in this project: the Nav component's logo link, menu-toggle button, and scrim div all had **zero classes attached** (not even a wrong/orphaned one) — a gap the agent's "components fixed" report never caught, because it checked that *some* `brand-name-nav_*` classes existed in the stylesheet, not that every element under the component root actually referenced one.
